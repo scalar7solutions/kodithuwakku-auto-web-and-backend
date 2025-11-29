@@ -461,7 +461,7 @@ export default {
     position: relative;
     color: white;
     height: auto;
-    min-height: 550px;
+    min-height: 650px;
     max-height: 700px;
 }
 
