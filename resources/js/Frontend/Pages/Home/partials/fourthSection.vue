@@ -2,7 +2,7 @@
   <section class="categorySection container-fluid my-5 mb-0 pt-1 pb-4 lease-section">
     <!-- HEADER AS FULL-WIDTH BLOCK -->
         <div class="section-header">
-            
+
             <h2 class="reserve-title">RESERVE ONLINE WITH AUTOTRADER</h2>
 
         </div>
@@ -22,6 +22,7 @@
                   <h3>{{ slide.title }}</h3>
                   <p>{{ slide.text }}</p>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -97,7 +98,7 @@ export default {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
-   
+
     // updateSlider() {
     //   const slideWidth = 100 / this.slidesPerView;
     //   const wrapper = this.$el.querySelector(".slider-wrapper");
@@ -162,7 +163,7 @@ export default {
 .reserve-title {
   color: #242D3D;
   font-weight: 700;
-  text-align: left; 
+  text-align: left;
 }
 
 /* Slider container & viewport */
@@ -273,7 +274,7 @@ export default {
 
 .section-header {
     margin-top: 1rem !important;
-    text-align: left; 
+    text-align: left;
 }
 
 
@@ -283,7 +284,7 @@ export default {
   font-weight: bold ;
   text-transform: uppercase;
   font-size: 2.5rem;
-  letter-spacing: 0.005em; 
+  letter-spacing: 0.005em;
 }
 
 </style>
