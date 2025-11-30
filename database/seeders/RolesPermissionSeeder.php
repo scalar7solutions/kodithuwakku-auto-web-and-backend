@@ -161,6 +161,13 @@ class RolesPermissionSeeder extends Seeder
               ['section_name' => 'inquiry', 'name' => 'inquiry.edit'],
               ['section_name' => 'inquiry', 'name' => 'inquiry.delete'],
 
+              // ourcustomer
+['section_name' => 'ourcustomer', 'name' => 'ourcustomer.view'],
+['section_name' => 'ourcustomer', 'name' => 'ourcustomer.create'],
+['section_name' => 'ourcustomer', 'name' => 'ourcustomer.edit'],
+['section_name' => 'ourcustomer', 'name' => 'ourcustomer.delete'],
+
+
         ];
 
         foreach ($permission_array as $permission) {

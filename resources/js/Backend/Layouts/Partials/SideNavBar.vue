@@ -366,6 +366,23 @@
         <div data-i18n="Country">Country</div>
         </Link>
       </li>
+
+      <li
+  class="menu-item"
+  v-bind:class="{
+    active: addActiveClass([
+      'ourcustomer.index',
+      'ourcustomer.create',
+      'ourcustomer.edit'
+    ])
+  }"
+  v-if="$root.hasPermission('ourcustomer.view') && !$page.props.branch"
+>
+  <Link :href="route('ourcustomer.index')" class="menu-link">
+    <i class="menu-icon tf-icons bx bx-group"></i>
+    <div data-i18n="Our Customers">Our Customers</div>
+  </Link>
+</li>
       <!-- Affiliate Config-->
       <!-- <li class="menu-item" v-bind:class="{
         active: addActiveClass([
