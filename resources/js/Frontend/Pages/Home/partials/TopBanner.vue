@@ -453,7 +453,7 @@ export default {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* we will override this on mobile */
+    background-attachment: fixed; 
     display: flex;
     align-items: flex-start;
     justify-content: center;
