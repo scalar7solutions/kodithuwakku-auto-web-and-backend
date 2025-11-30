@@ -194,7 +194,7 @@ export default {
     },
     manufactures: { type: Array, default: () => [] },
 
-    
+
 
   },
   data() {
@@ -214,16 +214,16 @@ export default {
         console.log("FirstSection - No active manufacturer selected");
         return [];
       }
-      
+
       const filtered = this.vehicles.filter(vehicle => {
         // Check both manufacture_id and manufacture object
         const matchesId = vehicle.manufacture_id === this.activemanufactures.id;
         const matchesObject = vehicle.manufacture && vehicle.manufacture.id === this.activemanufactures.id;
         const matchesTitle = vehicle.manufacture && vehicle.manufacture.title === this.activemanufactures.title;
-        
+
         return matchesId || matchesObject || matchesTitle;
       });
-      
+
       console.log(`FirstSection - Filtered ${filtered.length} vehicles for ${this.activemanufactures.title}`);
       return filtered;
     }
@@ -419,13 +419,13 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem 1.5rem;
-  margin-top: 10px;  
+  margin-top: 10px;
 }
 
-.feature-item { 
-  display: flex; 
-  align-items: center; 
-  gap: 0.5rem; 
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .feature-item.feature-left {
@@ -437,16 +437,16 @@ export default {
   margin-left: 30px;
 }
 
-.ficon { 
-  width: 18px; 
-  height: 18px; 
+.ficon {
+  width: 18px;
+  height: 18px;
 }
 
 .see-more-container {
   display: flex;
   margin: 40px 0;
 
-   justify-content: flex-end; 
+   justify-content: flex-end;
 }
 
 .see-more-link {
@@ -559,16 +559,16 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-   
+
 }
 
 
 .placeholder-image {
    width: clamp(200px, 20vw, 150px);
-  
+
   height: auto;
   margin-bottom: 1rem;
-  
+
 }
 
 

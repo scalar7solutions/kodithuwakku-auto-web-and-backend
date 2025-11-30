@@ -106,9 +106,9 @@
             <Link @click="refreshLayout" :href="route('how.to.order')" :class="{ active: route().current('how.to.order') }">How To Order</Link>
             <Link @click="refreshLayout" :href="route('about')"        :class="{ active: route().current('about') }">About Us</Link>
             <Link @click="refreshLayout" :href="route('contact')"      :class="{ active: route().current('contact') }">Contact</Link>
-            
+
           </div>
-          
+
             <div class="header-actions d-md-none">
               <div class="d-flex d-md-none flex-column gap-3">
                 <!-- account links -->
@@ -150,7 +150,7 @@
                 </a>
               </div>
             </div>
-          
+
         </nav>
 
 
@@ -227,7 +227,7 @@ export default {
   flex-wrap: nowrap;
   align-items: center;
   width: 100%;
-  
+
   /* space between group-left, logo, group-right */
 }
 
@@ -789,32 +789,32 @@ export default {
 
 .nav-links {
   display: flex;
-  gap: 2.3rem;           
-  margin-left: auto;   
-  align-items: center; 
+  gap: 2.3rem;
+  margin-left: auto;
+  align-items: center;
 }
 
 .header-container.container {
-  padding-left: 3rem;  
+  padding-left: 3rem;
   padding-right: 3rem;
 }
 
 @media (max-width: 768px) {
-  
+
   .main-nav .nav-links {
-    order: 1;                    
+    order: 1;
     display: flex;
-    flex-direction: column;      
-    width: 100%;                
-    margin: 0;                  
-    gap: 1rem;                   
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    gap: 1rem;
   }
 
-  
+
   .main-nav .nav-links a {
     display: block;
     width: 100%;
-    
+
     text-align: left;
   }
 
@@ -833,22 +833,22 @@ export default {
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
-  
+
 }
 
 
 @media (max-width: 968px) {
- 
+
   .top-bar-container {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
   }
 
-  
+
   .top-bar-container a,
   .top-bar-container span {
-    font-size: 0.75rem;   
+    font-size: 0.75rem;
   }
 
 
@@ -873,11 +873,26 @@ export default {
     height: 14px;
   }
 
-  
+
 }
-
-
-
+.main-nav a:not(.logo):hover {
+    color: #2631c7 !important;
+}
+.main-nav a.active {
+    color: #2631c7!important;
+}
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2631c7!important;
+    transform: scaleX(0);
+    transition: transform 0.3s
+ease;
+}
 
 
 </style>

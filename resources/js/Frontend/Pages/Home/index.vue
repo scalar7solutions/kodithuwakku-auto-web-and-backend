@@ -1,6 +1,6 @@
 <template>
   <AppLayout>
-    
+
 
     <TopBanner :vehicles="vehicles" :manufactures="manufactures" :models="models" :vehicleTypes = "vehicleTypes"
 
@@ -8,12 +8,12 @@
 
        <!-- <Filter/> -->
        <br>
-    
+
         <Browsebycarbrand :auction_manufactures ="auction_manufactures"
         :vehicles-list="$page.props.vehiclesList"/>
 
        <br>
-    
+
     <!-- <AuctionVehicles :live_auction_vehicles_list="live_auction_vehicles_list" /> -->
       <!-- <LiveAuctionJapan
       :brand-list="brandList"
@@ -24,12 +24,12 @@
  <FirstSection :countries="countries" :vehicles="vehicles" :manufactures="manufactures" :models="models" />
  <br>
     <SecondSection />
-    
+
     <br>
     <FourthSection />
 
    <ThirdSection />
-   
+
 
   </AppLayout>
 </template>
@@ -104,7 +104,7 @@ export default {
   },
   mounted() {
   console.log('Countries in Header:', this.$page.props.countries);
-  localStorage.removeItem('selectedCountry'); 
+  localStorage.removeItem('selectedCountry');
   this.selectedCountry = null;
 }
 
