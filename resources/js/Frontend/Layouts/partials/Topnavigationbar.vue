@@ -97,7 +97,7 @@
           </button>
           <!-- Logo in the exact center of the nav -->
           <Link :href="route('index')" class="logo">
-            <img src="https://jpnauto.com/images/Assets/1000423913%20(1)1.webp" alt="Kobe Auto" />
+            <img src="images/logokodi.png" alt="Kobe Auto" />
           </Link>
           <div class="nav-links">
             <Link @click="refreshLayout" :href="route('index')"       :class="{ active: route().current('index') }">Home</Link>
@@ -183,8 +183,8 @@ export default {
       isMenuOpen: false,
       selectedCountry: null,
       isUserMenuOpen: false,
-      defaultPhone: '+81 (3) 451 05 386',
-      defaultEmail: 'info@jpnauto.com'
+      defaultPhone: '+94 77 151 8883',
+      defaultEmail: 'kodithuwakkuautotrade.com'
     };
   },
   computed: {
@@ -901,5 +901,18 @@ export default {
 ease;
 }
 
+.logo img {
+  height: auto;
+  max-height: 60px;
+}
+
+/* Make the logo appear larger on desktop without changing nav height */
+@media (min-width: 769px) {
+  .logo img {
+    transform: scale(2.7);        /* try 1.2, 1.3, 1.4 to taste */
+    transform-origin: center;      /* scale from center */
+    display: block;                /* avoids inline gaps */
+  }
+}
 
 </style>
