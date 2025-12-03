@@ -69,7 +69,7 @@
                 :disabled="currentIndex === 0"
                 aria-label="Previous"
               >
-                <img src="/images/Assets/right.png" class="btn-icon" alt="←" />
+                 <img src="/images/Assets/left.png" class="btn-icon" alt="→" />
               </button>
               <button
                 type="button"
@@ -79,7 +79,8 @@
                 :disabled="currentIndex >= maxIndex"
                 aria-label="Next"
               >
-                <img src="/images/Assets/left.png" class="btn-icon" alt="→" />
+               
+                <img src="/images/Assets/right.png" class="btn-icon" alt="←" />
               </button>
             </div>
           </div>
@@ -220,7 +221,7 @@ export default {
 
 .slider-viewport {
   width: 100%;
-  padding-bottom: 1rem; /* space between cards and dots/arrows */
+  padding: 1.5rem 0 1rem;
 }
 
 .slider-wrapper {
@@ -250,7 +251,7 @@ export default {
 .reservation-card:hover {
   transform: translateY(-4px); /* hover:-translate-y-1 */
   border-color: rgba(245, 158, 11, 0.6); /* hover:border-accent/30 */
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16); /* hover:shadow-card-hover */
+ 
 }
 
 /* Image area */
@@ -330,11 +331,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 2rem; /* mt-8 */
+  margin-top: 1rem; /* mt-8 */
 }
 
-/* Dots (left orange slider bar) */
 .slider-dots {
+  position: absolute;              /* ⬅️ added */
+  left: 50%;                       /* ⬅️ center horizontally */
+  transform: translateX(-50%);     /* ⬅️ perfect centering */
   display: flex;
   gap: 0.5rem;
 }
