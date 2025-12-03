@@ -106,13 +106,34 @@
 
 <div class="container-fluid px-3 px-md-5 main-container section">
     <!-- Breadcrumbs: pushes content down below the nav -->
-    <div class="breadcrumbs mb-4">
-      <a href="/">Home</a> /
-      <a href="/available-cars">Listings</a> /
-      <span class="current">
-        {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
-      </span>
-    </div>
+   <nav class="breadcrumbs mb-4" aria-label="Breadcrumb">
+  <!-- Home icon -->
+  <a href="/" class="breadcrumb-home" aria-label="Home">
+    <i class="fa-solid fa-house"></i>
+  </a>
+
+  <!-- Vehicles -->
+<span class="breadcrumb-separator">/</span>
+
+  <a href="/available-cars" class="breadcrumb-link">
+    Vehicles
+  </a>
+
+  <!-- Vehicle type (SUV, Sedan, etc.) -->
+ <span class="breadcrumb-separator">/</span>
+
+  <span class="breadcrumb-link">
+    {{ vehicle.vehicle_type.title }}
+  </span>
+
+  <!-- Current vehicle -->
+  <span class="breadcrumb-separator">/</span>
+
+  <span class="breadcrumb-current">
+    {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
+  </span>
+</nav>
+
     <!-- HEADER ROW: Title + Pills on left, Action-panel on right -->
     <div class="d-flex justify-content-between align-items-start mb-4">
       <div>
@@ -121,8 +142,7 @@
           {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}<br>
           
         </h1>
-        <!-- Detail Pills -->
-       <!-- Detail Pills -->
+     
 <div class="details-grid">
   <!-- Year -->
   <div class="detail-item">
@@ -1918,9 +1938,61 @@ h1 {
 
 
 
-.breadcrumbs { font-size:1.1rem; color:#666; margin-bottom:1rem; }
+/* .breadcrumbs { font-size:1.1rem; color:#666; margin-bottom:1rem; }
 .breadcrumbs a { color:#666; text-decoration:none; }
-.breadcrumbs .current { font-weight:500; color:#333; }
+.breadcrumbs .current { font-weight:500; color:#333; } */
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #9ca3af; /* light grey like design */
+}
+
+/* Home icon */
+.breadcrumb-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-home i {
+  font-size: 0.95rem;
+}
+
+.breadcrumb-home:hover {
+  color: #111827;
+}
+
+/* “>” separators */
+.breadcrumb-separator {
+  font-size: 0.75rem;
+  color: #91959c; /* very light grey */
+}
+
+/* Intermediate links (Vehicles / SUV) */
+.breadcrumb-link {
+  color:black; /* link blue */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #1d4ed8;
+}
+
+/* Current page */
+.breadcrumb-current {
+  color: #111827;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 
 /* Detail pills (Year / Mileage / Fuel / Transmission / Seats) */
 .details-grid {
