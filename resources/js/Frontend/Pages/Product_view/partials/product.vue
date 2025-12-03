@@ -122,16 +122,64 @@
           
         </h1>
         <!-- Detail Pills -->
-        <div class="details-grid">
-          <div class="detail-item"><i class="fa-solid fa-calendar-days"></i><span class="label"></span><span
-              class="value">{{ vehicle.year }}</span></div>
-          <div class="detail-item"><i class="fa-solid fa-tachometer-alt"></i><span class="label"></span><span
-              class="value">{{ vehicle.mileage }}KM</span></div>
-          <div class="detail-item"><i class="fa-solid fa-cogs"></i><span class="label"></span><span class="value">{{
-            vehicle.transmission }}</span></div>
-          <div class="detail-item"><i class="fa-solid fa-gas-pump"></i><span class="label"></span><span class="value">{{
-            vehicle.fuel_type }}</span></div>
-        </div>
+       <!-- Detail Pills -->
+<div class="details-grid">
+  <!-- Year -->
+  <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-calendar-days"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Year</span>
+      <span class="detail-value">{{ vehicle.year }}</span>
+    </div>
+  </div>
+
+  <!-- Mileage -->
+  <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-gauge-high"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Mileage</span>
+      <span class="detail-value">{{ vehicle.mileage }}KM</span>
+    </div>
+  </div>
+
+  <!-- Fuel -->
+  <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-gas-pump"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Fuel</span>
+      <span class="detail-value">{{ vehicle.fuel_type }}</span>
+    </div>
+  </div>
+
+  <!-- Transmission -->
+  <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-sliders"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Transmission</span>
+      <span class="detail-value">{{ vehicle.transmission }}</span>
+    </div>
+  </div>
+
+  <!-- Seats -->
+  <!-- <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-users"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Seats</span>
+      <span class="detail-value">{{ vehicle.seats }}</span>
+    </div>
+  </div> -->
+</div>
+
       </div>
       <!-- Action-panel floated right -->
       <div class="action-panel ms-4">
@@ -1874,14 +1922,102 @@ h1 {
 .breadcrumbs a { color:#666; text-decoration:none; }
 .breadcrumbs .current { font-weight:500; color:#333; }
 
+/* Detail pills (Year / Mileage / Fuel / Transmission / Seats) */
 .details-grid {
-  display:flex; flex-wrap:wrap; gap:.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 0.25rem;
 }
+
 .detail-item {
-  background:linear-gradient(90deg,#0d1b2a,#273b51,#222b35);
-  color:#fff; padding:.5rem 1rem; border-radius:20px;
-  display:flex; align-items:center; gap:.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
 }
+
+.detail-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  border-color: #22c55e;
+}
+
+/* Icon circle */
+.detail-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f7ff;
+  color: #00bcd4;
+  flex-shrink: 0;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.detail-icon i {
+  font-size: 1rem;
+}
+
+.detail-item:hover .detail-icon {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+/* Text (label + value) */
+.detail-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #020617;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .detail-item {
+    padding: 8px 14px;
+  }
+  .detail-value {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .details-grid {
+    gap: 8px;
+  }
+  .detail-item {
+    padding: 8px 12px;
+  }
+  .detail-label {
+    font-size: 9px;
+  }
+  .detail-value {
+    font-size: 0.85rem;
+  }
+}
+
 
 .main-image-container { position:relative; width:100%; height:100%; overflow:hidden; }
 .main-image { width:100%; height:100%; object-fit:cover; border-radius:1rem 0 0 1rem; }
