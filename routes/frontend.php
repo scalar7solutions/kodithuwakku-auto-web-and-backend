@@ -84,3 +84,6 @@ Route::get('/export-models-view', [PageController::class, 'exportView'])->name('
 Route::get('/export-models', [PageController::class, 'exportMultipleModelStats'])->name('export.models');
 Route::get('/view-stats', [PageController::class, 'viewStats'])->name('view.stats');
 
+
+Route::get('/our-customers', [PageController::class, 'ourCustomers'])->name('our.customers');
+
