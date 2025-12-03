@@ -199,18 +199,17 @@ export default {
 .categorySection {
   padding: 0 1rem 3rem; /* extra bottom padding under nav */
 }
-
 .section-header {
   margin-top: 1rem !important;
-  text-align: left;
+  text-align: center;        
+  margin-bottom: 2.5rem;    
 }
-
 .reserve-title {
-  color: #1a1a1a;
-  font-weight: bold;
+  font-size: 1.9rem;         /* match .section-title */
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 2.5rem;
-  letter-spacing: 0.005em;
+  color: #0f172a;
 }
 
 /* Slider container & viewport */
