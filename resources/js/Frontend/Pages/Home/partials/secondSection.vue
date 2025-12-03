@@ -89,7 +89,7 @@ export default {
 <style scoped>
 
 .buying-essentials-section {
-  padding: 3.5rem 0;
+  /* padding: 3.5rem 0; */
   /* background: radial-gradient(circle at top left, #f4f8ff 0, #f9fbff 40%, #f7f9fc 100%); */
 }
 
@@ -105,7 +105,7 @@ export default {
 }
 
 .section-title {
-  font-size: 1.9rem;
+  font-size: 2.3rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;

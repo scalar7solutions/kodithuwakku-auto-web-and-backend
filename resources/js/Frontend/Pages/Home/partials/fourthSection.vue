@@ -205,7 +205,7 @@ export default {
   margin-bottom: 2.5rem;    
 }
 .reserve-title {
-  font-size: 1.9rem;         /* match .section-title */
+  font-size: 2.3rem;         /* match .section-title */
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;

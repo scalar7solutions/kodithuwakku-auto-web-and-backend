@@ -2,7 +2,8 @@
    <section class="buying-essentials-section">
   <div class="lease-section container px-3" v-if="manufactures.length > 0">
     <!-- Tabs Header -->
-    <div class="tabs-container text-center pt-3 pb-5">
+    <div class="tabs-container text-center pb-5">
+
         <h1 class="secondFontStyle vehicle-title">
         VEHICLE STOCK
       </h1>
@@ -316,8 +317,7 @@ export default {
   align-items: center;
   text-align: center;
   gap: 1rem;
-  padding-top: 1.5rem;
-  padding-bottom: 2rem;
+  
 }
 
 
@@ -325,7 +325,7 @@ export default {
 
 
 .vehicle-title {
-  font-size: 1.9rem;          /* same as .section-title */
+  font-size: 2.3rem;          /* same as .section-title */
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
