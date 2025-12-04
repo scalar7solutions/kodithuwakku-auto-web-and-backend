@@ -14,6 +14,8 @@
 
        <br>
 
+     
+
     <!-- <AuctionVehicles :live_auction_vehicles_list="live_auction_vehicles_list" /> -->
       <!-- <LiveAuctionJapan
       :brand-list="brandList"
@@ -22,6 +24,7 @@
     /> -->
     <br>
  <FirstSection :countries="countries" :vehicles="vehicles" :manufactures="manufactures" :models="models" />
+   <Brands :manufactures="manufactures" />
  <br>
     <SecondSection />
 
@@ -47,6 +50,7 @@ import AuctionVehicles from './partials/auctionVehicles.vue';
 import Browsebycarbrand from './partials/Browsebycarbrand.vue';
 import LiveAuctionJapan  from './partials/LiveAuctionJapan.vue';
 import Filter from './partials/Filter.vue';
+import Brands from './partials/Brands.vue';  
 
 
 export default {
@@ -60,7 +64,8 @@ export default {
     AuctionVehicles,
     Browsebycarbrand,
     LiveAuctionJapan,
-    Filter
+    Filter,
+     Brands,   
   },
   props: {
     auction_manufactures: {
