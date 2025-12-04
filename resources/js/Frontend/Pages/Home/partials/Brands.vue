@@ -214,6 +214,7 @@ export default {
 <style scoped>
 .brandSection {
   background-color: #ffffff; /* keep page bg same */
+  
 }
 
 /* Heading stays as you had it */
@@ -238,6 +239,7 @@ export default {
   align-items: center;
   justify-content: center;
   transition: all 0.25s ease;
+
 }
 
 .nav-btn .nav-icon {
@@ -272,8 +274,11 @@ export default {
 }
 
 .brand-carousel {
-  overflow: hidden;
+  overflow-x: hidden; 
+   overflow-y: visible;
   width: 100%;
+  padding-top: 1rem;   /* space above cards */
+  padding-bottom: 1.5rem; 
 }
 
 .brand-track {
@@ -327,22 +332,24 @@ export default {
   aspect-ratio: 1 / 1;
   padding: 0.9rem 0.85rem;
   border-radius: 16px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 2px solid rgba(3, 7, 14, 0.08);
   background-color: #ffffff;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease,
     border-color 0.3s ease,
     background-color 0.3s ease;
+    
   overflow: hidden;
   opacity: 0;
   animation: scale-in 0.35s ease-out forwards;
+  transform: translateY(0);
 }
 
-.brand-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
-  border-color: rgba(15, 23, 42, 0.12);
+.brand-slide:hover .brand-card {
+  transform: translateY(-12px) scale(1.02);
+ 
+  border-color: rgba(15, 23, 42, 0.18);
 }
 
 /* Inner layout to mimic "flex-[3]" / "flex-1" from React */
