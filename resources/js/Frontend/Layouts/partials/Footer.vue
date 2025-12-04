@@ -62,7 +62,7 @@
 
       <!-- Country Contact Information -->
       <div class="country-contacts">
-        <h3 class="contact-title" v-if="selectedCountry">JPNAUTO.COM - {{ selectedCountry.name }}</h3>
+        <h3 class="contact-title" v-if="selectedCountry">KODITHUWAKKUAUTO.COM - {{ selectedCountry.name }}</h3>
         <h3 class="contact-title" v-else>Our Locations</h3>
 
         <!-- Display selected country details if a country is selected -->
@@ -180,7 +180,7 @@
     </div>
 
     <div class="footer-bottom">
-      <div class="copyright">JPN Auto @2025 All Rights Reserved</div>
+      <div class="copyright">KODITHUWAKKU AUTO @2025 All Rights Reserved</div>
       <!-- <div class="credits">Web Design & Development By Weblook</div> -->
     </div>
   </footer>
@@ -202,7 +202,7 @@ export default {
   data() {
     return {
       selectedCountry: null,
-      defaultEmail: 'info@jpnauto.com'
+      defaultEmail: 'info@kodithuwakkuauto.com'
     };
   },
   computed: {
@@ -331,7 +331,7 @@ export default {
     flex: none;
   }
 
-  
+
 
 }
 </style>
