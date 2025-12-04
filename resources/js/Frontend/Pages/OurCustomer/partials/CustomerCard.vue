@@ -70,7 +70,7 @@ export default {
     },
     fromText() {
       // Option 1: if you later add a "from" column to our_customers table, use that.
-      // return this.customer.from_dealer || "JPNAuto";
+   
 
       // For now, show your company name (change text to match your brand).
       return "Kodithuwakku Auto Trades";
