@@ -1,11 +1,9 @@
 <template>
   <section class="categorySection container-fluid my-5 mb-0 pt-1 pb-4 lease-section">
     <!-- HEADER AS FULL-WIDTH BLOCK -->
-        <div class="section-header">
-
-            <h2 class="reserve-title">RESERVE ONLINE WITH AUTOTRADER</h2>
-
-        </div>
+    <div class="section-header">
+      <h2 class="reserve-title">RESERVE ONLINE WITH AUTOTRADER</h2>
+    </div>
 
     <!-- SLIDER ROW -->
     <div class="row">
@@ -14,34 +12,83 @@
           <!-- only this viewport area hides overflow -->
           <div class="slider-viewport overflow-hidden">
             <div class="slider-wrapper d-flex" :style="wrapperStyle">
-              <div class="slide" v-for="(slide,i) in slides" :key="i" :style="slideStyle">
-                <div class="image-wrapper">
-                  <img :src="slide.img" :alt="slide.alt" />
+              <div
+                class="slider-slide"
+                v-for="(slide, i) in slides"
+                :key="i"
+                :style="slideStyle"
+              >
+                <div class="reservation-card">
+                  <!-- IMAGE + NUMBER BADGE -->
+                  <div class="image-wrapper">
+                    <img
+                      :src="slide.img"
+                      :alt="slide.alt"
+                      @error="onImageError"
+                    />
+                    <div class="step-badge">
+                      {{ formatStepNumber(i) }}
+                    </div>
+                  </div>
+
+                  <!-- CONTENT -->
+                  <div class="card-content">
+                    <h3>{{ slide.title }}</h3>
+                    <p>{{ slide.text }}</p>
+
+                    <!-- DECORATIVE LINE -->
+                    <div class="card-accent-line"></div>
+                  </div>
                 </div>
-                <div class="step-details">
-                  <h3>{{ slide.title }}</h3>
-                  <p>{{ slide.text }}</p>
-                </div>
-                
               </div>
             </div>
           </div>
 
-          <!-- Prev/Next buttons under the viewport -->
-          <div class="slider-controls">
-            <button class="slider-btn prev-btn" @click="prevSlide" aria-label="Previous">
-              <img src="/images/Assets/right.png" class="btn-icon" alt="←" />
-            </button>
-            <button class="slider-btn next-btn" @click="nextSlide" aria-label="Next">
-              <img src="/images/Assets/left.png" class="btn-icon" alt="→" />
-            </button>
+          <!-- NAVIGATION: DOTS LEFT, ARROWS RIGHT (UNDER CARDS) -->
+          <div class="slider-controls-row">
+            <!-- Progress dots (orange bar) -->
+            <div class="slider-dots">
+              <button
+                v-for="index in maxIndex + 1"
+                :key="index"
+                type="button"
+                class="slider-dot"
+                :class="{ active: currentIndex === index - 1 }"
+                @click="goToSlide(index - 1)"
+                :aria-label="`Go to slide ${index}`"
+              />
+            </div>
+
+            <!-- Arrow buttons -->
+            <div class="slider-buttons">
+              <button
+                type="button"
+                class="slider-btn prev-btn"
+                :class="{ disabled: currentIndex === 0 }"
+                @click="prevSlide"
+                :disabled="currentIndex === 0"
+                aria-label="Previous"
+              >
+                 <img src="/images/Assets/left.png" class="btn-icon" alt="→" />
+              </button>
+              <button
+                type="button"
+                class="slider-btn next-btn"
+                :class="{ disabled: currentIndex >= maxIndex }"
+                @click="nextSlide"
+                :disabled="currentIndex >= maxIndex"
+                aria-label="Next"
+              >
+               
+                <img src="/images/Assets/right.png" class="btn-icon" alt="←" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
-
 
 <script>
 export default {
@@ -69,7 +116,7 @@ export default {
           title: "Save time and reserve online",
           text: "Get ahead by sorting everything online. Or if you'd like to chat, talk it through with the dealer."
         },
-         {
+        {
           img: "images/Assets/34.png",
           alt: "Instant confirmation",
           title: "Get instant confirmation",
@@ -98,193 +145,272 @@ export default {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
-
-    // updateSlider() {
-    //   const slideWidth = 100 / this.slidesPerView;
-    //   const wrapper = this.$el.querySelector(".slider-wrapper");
-    //   wrapper.style.transform = `translateX(-${this.currentIndex * slideWidth}%)`;
-    //   this.$el.querySelectorAll(".slide")
-    //     .forEach(slide => slide.style.minWidth = `${slideWidth}%`);
-    // },
     nextSlide() {
-    if (this.currentIndex < this.slides.length - this.slidesPerView) {
-      this.currentIndex++;
-    }
+      if (this.currentIndex < this.maxIndex) {
+        this.currentIndex++;
+      }
     },
     prevSlide() {
       if (this.currentIndex > 0) {
         this.currentIndex--;
       }
     },
+    goToSlide(index) {
+      this.currentIndex = index;
+    },
     handleResize() {
-     this.currentIndex = 0;
-     const w = window.innerWidth;
-     this.slidesPerView = w >= 1200 ? 4 : w >= 768 ? 2 : 1;
-   },
-
-
+      this.currentIndex = 0;
+      const w = window.innerWidth;
+      this.slidesPerView = w >= 1200 ? 4 : w >= 768 ? 2 : 1;
+    },
     onImageError(event) {
-      event.target.style.display = 'none'; // Hide button if image fails to load
+      event.target.style.display = "none";
+    },
+    formatStepNumber(index) {
+      return String(index + 1).padStart(2, "0");
     }
   },
   computed: {
-  // controls the wrapper’s translateX
-  wrapperStyle() {
-    const w = 100 / this.slidesPerView;
-    return {
-      transform:   `translateX(-${this.currentIndex * w}%)`,
-      transition:  'transform 0.3s ease',
-    };
-  },
-  // sets each slide’s width
-  slideStyle() {
-    return {
-      minWidth: `${100 / this.slidesPerView}%`
-    };
+    // controls the wrapper’s translateX (same as TSX)
+    wrapperStyle() {
+      const w = 100 / this.slidesPerView;
+      return {
+        transform: `translateX(-${this.currentIndex * w}%)`,
+        transition: "transform 0.5s ease-out"
+      };
+    },
+    // each slide’s width (matching the TSX calc including gap)
+    slideStyle() {
+      const base = 100 / this.slidesPerView;
+      const gapShare = (20 * (this.slidesPerView - 1)) / this.slidesPerView; // 20px gap like TSX
+      return {
+        minWidth: `calc(${base}% - ${gapShare}px)`
+      };
+    },
+    maxIndex() {
+      return Math.max(0, this.slides.length - this.slidesPerView);
+    }
   }
-},
-
 };
 </script>
 
 <style scoped>
 /* Section padding */
 .categorySection {
-  padding: 0 1rem 2rem;
+  padding: 0 1rem 3rem; /* extra bottom padding under nav */
 }
-.reservation-section {
-  padding: 2rem 1rem;
-}
-
-/* Header styling */
-.header-container {
-  padding-top: 0; /* Added to move header down slightly */
+.section-header {
+  margin-top: 1rem !important;
+  text-align: center;        
+  margin-bottom: 2.5rem;    
 }
 .reserve-title {
-  color: #242D3D;
+  font-size: 2.3rem;         /* match .section-title */
   font-weight: 700;
-  text-align: left;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f172a;
 }
 
 /* Slider container & viewport */
 .slider-container {
   position: relative;
-  overflow: visible; /* allow buttons outside */
-  padding-bottom: 3rem; /* Space under buttons */
-  min-height: 20rem; /* Ensure container has enough height */
-  max-height: 100%; /* Prevent excessive expansion */
+  overflow: visible;
 }
+
 .slider-viewport {
   width: 100%;
-  padding-bottom: 1.5rem; /* Space between cards and buttons */
-}
-.transition-transform {
-  transition: transform 0.3s ease;
+  padding: 1.5rem 0 1rem;
 }
 
-/* Slide wrapper & gap */
 .slider-wrapper {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem; /* ~20px like TSX (gap-5) */
+  align-items: stretch;
 }
 
-/* Each slide “card” */
-.slide {
-  background: #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+/* CARD STYLING (match TSX design) */
+.slider-slide {
   display: flex;
   flex-direction: column;
+}
+
+.reservation-card {
+  background: #ffffff;
+  border-radius: 1rem; /* rounded-2xl */
+  border: 1px solid rgba(148, 163, 184, 0.5); /* border-border/50 */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* base no shadow */
+}
+
+.reservation-card:hover {
+  transform: translateY(-4px); /* hover:-translate-y-1 */
+  border-color: rgba(245, 158, 11, 0.6); /* hover:border-accent/30 */
+ 
+}
+
+/* Image area */
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 176px; /* h-44 */
   overflow: hidden;
 }
 
-/* Force all images to same box & aspect */
-.image-wrapper {
-  width: 100%;
-  height: 180px; /* Fixed height for design consistency */
-  overflow: hidden;
-}
 .image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.reservation-card:hover .image-wrapper img {
+  transform: scale(1.05); /* group-hover:scale-105 */
+}
+
+/* Step number badge */
+.step-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: 2.5rem;   /* w-10 */
+  height: 2.5rem;  /* h-10 */
+  border-radius: 999px;
+  background: #f59e0b; /* accent */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
 }
 
 /* Text area */
-.step-details {
-  padding: 1rem;
+.card-content {
+  padding: 1.25rem; /* p-5 */
   flex: 1;
 }
 
-/* Prev/Next buttons under gallery cards */
-.slider-controls {
-  position: absolute;
-  bottom: 1rem;
-  right: 4rem; /* moved further left from right edge */
+.card-content h3 {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.card-content p {
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Decorative accent line */
+.card-accent-line {
+  margin-top: 1rem;      /* mt-4 */
+  height: 0.25rem;       /* h-1 */
+  width: 3rem;           /* w-12 */
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.3);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.reservation-card:hover .card-accent-line {
+  width: 5rem;           /* like group-hover:w-20 */
+  background: #f59e0b;
+}
+
+/* Controls row (dots + arrows) */
+.slider-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem; /* mt-8 */
+}
+
+.slider-dots {
+  position: absolute;              /* ⬅️ added */
+  left: 50%;                       /* ⬅️ center horizontally */
+  transform: translateX(-50%);     /* ⬅️ perfect centering */
   display: flex;
   gap: 0.5rem;
-  justify-content: flex-start;
 }
+
+.slider-dot {
+  height: 0.5rem; /* h-2 */
+  width: 0.5rem;  /* w-2 */
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: rgba(148, 163, 184, 0.5); /* muted-foreground/30 */
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.slider-dot.active {
+  width: 2rem;           /* w-8 */
+  background: #f59e0b;   /* bg-accent */
+}
+
+/* Arrow buttons (right) */
+.slider-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
 .slider-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5em;
-  height: 2.5em;
-  border-radius: 50%;
-  background: #F2F2F2;
-  border: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  width: 3rem;   /* w-12 */
+  height: 3rem;  /* h-12 */
+  border-radius: 999px;
+  background: #ffffff;
+  border: 2px solid #111827;
   padding: 0;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
+
+.slider-btn:hover:not(.disabled) {
+  background: #111827; /* hover:bg-foreground */
+}
+
+.slider-btn:hover:not(.disabled) .btn-icon {
+  filter: invert(1); /* mimic white icon on dark bg */
+}
+
+.slider-btn.disabled {
+  border-color: #e5e7eb;      /* border-muted */
+  background: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .btn-icon {
-  width: 1.25em;
-  height: auto;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 /* Mobile tweaks */
 @media (max-width: 576px) {
-  .slider-container {
-    padding-bottom: 2rem; /* Adjusted for mobile */
+  .slider-controls-row {
+    margin-top: 1.5rem;
   }
-  .header-container {
-    padding-top: 1.5rem; /* Adjusted for mobile */
-  }
-  .slider-controls {
-    bottom: 0.5rem;
-    right: 1rem;
-    gap: 0.5rem;
-  }
+
   .slider-btn {
-    width: 2em;
-    height: 2em;
+    width: 2.5rem;
+    height: 2.5rem;
   }
+
   .btn-icon {
-    width: 1em;
+    width: 1.1rem;
+    height: 1.1rem;
   }
 }
-
-@media (max-width: 576px) {
-  .slider-controls {
-    right: 3.5rem !important;    /* was 1rem—now further left */
-    bottom: 0.5rem !important;   /* keep that slight gap at bottom */
-  }
-}
-
-.section-header {
-    margin-top: 1rem !important;
-    text-align: left;
-}
-
-
-
-.reserve-title {
-  color: #1a1a1a;
-  font-weight: bold ;
-  text-transform: uppercase;
-  font-size: 2.5rem;
-  letter-spacing: 0.005em;
-}
-
 </style>

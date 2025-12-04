@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Facades\DB;
+
+use App\Models\OurCustomer;
+
 use Inertia\Inertia;
 use Log;
 use Mail;
@@ -1410,4 +1413,23 @@ if ($model = $request->model) {
             'statistics' => array_values($yearStats)
         ]);
     }
+
+    public function ourCustomers()
+{
+    // Countries are needed for the top nav
+    $countries = Country::where('status', 1)->get();
+
+    // Load active customers with their image + car details
+    $customers = OurCustomer::where('status', 1)
+        ->with(['media', 'manufacture', 'vehicleModel'])
+        ->orderByDesc('created_at')
+        ->get();
+
+    return Inertia::render('OurCustomer/index', [
+        'customers' => $customers,
+        'countries' => $countries,
+        'logged_customer' => auth('customer')->user(), // so header can still use it
+    ]);
+}
+
 }

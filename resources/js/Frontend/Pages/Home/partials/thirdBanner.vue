@@ -17,11 +17,13 @@
                   <div class="col-md-1 mb-3">
                     <img src="/assets/images/checklist.png" width="20" alt="">
                   </div>
+
                   <div class="col-md-11 ps-0 mb-3">
                     <p class="textBanner">
                       We are the Sri Lankan's largest provide. with more patrols in more places
                     </p>
                   </div>
+                  
                   <div class="col-md-1 mb-3">
                     <img src="/assets/images/checklist.png" width="20" alt="">
                   </div>

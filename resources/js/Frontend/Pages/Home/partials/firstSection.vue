@@ -1,8 +1,10 @@
 <template>
+   <section class="buying-essentials-section">
   <div class="lease-section container px-3" v-if="manufactures.length > 0">
     <!-- Tabs Header -->
-    <div class="tabs-container text-center pt-3 pb-5">
-       <h1 class="secondFontStyle" style="font-weight: 600;">
+    <div class="tabs-container text-center pb-5">
+
+        <h1 class="secondFontStyle vehicle-title">
         VEHICLE STOCK
       </h1>
       <div class="tabs">
@@ -165,6 +167,7 @@
 </div>
 
   </div>
+  </section>
 </template>
 
 <script>
@@ -310,9 +313,24 @@ export default {
 /* Container for tabs */
 .tabs-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  gap: 1rem;
+  
+}
+
+
+
+
+
+.vehicle-title {
+  font-size: 2.3rem;          /* same as .section-title */
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f172a;
+  margin: 0;
 }
 
 .tabs {
@@ -444,10 +462,11 @@ export default {
 
 .see-more-container {
   display: flex;
+  justify-content: center; /* center horizontally */
   margin: 40px 0;
-
-   justify-content: flex-end;
+  width: 100%;             /* optional, but makes intent explicit */
 }
+
 
 .see-more-link {
   display: inline-block;
@@ -498,7 +517,7 @@ export default {
 
 
 
-
+/* 
 @media (max-width: 1167px) {
   .tabs-container {
     flex-direction: column;
@@ -507,7 +526,7 @@ export default {
   .tabs {
     margin-top: 1rem;
   }
-}
+} */
 
 /* ↓ when the viewport is ≤940px ↓ */
 /* wrap into two rows of three buttons */
