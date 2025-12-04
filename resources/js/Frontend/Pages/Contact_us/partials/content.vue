@@ -46,7 +46,7 @@
         <div class="col-lg-6 col-md-12">
           <div class="join-section">
             <h2 class="join-heading text-lg-start text-center mb-4">
-              <span v-if="selectedCountry">JPNAUTO.COM - {{ selectedCountry.name }}</span>
+              <span v-if="selectedCountry">KodithuwakkuAuto.com  - {{ selectedCountry.name }}</span>
               <span v-else>Our Locations</span>
             </h2>
             
@@ -147,7 +147,7 @@ export default {
       loading: false,
       selectedCountry: null,
       defaultPhone: '+81 50-5050-8555',
-      defaultEmail: 'info@jpnauto.com',
+      defaultEmail: 'kodithuwakkuauto.com ',
       defaultLocation: 'YOKOHAMA, Office Shin-Yokohama Ekimae, Yokohama, Kanagawa, Japan'
     };
   },

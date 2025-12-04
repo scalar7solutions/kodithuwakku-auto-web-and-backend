@@ -180,8 +180,8 @@
     </div>
 
     <div class="footer-bottom">
-      <div class="copyright">KODITHUWAKKU AUTO @2025 All Rights Reserved</div>
-      <!-- <div class="credits">Web Design & Development By Weblook</div> -->
+      <div class="copyright">Kodithuwakku Auto @2025 All Rights Reserved</div>
+       <div class="credits">Web Design & Development By Scalar7 Solutions</div>
     </div>
   </footer>
 </template>
@@ -202,7 +202,7 @@ export default {
   data() {
     return {
       selectedCountry: null,
-      defaultEmail: 'info@kodithuwakkuauto.com'
+      defaultEmail: 'kodithuwakkuauto.com'
     };
   },
   computed: {

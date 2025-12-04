@@ -5,8 +5,8 @@
         <div class="card bg-white shadow-sm border rounded-5">
           <div class="card-body mb-4">
             <div class="header text-center py-4">
-              <img src="https://jpnauto.com/images/Assets/1000423913%20(1)1.webp" class="img-fluid pb-3"
-                style="max-width: 100px;" alt="JPN Auto vehicle image" />
+              <img src="images/logokodi.png" class="img-fluid pb-3"
+                style="max-width: 100px;" alt="Kodithuwakku Auto vehicle image" />
 
               <h4 class="text-center fw-bold">Sign In To Your Account</h4>
             </div>

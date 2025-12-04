@@ -37,7 +37,7 @@
               </h2>
               <div class="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  JPN Auto is your trusted gateway to Japan's automotive auctions, offering a reliable and 
+                 Kodithuwakku Auto is your trusted gateway to Japan's automotive auctions, offering a reliable and 
                   efficient way to access a wide range of Japanese vehicles. With a solid reputation built on 
                   experience, transparency, and customer support, we make it simple for buyers around the world 
                   to source and import vehicles directly from Japan.
@@ -136,7 +136,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="space-y-6">
               <h2 class="text-3xl lg:text-4xl font-bold text-primary mb-6">
-                Why Choose JPN Car Auction?
+                Why Choose Kodithuwakku Auto  Car Auction?
               </h2>
               <div class="space-y-6">
                 <div>
