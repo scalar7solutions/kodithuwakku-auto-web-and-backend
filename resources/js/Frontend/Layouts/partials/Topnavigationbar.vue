@@ -97,7 +97,7 @@
           </button>
           <!-- Logo in the exact center of the nav -->
           <Link :href="route('index')" class="logo">
-            <img src="images/logokodi.png" alt="Kobe Auto" />
+            <img src="images/logokodi.png" alt=" Auto" />
           </Link>
           <div class="nav-links">
             <Link @click="refreshLayout" :href="route('index')"       :class="{ active: route().current('index') }">Home</Link>
