@@ -333,7 +333,7 @@ export default {
 }
 
 .highlight {
-    color: #ea580c;
+    color: #0c26ea;
 }
 
 .hero-subtitle {
@@ -353,16 +353,16 @@ export default {
     border-radius: 999px;
     padding: 0.5rem 1.4rem;
     font-weight: 600;
-    background: linear-gradient(135deg, #f97316, #ea580c);
+    background: linear-gradient(135deg, #16b1f9, #0c4fea);
     border: none;
     color: #ffffff;
-    box-shadow: 0 12px 30px rgba(234, 88, 12, 0.35);
+    box-shadow: 0 12px 30px rgba(12, 153, 234, 0.35);
     transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
 }
 
 .hero-btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 16px 40px rgba(234, 88, 12, 0.45);
+    box-shadow: 0 16px 40px rgba(12, 153, 234, 0.45);
     filter: brightness(1.05);
 }
 
