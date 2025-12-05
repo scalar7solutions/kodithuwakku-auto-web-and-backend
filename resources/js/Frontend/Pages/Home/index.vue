@@ -27,11 +27,14 @@
    <Brands :manufactures="manufactures" />
  <br>
     <SecondSection />
+<br><br><br><br>
+      <ThirdSection />
+      
 
     <br>
     <FourthSection />
-
-   <ThirdSection />
+<!-- 
+   <ThirdSection /> -->
 
 
   </AppLayout>

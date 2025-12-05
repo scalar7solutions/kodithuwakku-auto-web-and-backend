@@ -8,7 +8,7 @@
             </div>
 
             <section class="hero-section">
-                <div class="hero-content">
+                <!-- <div class="hero-content">
                     <form
                         id="searchForm"
                         class="search-form"
@@ -180,7 +180,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> -->
             </section>
         </div>
     </div>
