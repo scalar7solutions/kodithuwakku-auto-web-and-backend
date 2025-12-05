@@ -461,7 +461,7 @@ export default {
     position: relative;
     color: white;
     height: auto;
-    min-height: 650px;
+    min-height: 570px;
     max-height: 700px;
 }
 
@@ -772,4 +772,8 @@ export default {
         font-size: 1rem;
     }
 }
+
+
+
+
 </style>
