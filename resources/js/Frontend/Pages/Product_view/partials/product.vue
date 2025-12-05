@@ -2390,7 +2390,7 @@ h1 {
 /* Desktop sticky contact box */
 .sticky-contact-box {
   position: fixed;
-  top: 110px;        /* how far from top */
+  top: 150px;        /* how far from top */
   right: 24px;       /* how far from right */
   z-index: 1050;
   width: 260px;
