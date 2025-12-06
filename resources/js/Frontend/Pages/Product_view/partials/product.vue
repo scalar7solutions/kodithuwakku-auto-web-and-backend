@@ -2297,10 +2297,6 @@ h1 {
 
 
 
-.vehicle-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-}
 
 
 .main-price {
@@ -2325,25 +2321,8 @@ h1 {
   color: #6b7280;           /* slightly muted */
 }
 
-/* Tablet */
-@media (max-width: 768px) {
-  .main-price {
-    font-size: 2rem;
-  }
-  .main-price-currency {
-    font-size: 0.9rem;
-  }
-}
 
-/* Phone */
-@media (max-width: 576px) {
-  .main-price {
-    font-size: 1.8rem;
-  }
-  .main-price-currency {
-    font-size: 0.8rem;
-  }
-}
+
 
 
 /* keep label + value on one row at mobile */
@@ -2382,12 +2361,7 @@ h1 {
 
 /* tablets */
 @media (max-width: 768px) {
-  .vehicle-title {
-    font-size: 2rem;
-  }
-  .main-price {
-    font-size: 1.8rem;
-  }
+ 
   .details-grid .detail-item {
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
@@ -2400,14 +2374,92 @@ h1 {
   }
 }
 
+/* base desktop */
+.vehicle-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* tablets */
+@media (max-width: 768px) {
+  .vehicle-title {
+    font-size: 1.4rem;   /* was 2rem */
+    line-height: 1.2;
+  }
+  .main-price {
+    font-size: 1.2rem;   /* was 1.8rem */
+  }
+   .main-price-currency {
+    font-size: 0.7rem;   /* even smaller on phones */
+  }
+   .breadcrumbs {
+    font-size: 0.7rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.8rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.7rem;
+  }
+}
+@media (min-width: 800px) and (max-width: 1367px) {
+  .vehicle-title {
+    font-size: 1.7rem;   /* you can bump to 1.6rem if you want */
+    line-height: 1.2;
+  }
+  .main-price {
+    font-size: 1.4rem;   /* or 1.4rem if you want slightly bigger */
+  }
+  .main-price-currency {
+    font-size: 0.7rem;
+  }
+   .breadcrumbs {
+    font-size: 0.7rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.8rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.7rem;
+  }
+}
+
+
 /* phones */
 @media (max-width: 576px) {
   .vehicle-title {
-    font-size: 1.6rem;
+    font-size: 1.1rem;   /* was 1.6rem */
+    line-height: 1.2;
   }
   .main-price {
-    font-size: 1.6rem;
+    font-size: 1.1rem;   /* was 1.6rem */
   }
+   .main-price-currency {
+    font-size: 0.6rem;   /* even smaller on phones */
+  }
+   .breadcrumbs {
+    font-size: 0.5rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.5rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.5rem;
+  }
+}
+
+
+
+
+/* phones */
+@media (max-width: 576px) {
+ 
   .details-grid .detail-item {
     font-size: 0.7rem;
     padding: 0.3rem 0.6rem;
