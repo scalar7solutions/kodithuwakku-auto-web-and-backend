@@ -10,7 +10,17 @@
       <div class="col-12">
         <div class="slider-container">
           <!-- only this viewport area hides overflow -->
-          <div class="slider-viewport overflow-hidden">
+          <div
+  class="slider-viewport overflow-hidden"
+  @touchstart.passive="onTouchStart"
+  @touchmove.passive="onTouchMove"
+  @touchend.passive="onTouchEnd"
+  @mousedown="onMouseDown"
+  @mousemove="onMouseMove"
+  @mouseup="onMouseUp"
+  @mouseleave="onMouseUp"
+>
+
             <div class="slider-wrapper d-flex" :style="wrapperStyle">
               <div
                 class="slider-slide"
@@ -97,6 +107,9 @@ export default {
     return {
       currentIndex: 0,
       slidesPerView: 4,
+       isDragging: false,
+    dragStartX: 0,
+    dragDeltaX: 0,
       slides: [
         {
           img: "images/Assets/33.png",
@@ -168,7 +181,58 @@ export default {
     },
     formatStepNumber(index) {
       return String(index + 1).padStart(2, "0");
+    },
+    onTouchStart(e) {
+    if (e.touches.length !== 1) return;
+    this.isDragging = true;
+    this.dragStartX = e.touches[0].clientX;
+    this.dragDeltaX = 0;
+  },
+  onTouchMove(e) {
+    if (!this.isDragging || e.touches.length !== 1) return;
+    this.dragDeltaX = e.touches[0].clientX - this.dragStartX;
+  },
+  onTouchEnd() {
+    if (!this.isDragging) return;
+
+    const THRESHOLD = 50; // px swipe distance
+    if (this.dragDeltaX <= -THRESHOLD) {
+      // swipe left → next slide
+      this.nextSlide();
+    } else if (this.dragDeltaX >= THRESHOLD) {
+      // swipe right → previous slide
+      this.prevSlide();
     }
+
+    this.isDragging = false;
+    this.dragDeltaX = 0;
+  },
+
+  // === MOUSE DRAG (desktop) – optional but nice ===
+  onMouseDown(e) {
+    // Only left button
+    if (e.button !== 0) return;
+    this.isDragging = true;
+    this.dragStartX = e.clientX;
+    this.dragDeltaX = 0;
+  },
+  onMouseMove(e) {
+    if (!this.isDragging) return;
+    this.dragDeltaX = e.clientX - this.dragStartX;
+  },
+  onMouseUp() {
+    if (!this.isDragging) return;
+
+    const THRESHOLD = 50;
+    if (this.dragDeltaX <= -THRESHOLD) {
+      this.nextSlide();
+    } else if (this.dragDeltaX >= THRESHOLD) {
+      this.prevSlide();
+    }
+
+    this.isDragging = false;
+    this.dragDeltaX = 0;
+  }
   },
   computed: {
     // controls the wrapper’s translateX (same as TSX)
