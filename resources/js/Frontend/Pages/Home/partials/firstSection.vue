@@ -8,10 +8,27 @@
         VEHICLE STOCK
       </h1>
       <div class="tabs">
-        <button v-for="manufactures in manufactures.slice(0, 6)" :key="manufactures.id" class="tab-btn"
-          :class="{ active: activeTab === manufactures.title }" @click="setActiveTab(manufactures.title)">{{
-            manufactures.title }}</button>
-      </div>
+  <!-- ALL tab -->
+  <button
+    class="tab-btn"
+    :class="{ active: activeTab === 'ALL' }"
+    @click="setActiveTab('ALL')"
+  >
+    All
+  </button>
+
+  <!-- Brand tabs -->
+  <button
+    v-for="manu in manufactures.slice(0, 6)"
+    :key="manu.id"
+    class="tab-btn"
+    :class="{ active: activeTab === manu.title }"
+    @click="setActiveTab(manu.title)"
+  >
+    {{ manu.title }}
+  </button>
+</div>
+
     </div>
 
 
@@ -216,43 +233,63 @@ export default {
   },
   computed: {
     activemanufactures() {
-      const found = this.manufactures.find(c => c.title === this.activeTab);
-      return found;
-    },
+  // For the ALL tab, we don't bind to a single manufacturer
+  if (this.activeTab === 'ALL') {
+    return null;
+  }
+
+  const found = this.manufactures.find(c => c.title === this.activeTab);
+  return found || null;
+},
+
 
     filteredVehicles() {
-      if (!this.activemanufactures) {
-        console.log("FirstSection - No active manufacturer selected");
-        return [];
-      }
+  // When "ALL" is selected, just return all vehicles
+  if (this.activeTab === 'ALL') {
+    console.log('FirstSection - Showing ALL vehicles');
+    return this.vehicles;
+  }
 
-      const filtered = this.vehicles.filter(vehicle => {
-        // Check both manufacture_id and manufacture object
-        const matchesId = vehicle.manufacture_id === this.activemanufactures.id;
-        const matchesObject = vehicle.manufacture && vehicle.manufacture.id === this.activemanufactures.id;
-        const matchesTitle = vehicle.manufacture && vehicle.manufacture.title === this.activemanufactures.title;
+  // If no specific manufacturer is active, show nothing
+  if (!this.activemanufactures) {
+    console.log('FirstSection - No active manufacturer selected');
+    return [];
+  }
 
-        return matchesId || matchesObject || matchesTitle;
-      });
+  const filtered = this.vehicles.filter(vehicle => {
+    // Check both manufacture_id and manufacture object
+    const matchesId =
+      vehicle.manufacture_id === this.activemanufactures.id;
+    const matchesObject =
+      vehicle.manufacture &&
+      vehicle.manufacture.id === this.activemanufactures.id;
+    const matchesTitle =
+      vehicle.manufacture &&
+      vehicle.manufacture.title === this.activemanufactures.title;
 
-      console.log(`FirstSection - Filtered ${filtered.length} vehicles for ${this.activemanufactures.title}`);
-      return filtered;
-    },
+    return matchesId || matchesObject || matchesTitle;
+  });
+
+  console.log(
+    `FirstSection - Filtered ${filtered.length} vehicles for ${this.activemanufactures.title}`
+  );
+  return filtered;
+},
+
     visibleVehicles() {
   return this.filteredVehicles.slice(0, this.maxCards);
 },
 
   },
- mounted() {
+mounted() {
   console.log("FirstSection - Vehicles Data:", this.vehicles);
   console.log("FirstSection - Manufactures Data:", this.manufactures);
   console.log("FirstSection - Models Data:", this.models);
 
   if (this.manufactures.length > 0) {
-    this.activeTab = this.manufactures[0].title;
+    this.activeTab = 'ALL'; // default to the All tab
   }
 
-  // set cards count for current screen
   this.updateMaxCards();
   if (typeof window !== "undefined") {
     window.addEventListener("resize", this.updateMaxCards);
@@ -263,6 +300,7 @@ export default {
     console.log("FirstSection - Filtered Vehicles:", this.filteredVehicles);
   });
 },
+
 beforeUnmount() {
   if (typeof window !== "undefined") {
     window.removeEventListener("resize", this.updateMaxCards);
