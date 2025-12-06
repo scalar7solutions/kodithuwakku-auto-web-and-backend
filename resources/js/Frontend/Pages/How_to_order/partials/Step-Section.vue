@@ -7,7 +7,7 @@
                     <p class="hero-eyebrow">Easy car buying guide</p>
                     <h1 class="hero-title">
                         Drive home your dream car with
-                        <span class="highlight">Ajith_auto@yahoo.com</span>
+                        <span class="highlight">kodithuwakku Auto</span>
                     </h1>
                     <p class="hero-subtitle">
                         Follow these simple steps to select, inspect, and

@@ -73,7 +73,7 @@ export default {
    
 
       // For now, show your company name (change text to match your brand).
-      return "Kodithuwakku Auto Trades";
+      return "Kodithuwakku Auto Traders";
     },
   },
 };
