@@ -91,12 +91,12 @@
                                 <label
                                     for="price"
                                     class="form-label"
-                                    title="Base sale price in USD, without commas."
+                                    title="Base sale price in LKR, without commas."
                                 >
                                     Price
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text">$ USD</span>
+                                    <span class="input-group-text">LKR</span>
                                     <input
                                         class="form-control"
                                         type="number"
@@ -445,12 +445,12 @@
                                 <label
                                     for="monthly_price"
                                     class="form-label"
-                                    title="Monthly installment price in USD (optional)."
+                                    title="Monthly installment price in LKR (optional)."
                                 >
                                     Monthly Price
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text">USD</span>
+                                    <span class="input-group-text">LKR</span>
                                     <input
                                         class="form-control"
                                         type="number"
@@ -472,12 +472,12 @@
                                 <label
                                     for="initial_payment"
                                     class="form-label"
-                                    title="Initial upfront payment in USD (optional)."
+                                    title="Initial upfront payment in LKR (optional)."
                                 >
                                     Initial Payment
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text">USD</span>
+                                    <span class="input-group-text">LKR</span>
                                     <input
                                         class="form-control"
                                         type="number"

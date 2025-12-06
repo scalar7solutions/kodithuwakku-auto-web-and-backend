@@ -10,7 +10,17 @@
       <div class="col-12">
         <div class="slider-container">
           <!-- only this viewport area hides overflow -->
-          <div class="slider-viewport overflow-hidden">
+          <div
+  class="slider-viewport overflow-hidden"
+  @touchstart.passive="onTouchStart"
+  @touchmove.passive="onTouchMove"
+  @touchend.passive="onTouchEnd"
+  @mousedown="onMouseDown"
+  @mousemove="onMouseMove"
+  @mouseup="onMouseUp"
+  @mouseleave="onMouseUp"
+>
+
             <div class="slider-wrapper d-flex" :style="wrapperStyle">
               <div
                 class="slider-slide"
@@ -97,6 +107,9 @@ export default {
     return {
       currentIndex: 0,
       slidesPerView: 4,
+       isDragging: false,
+    dragStartX: 0,
+    dragDeltaX: 0,
       slides: [
         {
           img: "images/Assets/33.png",
@@ -168,7 +181,58 @@ export default {
     },
     formatStepNumber(index) {
       return String(index + 1).padStart(2, "0");
+    },
+    onTouchStart(e) {
+    if (e.touches.length !== 1) return;
+    this.isDragging = true;
+    this.dragStartX = e.touches[0].clientX;
+    this.dragDeltaX = 0;
+  },
+  onTouchMove(e) {
+    if (!this.isDragging || e.touches.length !== 1) return;
+    this.dragDeltaX = e.touches[0].clientX - this.dragStartX;
+  },
+  onTouchEnd() {
+    if (!this.isDragging) return;
+
+    const THRESHOLD = 50; // px swipe distance
+    if (this.dragDeltaX <= -THRESHOLD) {
+      // swipe left → next slide
+      this.nextSlide();
+    } else if (this.dragDeltaX >= THRESHOLD) {
+      // swipe right → previous slide
+      this.prevSlide();
     }
+
+    this.isDragging = false;
+    this.dragDeltaX = 0;
+  },
+
+  // === MOUSE DRAG (desktop) – optional but nice ===
+  onMouseDown(e) {
+    // Only left button
+    if (e.button !== 0) return;
+    this.isDragging = true;
+    this.dragStartX = e.clientX;
+    this.dragDeltaX = 0;
+  },
+  onMouseMove(e) {
+    if (!this.isDragging) return;
+    this.dragDeltaX = e.clientX - this.dragStartX;
+  },
+  onMouseUp() {
+    if (!this.isDragging) return;
+
+    const THRESHOLD = 50;
+    if (this.dragDeltaX <= -THRESHOLD) {
+      this.nextSlide();
+    } else if (this.dragDeltaX >= THRESHOLD) {
+      this.prevSlide();
+    }
+
+    this.isDragging = false;
+    this.dragDeltaX = 0;
+  }
   },
   computed: {
     // controls the wrapper’s translateX (same as TSX)
@@ -251,7 +315,7 @@ export default {
 
 .reservation-card:hover {
   transform: translateY(-4px); /* hover:-translate-y-1 */
-  border-color: rgba(245, 158, 11, 0.6); /* hover:border-accent/30 */
+  border-color:#747e9d; /* hover:border-accent/30 */
  
 }
 
@@ -282,7 +346,7 @@ export default {
   width: 2.5rem;   /* w-10 */
   height: 2.5rem;  /* h-10 */
   border-radius: 999px;
-  background: #f59e0b; /* accent */
+  background: #102052; /* accent */
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -318,13 +382,13 @@ export default {
   height: 0.25rem;       /* h-1 */
   width: 3rem;           /* w-12 */
   border-radius: 999px;
-  background: rgba(245, 158, 11, 0.3);
+  background: #2b4fbd;
   transition: width 0.3s ease, background 0.3s ease;
 }
 
 .reservation-card:hover .card-accent-line {
   width: 5rem;           /* like group-hover:w-20 */
-  background: #f59e0b;
+  background:#102052;
 }
 
 /* Controls row (dots + arrows) */
@@ -356,7 +420,7 @@ export default {
 
 .slider-dot.active {
   width: 2rem;           /* w-8 */
-  background: #f59e0b;   /* bg-accent */
+  background: #102052;   /* bg-accent */
 }
 
 /* Arrow buttons (right) */

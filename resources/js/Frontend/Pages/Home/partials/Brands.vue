@@ -276,11 +276,23 @@ export default {
 }
 
 .brand-carousel {
-  overflow-x: hidden;
+  overflow-x: auto;          /* was hidden */
   overflow-y: visible;
   width: 100%;
   padding-top: 1rem;
   padding-bottom: 1.5rem;
+  scroll-behavior: smooth;   /* smooth scroll for button scrollBy */
+  -webkit-overflow-scrolling: touch; /* momentum on iOS */
+}
+
+/* Hide horizontal scrollbar but keep scrolling usable */
+.brand-carousel::-webkit-scrollbar {
+  display: none;              /* Chrome / Safari / iOS */
+}
+
+.brand-carousel {
+  -ms-overflow-style: none;   /* IE / Edge legacy */
+  scrollbar-width: none;      /* Firefox */
 }
 
 .brand-track {
