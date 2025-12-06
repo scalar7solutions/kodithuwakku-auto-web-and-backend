@@ -3,13 +3,18 @@
     class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
     id="layout-navbar"
   >
-    <div
-      class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none"
-    >
-      <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-        <i class="bx bx-menu bx-sm"></i>
-      </a>
-    </div>
+  <div
+  class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none"
+>
+  <a
+    class="nav-item nav-link px-0 me-xl-4"
+    href="javascript:void(0)"
+    @click="onToggleMenu"
+  >
+    <i class="bx bx-menu bx-sm"></i>
+  </a>
+</div>
+
 
     <div
       class="navbar-nav-right d-flex align-items-center"
@@ -35,7 +40,7 @@
             id="branch_select"
             v-model="branchSelect.id"
           >
-       
+
             <option selected value="null">Super Admin</option>
             <option
               :value="branch.id"
@@ -503,6 +508,20 @@ export default {
   methods: {
     logout() {
       this.$inertia.post(route("logout"));
+    },
+     onToggleMenu() {
+      const body = document.body;
+      const isDesktop = window.innerWidth >= 1200;
+
+      if (isDesktop) {
+        // collapse / expand on desktop
+        body.classList.toggle("layout-menu-collapsed");
+      } else {
+        // open / close overlay on mobile
+        const open = !body.classList.contains("layout-menu-open");
+        body.classList.toggle("layout-menu-open", open);
+        body.classList.toggle("layout-menu-expanded", open);
+      }
     },
   },
 };
