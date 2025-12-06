@@ -29,7 +29,7 @@ export default {
     },
     mounted() {
 
-       
+
         console.log('Countries in Header:', this.$page.props.countries);
         localStorage.removeItem('selectedCountry');
         this.selectedCountry = null;

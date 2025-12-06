@@ -54,7 +54,7 @@
                              <swiper-slide
                                 v-for="(img, index) in allImages"
                                 :key="index"
-                                
+
                                 @click="setMainImage(index)"
                             >
                                 <img
@@ -140,9 +140,9 @@
         <!-- Vehicle Title -->
         <h1 class="vehicle-title mb-2">
           {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}<br>
-          
+
         </h1>
-     
+
 <div class="details-grid">
   <!-- Year -->
   <div class="detail-item">
@@ -238,10 +238,10 @@
 
           <div v-if="!mainImageLoaded" class="skeleton-placeholder"></div>
 
-          <img :src="allImages[currentThumbIndex].original_url" 
+          <img :src="allImages[currentThumbIndex].original_url"
                 :alt="allImages[currentThumbIndex].alt"
-                class="main-image" 
-                @click="openGrid" 
+                class="main-image"
+                @click="openGrid"
                 @load="onMainLoad"
                 :class="{ 'is-loaded': mainImageLoaded }" />
 
@@ -260,9 +260,9 @@
             @click="openGallery(idx + 1)">
 
             <div v-if="!thumbLoaded[idx + 1]" class="skeleton-placeholder"></div>
-            <img 
-                :src="img.original_url" 
-                class="thumbnail-img" 
+            <img
+                :src="img.original_url"
+                class="thumbnail-img"
                 @load="onThumbLoad(idx + 1)"
                 :class="{ 'is-loaded': thumbLoaded[idx + 1] }" />
             <div v-if="idx === 3" class="gallery-button"  @click="openGrid">
@@ -281,7 +281,7 @@
     :images="allImages"
     :categories="['All', ...new Set(allImages.map(i=>i.custom_properties?.category))]"
     @close="isGridOpen = false"
-    @select="openGallery" 
+    @select="openGallery"
   />
 
 
@@ -299,6 +299,68 @@
       </div>
     </transition>
 
+<!-- Sticky contact box (shows after scroll) -->
+<div
+  v-if="showStickyActions"
+  class="sticky-contact-box d-none d-lg-block"
+>
+  <div class="sticky-contact-header">
+    <span class="sticky-title">Need more info?</span>
+    <p class="sticky-subtitle">
+      Contact us about this vehicle or chat via WhatsApp.
+    </p>
+  </div>
+
+  <div class="sticky-contact-buttons">
+    <!-- Opens existing quote modal -->
+    <!-- <button
+      type="button"
+      class="sticky-btn sticky-btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#quoteModal"
+    >
+      <i class="fa-solid fa-phone"></i>
+      <span>Contact us</span>
+    </button> -->
+
+    <!-- WhatsApp button with pre-filled message -->
+    <a
+      :href="whatsappLink"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="sticky-btn sticky-btn-whatsapp"
+    >
+      <i class="fa-brands fa-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile CTA bar (optional) -->
+<div
+  v-if="showStickyActions"
+  class="sticky-contact-mobile d-flex d-lg-none"
+>
+  <button
+    type="button"
+    class="mobile-btn mobile-btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#quoteModal"
+  >
+    <i class="fa-solid fa-phone"></i>
+    Contact
+  </button>
+
+  <a
+    :href="whatsappLink"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mobile-btn mobile-btn-whatsapp"
+  >
+    <i class="fa-brands fa-whatsapp"></i>
+    WhatsApp
+  </a>
+</div>
 
 
 
@@ -704,7 +766,7 @@
                                     <circle cx="8.5" cy="8.5" r="1.5" />
                                     <path d="M20.4 14.5L16 10 4 20" />
                                 </svg>
-                                
+
                                 <span>{{ car.media.length }}</span>
                             </div>
                         </div>
@@ -816,6 +878,8 @@ export default {
             isGalleryOpen: false,
             galleryIndex: 0,
             mainImageLoaded: false,
+             showStickyActions: false,
+               whatsappNumber: "94765380336",
             thumbLoaded: {},
             form: useForm({
                 vehicle_name:
@@ -864,9 +928,22 @@ export default {
         };
     },
     mounted() {
-        console.log(this.$refs.thumbsSwiper);
-    },
+  // existing console.log if you want to keep it
+  console.log(this.$refs.thumbsSwiper);
+
+  window.addEventListener("scroll", this.handleScroll);
+  this.handleScroll();
+},
+unmounted() {
+  window.removeEventListener("scroll", this.handleScroll);
+},
+
     methods: {
+        handleScroll() {
+    const y = window.scrollY || window.pageYOffset;
+    // adjust 400 to where you want the box to appear
+    this.showStickyActions = y > 400;
+  },
         // setMainImage(index) {
         //     this.currentThumbIndex = index;
         //     this.$nextTick(() => {
@@ -955,7 +1032,7 @@ export default {
     this.currentThumbIndex = swiper.realIndex
   },
 
-  
+
   openGrid() { this.isGridOpen = true },
     handleGridSelect(i) { this.openGallery(i + 1) },
     openGallery(startIdx) {
@@ -968,12 +1045,44 @@ export default {
     closeGallery() { this.isGalleryOpen = false },
     onMainLoad() { this.mainImageLoaded = true },
     onThumbLoad(idx) { this.$set(this.thumbLoaded, idx, true) },
-  
 
 
-  
+
+
     },
     computed: {
+         whatsappLink() {
+    // 1. base URL
+    const base = `https://wa.me/${this.whatsappNumber}`;
+
+    // 2. build message with vehicle details
+    const name =
+      `${this.vehicle.manufacture?.title || ""} ` +
+      `${this.vehicle.vehicle_model?.title || ""} ` +
+      `${this.vehicle.ex_color?.name || ""}`.trim();
+
+    const price =
+      this.vehicle.monthly_price &&
+      `${this.vehicle.monthly_price_currency === "USD" ? "$" : "LKR "}${
+        Number(this.vehicle.monthly_price || 0).toLocaleString()
+      }`;
+
+    const url = this.form.vehicle_url;
+
+    const textLines = [
+      "Hi, I’m interested in this vehicle:",
+      name,
+      price ? `Monthly price: ${price}` : "",
+      url ? `Link: ${url}` : "",
+      "",
+      "Could you send me more information?",
+    ].filter(Boolean);
+
+    const text = textLines.join("\n");
+
+    // 3. URL encode message
+    return `${base}?text=${encodeURIComponent(text)}`;
+  },
         // thumbnailImages() {
         // return this.vehicle.media.filter(
         // img => img.custom_properties?.type === "vehicle_gallery"
@@ -998,8 +1107,8 @@ export default {
             const gallery = this.vehicle.media.filter(m => m.custom_properties?.type === 'vehicle_gallery')
             return main ? [main, ...gallery] : gallery
     }
-            
-        
+
+
 
   },
 };
@@ -1711,7 +1820,7 @@ h1 {
         font-size: 1.1rem;
         padding: 0.5rem;
     }
-/* 
+/*
     .summary-grid {
         grid-template-columns: 1fr;
     } */
@@ -2152,14 +2261,14 @@ h1 {
 
 
 .vehicle-title {
-  font-size: 2.5rem;    
-  font-weight: 700;     
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 
 .main-price {
-  font-size: 2rem;     
-  font-weight: 800;     
+  font-size: 2rem;
+  font-weight: 800;
 }
 @media (max-width: 768px) {
   .vehicle-title { font-size: 2rem; }
@@ -2265,9 +2374,9 @@ h1 {
   background-color: rgb(208, 204, 204);
   color: #003366;
   font-weight: 600;
-  border-radius: 50%;        
- 
-  display: flex;             
+  border-radius: 50%;
+
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 14px;
@@ -2278,5 +2387,123 @@ h1 {
   font-size: 18px;
 }
 
+/* Desktop sticky contact box */
+.sticky-contact-box {
+  position: fixed;
+  top: 150px;        /* how far from top */
+  right: 24px;       /* how far from right */
+  z-index: 1050;
+  width: 260px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
+}
+
+.sticky-contact-header {
+  margin-bottom: 10px;
+}
+
+.sticky-title {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sticky-subtitle {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.sticky-contact-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sticky-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.sticky-btn i {
+  font-size: 1rem;
+}
+
+.sticky-btn-primary {
+  background: #111827;
+  color: #ffffff;
+}
+
+.sticky-btn-primary:hover {
+  background: #000000;
+}
+
+.sticky-btn-whatsapp {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+.sticky-btn-whatsapp:hover {
+  background: #16a34a;
+}
+
+/* Mobile bottom bar */
+.sticky-contact-mobile {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 1050;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+  padding: 6px;
+  gap: 6px;
+}
+
+.mobile-btn {
+  flex: 1;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  text-decoration: none;
+}
+
+.mobile-btn-primary {
+  background: #111827;
+  color: #ffffff;
+}
+
+.mobile-btn-whatsapp {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+/* Hide desktop box on small screens (we already have mobile bar) */
+@media (max-width: 991px) {
+  .sticky-contact-box {
+    display: none !important;
+  }
+}
 
 </style>
