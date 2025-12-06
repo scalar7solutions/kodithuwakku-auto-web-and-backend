@@ -69,7 +69,11 @@
             <div class="price-section">
               <div class="price-left">
                 <span class="label">Price</span>
-                <span class="price">${{ car.price || "0" }}</span>
+                <span class="price">
+  {{ formatPrice(car.price) }}
+  <span class="currency">LKR</span>
+</span>
+
                 <span class="price-note">{{ car.priceNote || "Price includes VAT" }}</span>
               </div>
               <div class="price-right">
@@ -92,9 +96,11 @@
                     <span style="color: green;">BRAND NEW</span>
                   </template>
                 </div>
-                <div class="detail-item" v-if="car.monthly_price">
-                  {{ '$' + car.monthly_price }} Per Month
-                </div>
+               <div class="detail-item" v-if="car.monthly_price">
+  {{ formatPrice(car.monthly_price) }}
+  <span class="currency">LKR</span> Per Month
+</div>
+
               </div>
             </div>
 
@@ -294,6 +300,16 @@ beforeUnmount() {
       return `${manu.name || manu.title || ""} ${model.title || model.name || ""}`.trim();
     },
 
+      formatPrice(value) {
+    if (value === null || value === undefined) return "0";
+    const num = Number(value) || 0;
+
+    // Thousand separators, no decimals
+    return num.toLocaleString("en-LK", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    });
+  },
 
     setActiveTab(title) {
       console.log("Setting activeTab to:", title);
@@ -488,6 +504,13 @@ beforeUnmount() {
 }
 
 .price{
+  font-weight: 500;
+}
+
+.price .currency {
+  font-size: 0.5em;       /* make LKR smaller */
+  margin-left: 0.25rem;   /* small gap after the number */
+  opacity: 0.8;           /* optional: slightly lighter */
   font-weight: 500;
 }
 
