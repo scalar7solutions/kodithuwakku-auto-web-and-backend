@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Exports\VehicleStatsExport;
 use App\Http\Controllers\Controller;
-use App\Mail\ContactMailable;
+// use App\Mail\ContactMailable;
 use App\Models\Contact;
 use App\Models\Country;
 use App\Models\Customer;
@@ -28,7 +28,7 @@ use App\Models\OurCustomer;
 
 use Inertia\Inertia;
 use Log;
-use Mail;
+// use Mail;
 use ZipArchive;
 
 class PageController extends Controller
@@ -838,7 +838,7 @@ class PageController extends Controller
 
         $contact = Contact::create($validatedData);
 
-        Mail::to('osura@eweblook.com')->send(new ContactMailable($validatedData));
+        // Mail::to('osura@eweblook.com')->send(new ContactMailable($validatedData));
 
         return Inertia::render('Contact_us/index', ['contact' => $contact, 'countries' => $countries]);
     }

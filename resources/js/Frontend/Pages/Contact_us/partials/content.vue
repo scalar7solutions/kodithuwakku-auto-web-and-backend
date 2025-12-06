@@ -14,6 +14,11 @@
         <div class="card-soft animate-slide-up" :style="{ animationDelay: '0.1s' }">
           <h2 class="card-title">Send us a Message</h2>
 
+          <!-- Success banner -->
+          <div v-if="successMessage" class="alert-success">
+            {{ successMessage }}
+          </div>
+
           <form class="contact-form" @submit.prevent="submitForm">
             <!-- Full Name -->
             <div class="form-field">
@@ -244,8 +249,8 @@
 </template>
 
 <script>
-import { Inertia } from "@inertiajs/inertia";
 import Swal from "sweetalert2";
+import emailjs from "@emailjs/browser";
 
 export default {
   name: "ContactContent",
@@ -266,12 +271,19 @@ export default {
       },
       errors: {},
       loading: false,
+      successMessage: "", // <— for inline success banner
       businessInfo: {
         name: "Ajith Auto Traders",
         address: "Morakatiya Road, Embilipitiya",
         phone1: "+94 77-123-4567",
         phone2: "+94 11-234-5678",
         email: "info@ajithautotraders.com",
+      },
+      // EmailJS config
+      emailJs: {
+        serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_abc123",
+        templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_def456",
+        publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "your_public_key",
       },
     };
   },
@@ -303,41 +315,70 @@ export default {
         delete updated[field];
         this.errors = updated;
       }
+      // clear success message when user edits again
+      if (this.successMessage) {
+        this.successMessage = "";
+      }
     },
-    submitForm() {
+
+    async submitForm() {
       if (!this.validateForm()) {
         return;
       }
 
       this.loading = true;
+      this.successMessage = "";
 
-      Inertia.post(this.route("contacts.store"), this.form, {
-        onError: (errors) => {
-          this.errors = { ...this.errors, ...errors };
-          this.loading = false;
-        },
-        onSuccess: () => {
-          this.form = {
-            name: "",
-            email: "",
-            phone: "",
-            enquiry: "",
-          };
-          this.errors = {};
-          this.loading = false;
+      const templateParams = {
+        from_name: this.form.name,
+        from_email: this.form.email,
+        phone: this.form.phone,
+        message: this.form.enquiry,
+      };
 
-          Swal.fire({
-            toast: true,
-            position: "top-end",
-            icon: "success",
-            title: "Thank you for contacting us!",
-            text: "We will get back to you soon.",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          });
-        },
-      });
+      try {
+        // Only EmailJS here
+        await emailjs.send(
+          this.emailJs.serviceId,
+          this.emailJs.templateId,
+          templateParams,
+          this.emailJs.publicKey
+        );
+
+        // Reset form
+        this.form = {
+          name: "",
+          email: "",
+          phone: "",
+          enquiry: "",
+        };
+        this.errors = {};
+        this.loading = false;
+
+        // Inline banner
+        this.successMessage = "Inquiry sent successfully.";
+
+        // SweetAlert toast
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: "Inquiry sent successfully.",
+          text: "We will get back to you soon.",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        });
+      } catch (error) {
+        console.error("EmailJS error:", error);
+        this.loading = false;
+
+        Swal.fire({
+          icon: "error",
+          title: "Message not sent",
+          text: "Something went wrong while sending your message. Please try again.",
+        });
+      }
     },
   },
 };
@@ -463,6 +504,17 @@ export default {
   .card-title {
     font-size: 1.45rem;
   }
+}
+
+/* Success banner */
+.alert-success {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.9rem;
+  background-color: rgba(22, 163, 74, 0.08);
+  border: 1px solid rgba(22, 163, 74, 0.4);
+  color: #166534;
+  font-size: 0.9rem;
 }
 
 /* Form */
@@ -698,3 +750,5 @@ export default {
   }
 }
 </style>
+
+::contentReference[oaicite:0]{index=0}
