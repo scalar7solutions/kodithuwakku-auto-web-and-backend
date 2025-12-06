@@ -174,7 +174,7 @@
       </div>
 
       <!-- Navigation links -->
-      <div class="footer-links">
+      <!-- <div class="footer-links">
         <nav>
           <ul class="footer-nav">
             <li>
@@ -194,7 +194,7 @@
             </li>
           </ul>
         </nav>
-      </div>
+      </div> -->
 
       <!-- Bottom area -->
       <div class="footer-bottom">
