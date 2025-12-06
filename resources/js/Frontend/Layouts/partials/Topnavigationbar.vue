@@ -60,9 +60,9 @@
 
 
       <div class="user-dropdown mobile-only">
-        <button class="user-btn" @click="toggleUserMenu" aria-label="User menu">
-          <!-- <i class="fa-solid fa-user"></i> -->
-        </button>
+        <!-- <button class="user-btn" @click="toggleUserMenu" aria-label="User menu">
+          <i class="fa-solid fa-user"></i>
+        </button> -->
         <div v-if="isUserMenuOpen" class="user-menu">
           <ul>
             <li v-if="!$page.props.logged_customer">
