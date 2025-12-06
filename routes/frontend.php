@@ -53,7 +53,7 @@ Route::post('/profile-password-update', [FrontendAuthController::class, 'profile
 Route::get('/how-to-order', [PageController::class, 'HowtoOrder'])->name('how.to.order');
 Route::get('/knowledge-center', [PageController::class, 'knowledge'])->name('knowledge.center');
 Route::get('/privacy-policy', [PageController::class, 'PrivacyPolicy'])->name('privacy.policy');
-Route::post('/contact', [PageController::class, 'store'])->name('contacts.store');
+// Route::post('/contact', [PageController::class, 'store'])->name('contacts.store');
 
 
 
