@@ -322,64 +322,67 @@ export default {
     },
 
     async submitForm() {
-      if (!this.validateForm()) {
-        return;
+  if (!this.validateForm()) {
+    return;
+  }
+
+  this.loading = true;
+  this.successMessage = "";
+
+  const templateParams = {
+    from_name: this.form.name,
+    from_email: this.form.email,
+    phone: this.form.phone,
+    message: this.form.enquiry,
+  };
+
+  try {
+    // ✅ FIXED: pass publicKey inside an options object
+    await emailjs.send(
+      this.emailJs.serviceId,
+      this.emailJs.templateId,
+      templateParams,
+      {
+        publicKey: this.emailJs.publicKey,
       }
+    );
 
-      this.loading = true;
-      this.successMessage = "";
+    // Reset form
+    this.form = {
+      name: "",
+      email: "",
+      phone: "",
+      enquiry: "",
+    };
+    this.errors = {};
+    this.loading = false;
 
-      const templateParams = {
-        from_name: this.form.name,
-        from_email: this.form.email,
-        phone: this.form.phone,
-        message: this.form.enquiry,
-      };
+    // Inline banner
+    this.successMessage = "Inquiry sent successfully.";
 
-      try {
-        // Only EmailJS here
-        await emailjs.send(
-          this.emailJs.serviceId,
-          this.emailJs.templateId,
-          templateParams,
-          this.emailJs.publicKey
-        );
+    // SweetAlert toast
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "Inquiry sent successfully.",
+      text: "We will get back to you soon.",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+  } catch (error) {
+    console.error("EmailJS error:", error);
+    this.loading = false;
 
-        // Reset form
-        this.form = {
-          name: "",
-          email: "",
-          phone: "",
-          enquiry: "",
-        };
-        this.errors = {};
-        this.loading = false;
+    Swal.fire({
+      icon: "error",
+      title: "Message not sent",
+      text: "Something went wrong while sending your message. Please try again.",
+    });
+  }
+}
 
-        // Inline banner
-        this.successMessage = "Inquiry sent successfully.";
-
-        // SweetAlert toast
-        Swal.fire({
-          toast: true,
-          position: "top-end",
-          icon: "success",
-          title: "Inquiry sent successfully.",
-          text: "We will get back to you soon.",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        });
-      } catch (error) {
-        console.error("EmailJS error:", error);
-        this.loading = false;
-
-        Swal.fire({
-          icon: "error",
-          title: "Message not sent",
-          text: "Something went wrong while sending your message. Please try again.",
-        });
-      }
-    },
   },
 };
 </script>
