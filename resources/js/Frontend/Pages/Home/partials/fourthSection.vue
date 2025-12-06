@@ -205,12 +205,14 @@ export default {
   margin-bottom: 2.5rem;    
 }
 .reserve-title {
-  font-size: 2.3rem;         /* match .section-title */
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #0f172a;
+  margin: 0;
 }
+
 
 /* Slider container & viewport */
 .slider-container {
