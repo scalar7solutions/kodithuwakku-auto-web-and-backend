@@ -22,7 +22,7 @@
       :japan-auction-vehicles="japanAuctionVehicles"
       :tab-brand="$page.props.tabBrand"
     /> -->
-    <br>
+   
  <FirstSection :countries="countries" :vehicles="vehicles" :manufactures="manufactures" :models="models" />
    <Brands :manufactures="manufactures" />
  
@@ -31,7 +31,6 @@
       <ThirdSection />
       
 
-    <br>
     <FourthSection />
 <!-- 
    <ThirdSection /> -->
