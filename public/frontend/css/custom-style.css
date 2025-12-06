@@ -996,7 +996,7 @@ button {
   }
 
   .contact-form {
-    background-color: rgba(0, 20, 60, 0.5);
+    /* background-color: rgba(0, 20, 60, 0.5); */
     border-radius: 0.5rem;
     padding: 2rem;
     backdrop-filter: blur(10px);
