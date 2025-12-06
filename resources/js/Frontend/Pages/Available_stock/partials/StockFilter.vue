@@ -52,7 +52,7 @@
                 </div>
               </div>
 
-              <div class="accordion-item border-0 mb-2">
+              <!-- <div class="accordion-item border-0 mb-2">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">COUNTRY</button>
@@ -62,7 +62,7 @@
                     <Countries :countries="$page.props.countries" />
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

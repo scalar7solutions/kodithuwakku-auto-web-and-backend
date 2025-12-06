@@ -2,7 +2,7 @@
   <section class="our-customers-section">
     <div class="our-customers-container">
       <header class="our-customers-header">
-        <h1 class="our-customers-title">Our Happy Customers</h1>
+        <!-- <h1 class="our-customers-title">Our Happy Customers</h1> -->
         
       </header>
 
