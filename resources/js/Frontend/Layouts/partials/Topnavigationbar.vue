@@ -190,8 +190,8 @@ export default {
       isMenuOpen: false,
       selectedCountry: null,
       isUserMenuOpen: false,
-      defaultPhone: '+94 77 151 8883',
-      defaultEmail: 'kodithuwakkuautotrade.com'
+      defaultPhone: '+94 76-6349340',
+      defaultEmail: 'Ajith_auto@yahoo.com'
     };
   },
   computed: {

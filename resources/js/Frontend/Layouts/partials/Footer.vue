@@ -102,7 +102,7 @@
 
         <!-- Right: Contact info -->
         <div class="footer-right">
-          <h3 class="contact-title">KodithuwakkuAuto.com</h3>
+          <h3 class="contact-title">Ajith_auto@yahoo.com</h3>
 
           <div class="contact-list">
             <div class="contact-row">
@@ -123,7 +123,7 @@
                 ></path>
               </svg>
               <a href="tel:+94771234567" class="contact-link">
-                +94 77 123 4567
+                +94 76-6349340
               </a>
             </div>
 
@@ -145,7 +145,7 @@
                 ></path>
               </svg>
               <a href="tel:+94771234568" class="contact-link">
-                +94 77 123 4568
+                +94 777-588589
               </a>
             </div>
 
@@ -225,7 +225,7 @@ export default {
   },
   data() {
     return {
-      currentEmail: 'info@kodithuwakkuauto.com'
+      currentEmail: 'Ajith_auto@yahoo.com'
     };
   }
 };

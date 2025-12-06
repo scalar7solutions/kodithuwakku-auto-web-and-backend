@@ -275,9 +275,9 @@ export default {
       businessInfo: {
         name: "Ajith Auto Traders",
         address: "Morakatiya Road, Embilipitiya",
-        phone1: "+94 77-123-4567",
-        phone2: "+94 11-234-5678",
-        email: "info@ajithautotraders.com",
+        phone1: "+94 76-6349340",
+        phone2: "+94 777-588589",
+        email: "Ajith_auto@yahoo.com",
       },
       // EmailJS config
       emailJs: {
