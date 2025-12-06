@@ -385,10 +385,10 @@
   }"
   v-if="$root.hasPermission('ourcustomer.view') && !$page.props.branch"
 >
-  <!-- <Link :href="route('ourcustomer.index')" class="menu-link">
+   <Link :href="route('ourcustomer.index')" class="menu-link">
     <i class="menu-icon tf-icons bx bx-group"></i>
     <div data-i18n="Our Customers">Our Customers</div>
-  </Link> -->
+  </Link>
 </li>
       <!-- Affiliate Config-->
       <!-- <li class="menu-item" v-bind:class="{
