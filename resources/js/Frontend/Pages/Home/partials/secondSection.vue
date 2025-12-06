@@ -277,9 +277,9 @@ export default {
 
 /* Small screens tweaks (kept similar to your original) */
 @media (max-width: 600px) {
-  .buying-essentials-section {
+  /* .buying-essentials-section {
     padding: 2.5rem 0;
-  }
+  } */
 
   .section-title {
     font-size: 1.5rem;

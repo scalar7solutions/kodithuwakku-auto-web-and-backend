@@ -211,10 +211,10 @@ export default {
 
 <style scoped>
 .brandSection {
-  background-color: #ffffff; /* keep page bg same */
+  background-color: #ffffff;
 }
 
-/* Centered section header (same pattern as other sections) */
+/* Centered section header */
 .section-header {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -279,7 +279,7 @@ export default {
   overflow-x: hidden;
   overflow-y: visible;
   width: 100%;
-  padding-top: 1rem;   /* space above cards */
+  padding-top: 1rem;
   padding-bottom: 1.5rem;
 }
 
@@ -319,11 +319,11 @@ export default {
 
 @media (min-width: 1400px) {
   .brand-slide {
-    flex-basis: calc(14.285% - 0.9rem); /* 7 per row – like screenshot */
+    flex-basis: calc(14.285% - 0.9rem); /* 7 per row */
   }
 }
 
-/* BRAND CARD – new design matching React BrandCard */
+/* BRAND CARD */
 
 .brand-card {
   position: relative;
@@ -351,8 +351,6 @@ export default {
   transform: translateY(-12px) scale(1.02);
   border-color: rgba(15, 23, 42, 0.18);
 }
-
-/* Inner layout to mimic "flex-[3]" / "flex-1" from React */
 
 .brand-card-img {
   flex: 3;
@@ -428,7 +426,7 @@ export default {
   margin: 0;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* clamp to 2 lines */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -468,6 +466,48 @@ export default {
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+/* ======== RESPONSIVE SPACING (MEDIA QUERIES) ======== */
+
+/* Tablets: slightly tighter vertical spacing */
+@media (max-width: 992px) {
+  .buying-essentials-section.brandSection {
+    padding: 2.5rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .brand-carousel {
+    padding-top: 0.75rem;
+    padding-bottom: 1.25rem;
+  }
+}
+
+/* Mobiles: decrease section gaps and grid gap */
+@media (max-width: 576px) {
+  .buying-essentials-section.brandSection {
+    padding: 0rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .brand-track {
+    gap: 0.75rem;
+  }
+
+  .brand-carousel {
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .brand-slide {
+    flex-basis: calc(50% - 0.4rem);
   }
 }
 </style>

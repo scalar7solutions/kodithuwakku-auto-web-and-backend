@@ -61,7 +61,7 @@
 
       <div class="user-dropdown mobile-only">
         <button class="user-btn" @click="toggleUserMenu" aria-label="User menu">
-          <i class="fa-solid fa-user"></i>
+          <!-- <i class="fa-solid fa-user"></i> -->
         </button>
         <div v-if="isUserMenuOpen" class="user-menu">
           <ul>
