@@ -710,6 +710,19 @@ footer {
   font-size: 1.3rem !important;
 }
 
+.car-name {
+  font-size: 1rem;        /* smaller than default h2 */
+  font-weight: 600;       /* still a bit bold */
+  line-height: 1.3;
+  margin-bottom: 0.15rem; /* tighter spacing */
+}
+@media (max-width: 768px) {
+  .car-name {
+    font-size: 0.9rem;
+  }
+}
+
+
 
 /* Smaller LKR label next to the number */
 .price-left .currency,
