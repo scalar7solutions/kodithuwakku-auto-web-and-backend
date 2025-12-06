@@ -97,7 +97,7 @@
 
         <nav class="main-nav" :class="{ 'active': isMenuOpen }">
           <button class="close-btn" @click="toggleMenu" aria-label="Close menu">
-            <!-- <i class="fa-solid fa-times"></i> -->
+            <i class="fa-solid fa-times"></i>
           </button>
           <!-- Logo in the exact center of the nav -->
           <Link :href="route('index')" class="logo">
@@ -349,12 +349,12 @@ export default {
 
 .main-header {
   position: relative;
-  min-height: 72px;          /* gives room so X never touches the top */
-  display: flex;
-  align-items: center;       /* center nav + logo vertically */
+  min-height: 64px;
+ 
+  
 }
 
-/* center the hamburger inside main-header */
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -367,14 +367,13 @@ export default {
   cursor: pointer;
   padding: 0;
   position: absolute;
-  top: 50%;
+  top: 12px;          /* keep away from very top so X is fully visible */
   right: 16px;
-  transform: translateY(-50%);
+  transform: none;
   z-index: 1200;
-  gap: 5px;
+  gap: 5px; /* space between lines so you see all 3 */
   overflow: visible;
 }
-
 
 .bar {
   width: 22px;
@@ -410,12 +409,24 @@ export default {
     gap: 1rem;
   }
 
+  
   .main-nav a {
     font-size: 18px;
   }
 
   .contact-info {
     gap: 1rem;
+  }
+   .main-nav .logo {
+    order: 0;                 /* keep it at the top of the menu */
+    align-self: center;       /* center horizontally in the column flex */
+    margin: 0 auto 1.5rem;    /* some space below */
+    text-align: center;
+  }
+
+  .main-nav .logo img {
+    display: block;
+    margin: 0 auto;           /* make sure the image itself is centered */
   }
 }
 
@@ -913,15 +924,16 @@ export default {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
+
 .logo img {
   height: auto;
-  max-height: 80px;        /* bigger base size */
+  max-height: 60px;
 }
 
 /* Make the logo appear larger on desktop without changing nav height */
-@media (min-width: 769px) {
+@media (min-width: 369px) {
   .logo img {
-    transform: scale(3.0); /* slightly larger than before */
+    transform: scale(2.0); /* slightly larger than before */
     transform-origin: center;
     display: block;
   }
@@ -962,6 +974,7 @@ export default {
     transition: transform 0.3s ease-in-out !important;
   }
 
+  
   .main-nav.active {
     transform: translateY(0) !important;
   }
@@ -985,11 +998,39 @@ export default {
     margin-bottom: 0;
   }
 
-  .main-nav .header-actions {
+ .main-nav .header-actions {
     order: 2;
     margin-top: auto;
     padding-top: 1rem;
     border-top: 1px solid #ddd;
   }
+}  /* <-- closes @media (max-width: 1024px) */
+
+/* Extra-small screens (iPhone SE etc.) */
+@media (max-width: 480px) {
+  /* Hide phone/email row while menu is closed */
+  .main-nav .header-actions {
+    display: none !important;
+  }
+
+  /* But show them when the hamburger menu is open */
+  .main-nav.active .header-actions {
+    display: flex !important;
+  }
+
+  /* iPad / tablet (Air / Pro) – keep hamburger nicely under the top bar */
+@media (min-width: 769px) and (max-width: 1340px) {
+  .main-header {
+    padding-top: 8px;     /* adjust these if you want more / less space */
+    padding-bottom: 8px;
+  }
+
+  
+  .hamburger {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
 }
 </style>
