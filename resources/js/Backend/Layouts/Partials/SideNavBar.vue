@@ -10,9 +10,17 @@
         <span class="app-brand-text demo menu-text fw-bolder ms-2"></span>
       </a>
 
-      <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-      </a>
+    <a
+  href="javascript:void(0);"
+  class="layout-menu-toggle menu-link text-large ms-auto"
+  @click.prevent="toggleMenu"
+>
+  <i
+    class="bx bx-sm align-middle"
+    :class="isCollapsed ? 'bx-chevron-right' : 'bx-chevron-left'"
+  ></i>
+</a>
+
     </div>
 
     <div class="menu-inner-shadow"></div>
@@ -487,10 +495,11 @@
 </template>
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
+import PerfectScrollbar from "perfect-scrollbar";
+
+// script
 export default {
-  components: {
-    Link,
-  },
+  components: { Link },
   data() {
     return {
       showingNavigationDropdown: false,
@@ -498,6 +507,8 @@ export default {
       collapsed: false,
       hidden: true,
       currentRoute: "",
+      isCollapsed: false,        // <— NEW
+      openSubmenus: {},          // <— NEW (for sub menus)
     };
   },
   mounted() {
@@ -508,17 +519,39 @@ export default {
   },
   methods: {
     addActiveClass(routes) {
-      if (routes.includes(route().current())) {
-        return true;
+      return routes.includes(route().current());
+    },
+
+    hasAnyPermission(permissions) {
+      return permissions.some((p) => this.$root.hasPermission(p));
+    },
+
+    toggleMenu() {
+      const body = document.body;
+      this.isCollapsed = !this.isCollapsed;
+
+      if (window.innerWidth >= 1200) {
+        // desktop – we only care about collapsed / expanded
+        body.classList.toggle("layout-menu-collapsed", this.isCollapsed);
       } else {
-        return false;
+        // mobile – overlay open / close
+        const open = !this.isCollapsed;
+        body.classList.toggle("layout-menu-open", open);
+        body.classList.toggle("layout-menu-expanded", open);
       }
     },
-    hasAnyPermission(permissions) {
-    return permissions.some(permission => this.$root.hasPermission(permission));
-  }
+
+    // ---------- sub menus ----------
+    toggleSubmenu(key) {
+      this.openSubmenus[key] = !this.openSubmenus[key];
+    },
+    isSubmenuOpen(key, routes) {
+      // open if user clicked OR one of its children routes is active
+      return !!this.openSubmenus[key] || this.addActiveClass(routes);
+    },
   },
 };
+
 </script>
 
 <style>
