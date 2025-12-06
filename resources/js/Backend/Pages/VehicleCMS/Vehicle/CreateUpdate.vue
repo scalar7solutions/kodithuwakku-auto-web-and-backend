@@ -97,16 +97,15 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text">LKR</span>
-                                    <input
-                                        class="form-control"
-                                        type="number"
-                                        id="price"
-                                        name="price"
-                                        v-model="form.price"
-                                        min="0"
-                                        step="0.01"
-                                        inputmode="decimal"
-                                    />
+                                   <input
+  class="form-control"
+  type="text"
+  id="price"
+  name="price"
+  v-model="formattedPrice"
+  inputmode="decimal"
+/>
+
                                 </div>
                                 <div class="text-danger">
                                     {{ form.errors.price }}
@@ -452,15 +451,14 @@
                                 <div class="input-group">
                                     <span class="input-group-text">LKR</span>
                                     <input
-                                        class="form-control"
-                                        type="number"
-                                        id="monthly_price"
-                                        name="monthly_price"
-                                        v-model="form.monthly_price"
-                                        min="0"
-                                        step="0.01"
-                                        inputmode="decimal"
-                                    />
+  class="form-control"
+  type="text"
+  id="monthly_price"
+  name="monthly_price"
+  v-model="formattedMonthlyPrice"
+  inputmode="decimal"
+/>
+
                                 </div>
                                 <div class="text-danger">
                                     {{ form.errors.monthly_price }}
@@ -478,16 +476,15 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text">LKR</span>
-                                    <input
-                                        class="form-control"
-                                        type="number"
-                                        id="initial_payment"
-                                        name="initial_payment"
-                                        v-model="form.initial_payment"
-                                        min="0"
-                                        step="0.01"
-                                        inputmode="decimal"
-                                    />
+                                   <input
+  class="form-control"
+  type="text"
+  id="initial_payment"
+  name="initial_payment"
+  v-model="formattedInitialPayment"
+  inputmode="decimal"
+/>
+
                                 </div>
                                 <div class="text-danger">
                                     {{ form.errors.initial_payment }}
@@ -822,6 +819,59 @@ export default {
             }
             return "";
         },
+         formattedPrice: {
+        get() {
+            const v = this.form.price;
+            if (v === null || v === undefined || v === "") return "";
+
+            const [intPart, decimalPart] = v.toString().split(".");
+            const withCommas = intPart.replace(
+                /\B(?=(\d{3})+(?!\d))/g,
+                ","
+            );
+            return decimalPart ? `${withCommas}.${decimalPart}` : withCommas;
+        },
+        set(value) {
+            const cleaned = (value || "").replace(/,/g, "");
+            this.form.price = cleaned === "" ? "" : cleaned;
+        },
+    },
+
+    formattedMonthlyPrice: {
+        get() {
+            const v = this.form.monthly_price;
+            if (v === null || v === undefined || v === "") return "";
+
+            const [intPart, decimalPart] = v.toString().split(".");
+            const withCommas = intPart.replace(
+                /\B(?=(\d{3})+(?!\d))/g,
+                ","
+            );
+            return decimalPart ? `${withCommas}.${decimalPart}` : withCommas;
+        },
+        set(value) {
+            const cleaned = (value || "").replace(/,/g, "");
+            this.form.monthly_price = cleaned === "" ? "" : cleaned;
+        },
+    },
+
+    formattedInitialPayment: {
+        get() {
+            const v = this.form.initial_payment;
+            if (v === null || v === undefined || v === "") return "";
+
+            const [intPart, decimalPart] = v.toString().split(".");
+            const withCommas = intPart.replace(
+                /\B(?=(\d{3})+(?!\d))/g,
+                ","
+            );
+            return decimalPart ? `${withCommas}.${decimalPart}` : withCommas;
+        },
+        set(value) {
+            const cleaned = (value || "").replace(/,/g, "");
+            this.form.initial_payment = cleaned === "" ? "" : cleaned;
+        },
+    },
     },
 
     methods: {
