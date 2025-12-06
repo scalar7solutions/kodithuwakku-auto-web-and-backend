@@ -106,6 +106,7 @@ export default {
   line-height: 1.2;
   margin: 0 0 1.5rem;
   text-transform: uppercase;
+   letter-spacing: 0.08em; 
 }
 
 /* Paragraph – muted hero text */
