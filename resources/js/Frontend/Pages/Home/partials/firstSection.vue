@@ -25,10 +25,11 @@
   >
     <div class="car-grid">
       <div
-        class="car-card"
-        v-for="(car, index) in filteredVehicles.slice(0, 8)"
-        :key="index"
-      >
+  class="car-card"
+  v-for="(car, index) in visibleVehicles"
+  :key="index"
+>
+
         <Link
           class="card border shadow-sm d-flex flex-column h-100"
           type="button"
@@ -203,7 +204,8 @@ export default {
   data() {
     return {
       activeTab: "",
-      componentId: "firstSection_" + Date.now() // Unique identifier for this component instance
+      componentId: "firstSection_" + Date.now() ,// Unique identifier for this component instance
+      maxCards: 8,
     };
   },
   computed: {
@@ -229,24 +231,38 @@ export default {
 
       console.log(`FirstSection - Filtered ${filtered.length} vehicles for ${this.activemanufactures.title}`);
       return filtered;
-    }
+    },
+    visibleVehicles() {
+  return this.filteredVehicles.slice(0, this.maxCards);
+},
+
   },
-  mounted() {
-    console.log("FirstSection - Vehicles Data:", this.vehicles);
-    console.log("FirstSection - Manufactures Data:", this.manufactures);
-    console.log("FirstSection - Models Data:", this.models);
+ mounted() {
+  console.log("FirstSection - Vehicles Data:", this.vehicles);
+  console.log("FirstSection - Manufactures Data:", this.manufactures);
+  console.log("FirstSection - Models Data:", this.models);
 
-    if (this.manufactures.length > 0) {
-      this.activeTab = this.manufactures[0].title;
-    }
-
-    // Add a small delay to ensure other components have finished loading
-    this.$nextTick(() => {
-      console.log("FirstSection - Active Tab:", this.activeTab);
-      console.log("FirstSection - Filtered Vehicles:", this.filteredVehicles);
-    });
+  if (this.manufactures.length > 0) {
+    this.activeTab = this.manufactures[0].title;
   }
-  ,
+
+  // set cards count for current screen
+  this.updateMaxCards();
+  if (typeof window !== "undefined") {
+    window.addEventListener("resize", this.updateMaxCards);
+  }
+
+  this.$nextTick(() => {
+    console.log("FirstSection - Active Tab:", this.activeTab);
+    console.log("FirstSection - Filtered Vehicles:", this.filteredVehicles);
+  });
+},
+beforeUnmount() {
+  if (typeof window !== "undefined") {
+    window.removeEventListener("resize", this.updateMaxCards);
+  }
+},
+
   methods: {
     availabilityColor(status) {
       switch (status) {
@@ -293,6 +309,24 @@ export default {
     // return the URL or a placeholder if nothing’s there
     return main?.original_url || fallback?.original_url || '/images/placeholder.png';
   },
+   updateMaxCards() {
+    if (typeof window === "undefined") return;
+    const w = window.innerWidth;
+
+    if (w <= 767) {
+      // phones → 4 cards
+      this.maxCards = 4;
+    } else if (w <= 1023) {
+      // iPad Air / Mini range → 6 cards
+      this.maxCards = 6;
+    } else if (w <= 1366) {
+      // iPad Pro-ish range → 9 cards (3 × 3)
+      this.maxCards = 6;
+    } else {
+      // bigger screens → keep your original 8
+      this.maxCards = 8;
+    }
+  }
   }
 };
 </script>
@@ -345,6 +379,7 @@ export default {
 .tab-transition-enter-active,
 .tab-transition-leave-active {
   transition: opacity 0.3s;
+  
 }
 
 .tab-transition-enter,
@@ -352,14 +387,49 @@ export default {
   opacity: 0;
 }
 
+
 .car-grid {
   display: grid;
-  width: 100%;                          /* fill parent */
-  gap: 1rem;                            /* match your other spacing */
-  /* auto-fit as many ≥280px columns as will fit, each expanding equally */
+  width: 100%;
+  gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  justify-content: center;             /* center the whole grid if it’s narrower */
+  justify-content: center;
 }
+
+/* iPad Air / Mini (≈768–1023px) → 2 columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .car-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* iPad Pro portrait (≈1024–1366px) → 3 columns */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .car-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobiles (≤767px) → 2 columns (you’ll see 4 cards total: 2 × 2) */
+@media (max-width: 767px) {
+  .car-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .car-card {
+    max-width: none;
+  }
+}
+
+
+@media (max-width: 605px) {
+  .car-grid {
+    grid-template-columns: 1fr;
+  }
+  .car-card {
+    max-width: none;
+  }
+}
+
 
 /* On tablets (<= 768px), show two columns */
 /* @media (max-width: 768px) {
@@ -518,6 +588,8 @@ export default {
 
 
 
+
+
 /* 
 @media (max-width: 1167px) {
   .tabs-container {
@@ -528,7 +600,12 @@ export default {
     margin-top: 1rem;
   }
 } */
-
+.tab-btn.active {
+  background: radial-gradient(circle at top left, #13255b, #050b2c);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-1px);
+}
 /* ↓ when the viewport is ≤940px ↓ */
 /* wrap into two rows of three buttons */
 @media (max-width: 940px) {

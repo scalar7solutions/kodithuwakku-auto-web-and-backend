@@ -259,7 +259,7 @@ export default {
 
 /* marquee */
 .footer-marquee {
-  background: rgba(59, 130, 246, 0.18);
+  background: radial-gradient(circle at top left, #1f2e5b, #050b2c);
   padding: 0.5rem 0;
   overflow: hidden;
 }
@@ -311,7 +311,7 @@ export default {
 }
 
 .footer-title span {
-  color: #3b82f6;
+  color: #102052;
 }
 
 .footer-description {
@@ -323,7 +323,7 @@ export default {
 }
 
 .email-button {
-  background-color: #3b82f6;
+  background-color: #5b84c6;
   color: #f9fafb;
   font-weight: 600;
   padding: 0.75rem 1.75rem;
@@ -390,7 +390,7 @@ export default {
 }
 
 .icon-primary {
-  color: #3b82f6;
+  color: #0f2259;
   flex-shrink: 0;
 }
 
