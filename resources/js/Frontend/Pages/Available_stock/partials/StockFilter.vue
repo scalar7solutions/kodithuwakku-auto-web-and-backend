@@ -52,7 +52,7 @@
                 </div>
               </div>
 
-              <div class="accordion-item border-0 mb-2">
+              <!-- <div class="accordion-item border-0 mb-2">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">COUNTRY</button>
@@ -62,7 +62,7 @@
                     <Countries :countries="$page.props.countries" />
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -707,8 +707,21 @@ footer {
 
 .price{
   font-weight: 500;
-  font-size: 1.6rem !important;
+  font-size: 1.3rem !important;
 }
+
+.car-name {
+  font-size: 1rem;        /* smaller than default h2 */
+  font-weight: 600;       /* still a bit bold */
+  line-height: 1.3;
+  margin-bottom: 0.15rem; /* tighter spacing */
+}
+@media (max-width: 768px) {
+  .car-name {
+    font-size: 0.9rem;
+  }
+}
+
 
 
 /* Smaller LKR label next to the number */

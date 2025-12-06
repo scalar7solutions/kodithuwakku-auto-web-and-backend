@@ -7,7 +7,7 @@
                     <p class="hero-eyebrow">Easy car buying guide</p>
                     <h1 class="hero-title">
                         Drive home your dream car with
-                        <span class="highlight">kodithuwakkuauto.com</span>
+                        <span class="highlight">Ajith_auto@yahoo.com</span>
                     </h1>
                     <p class="hero-subtitle">
                         Follow these simple steps to select, inspect, and
@@ -320,7 +320,7 @@ export default {
     font-size: 0.78rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #2563eb;
+    color: #45527a;
     margin-bottom: 0.35rem;
 }
 
@@ -333,7 +333,7 @@ export default {
 }
 
 .highlight {
-    color: #0c26ea;
+    color: #153492;
 }
 
 .hero-subtitle {
@@ -353,10 +353,10 @@ export default {
     border-radius: 999px;
     padding: 0.5rem 1.4rem;
     font-weight: 600;
-    background: linear-gradient(135deg, #16b1f9, #0c4fea);
+    background: radial-gradient(circle at top left, #13255b, #050b2c);
     border: none;
     color: #ffffff;
-    box-shadow: 0 12px 30px rgba(12, 153, 234, 0.35);
+    
     transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
 }
 
@@ -465,7 +465,7 @@ export default {
     font-size: 0.78rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #2563eb;
+    color: #45527a;;
     margin-bottom: 0.35rem;
 }
 
@@ -508,14 +508,14 @@ export default {
     width: 34px;
     height: 34px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #2563eb, #0ea5e9);
+    background: radial-gradient(circle at top left, #13255b, #050b2c);
     font-size: 0.9rem;
     font-weight: 600;
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+    
 }
 
 /* STEP CARD */
@@ -533,7 +533,7 @@ export default {
     width: 8px;
     height: 8px;
     border-radius: 999px;
-    background: #2563eb;
+    background: #0c3fae;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
 }
 
@@ -581,7 +581,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #2563eb;
+    color: #112f6f;
     font-size: 1.1rem;
     box-shadow: 0 10px 24px rgba(148, 163, 184, 0.4);
 }
@@ -633,7 +633,7 @@ export default {
 
 .final-cta-inner {
     border-radius: 1.4rem;
-    background: linear-gradient(120deg, #2563eb, #0ea5e9);
+   background: radial-gradient(circle at top left, #13255b, #050b2c);
     color: #e5e7eb;
     padding: 1.5rem 1.6rem;
     display: flex;

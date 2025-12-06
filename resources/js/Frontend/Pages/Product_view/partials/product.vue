@@ -791,30 +791,44 @@
 
                         <!-- CARD CONTENT -->
                         <div class="card-content">
-                            <div class="price-section">
-                                <div class="price-left">
-                                    <span class="label">From</span>
-                                    <span class="price">${{ car.monthly_payment || car.price || 'N/A' }}</span>
-                                    <span class="price-note">
-                                        {{ car.priceNote || "Per Month (Inc. VAT)" }}
-                                    </span>
-                                    <p class="mb-0">${{ car.initial_payment?.toLocaleString() || 'N/A' }} Initial
-                                        Payment</p>
-                                </div>
-                                <div class="price-right">
-                                    <div class="detail-item1">{{ car.engine_capacity || 'N/A' }}CC</div>
-                                    <div class="detail-item1">
-                                        {{ car.year || 'N/A' }} RegYear
-                                    </div>
-                                    <div class="detail-item1">
-                                        <template v-if="car.used_status === 'Used'">{{ car.mileage || 'N/A' }} Miles
-                                            P/A</template>
-                                        <template v-else>
-                                            <span style="color: green;">BRAND NEW</span>
-                                        </template>
-                                    </div>
-                                </div>
-                            </div>
+ <div class="price-section">
+  <div class="price-left">
+    <!-- Top label -->
+    <div class="card-price-label">Price</div>
+
+    <!-- Main price line -->
+    <div class="card-price-main">
+      <span class="card-price-amount">
+        {{ car.price ? Number(car.price).toLocaleString() : 'N/A' }}
+      </span>
+      <span class="card-price-currency">
+        {{ (car.price_currency || car.monthly_price_currency) === 'USD' ? 'USD' : 'LKR' }}
+      </span>
+    </div>
+
+    <!-- “includes VAT” line -->
+    <div class="card-price-note">
+      Price includes VAT
+    </div>
+  </div>
+
+  <div class="price-right">
+    <div class="detail-item1">{{ car.engine_capacity || 'N/A' }}CC</div>
+    <div class="detail-item1">
+      {{ car.year || 'N/A' }} RegYear
+    </div>
+    <div class="detail-item1">
+      <template v-if="car.used_status === 'Used'">
+        {{ car.mileage || 'N/A' }} Miles P/A
+      </template>
+      <template v-else>
+        <span style="color: green;">BRAND NEW</span>
+      </template>
+    </div>
+  </div>
+</div>
+
+
 
                             <!-- CAR DETAILS -->
                             <div class="car-details">
@@ -2283,10 +2297,6 @@ h1 {
 
 
 
-.vehicle-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-}
 
 
 .main-price {
@@ -2311,25 +2321,8 @@ h1 {
   color: #6b7280;           /* slightly muted */
 }
 
-/* Tablet */
-@media (max-width: 768px) {
-  .main-price {
-    font-size: 2rem;
-  }
-  .main-price-currency {
-    font-size: 0.9rem;
-  }
-}
 
-/* Phone */
-@media (max-width: 576px) {
-  .main-price {
-    font-size: 1.8rem;
-  }
-  .main-price-currency {
-    font-size: 0.8rem;
-  }
-}
+
 
 
 /* keep label + value on one row at mobile */
@@ -2368,12 +2361,7 @@ h1 {
 
 /* tablets */
 @media (max-width: 768px) {
-  .vehicle-title {
-    font-size: 2rem;
-  }
-  .main-price {
-    font-size: 1.8rem;
-  }
+ 
   .details-grid .detail-item {
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
@@ -2386,14 +2374,92 @@ h1 {
   }
 }
 
+/* base desktop */
+.vehicle-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* tablets */
+@media (max-width: 768px) {
+  .vehicle-title {
+    font-size: 1.4rem;   /* was 2rem */
+    line-height: 1.2;
+  }
+  .main-price {
+    font-size: 1.2rem;   /* was 1.8rem */
+  }
+   .main-price-currency {
+    font-size: 0.7rem;   /* even smaller on phones */
+  }
+   .breadcrumbs {
+    font-size: 0.7rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.8rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.7rem;
+  }
+}
+@media (min-width: 800px) and (max-width: 1367px) {
+  .vehicle-title {
+    font-size: 1.7rem;   /* you can bump to 1.6rem if you want */
+    line-height: 1.2;
+  }
+  .main-price {
+    font-size: 1.4rem;   /* or 1.4rem if you want slightly bigger */
+  }
+  .main-price-currency {
+    font-size: 0.7rem;
+  }
+   .breadcrumbs {
+    font-size: 0.7rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.8rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.7rem;
+  }
+}
+
+
 /* phones */
 @media (max-width: 576px) {
   .vehicle-title {
-    font-size: 1.6rem;
+    font-size: 1.1rem;   /* was 1.6rem */
+    line-height: 1.2;
   }
   .main-price {
-    font-size: 1.6rem;
+    font-size: 1.1rem;   /* was 1.6rem */
   }
+   .main-price-currency {
+    font-size: 0.6rem;   /* even smaller on phones */
+  }
+   .breadcrumbs {
+    font-size: 0.5rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.5rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.5rem;
+  }
+}
+
+
+
+
+/* phones */
+@media (max-width: 576px) {
+ 
   .details-grid .detail-item {
     font-size: 0.7rem;
     padding: 0.3rem 0.6rem;
@@ -2581,6 +2647,69 @@ h1 {
   .mobile-btn-subtitle {
     font-size: 0.65rem;
   }
+}
+.card-price {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.card-price .price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #000;
+  line-height: 1;
+}
+
+.price-currency {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #6b7280;
+  line-height: 1.2;
+}
+.card-price-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.card-price-main {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.card-price-amount {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #000;
+  line-height: 1;
+}
+
+.car-name {
+  font-size: 1rem;        /* smaller than default h2 */
+  font-weight: 600;       /* still a bit bold */
+  line-height: 1.3;
+  margin-bottom: 0.15rem; /* tighter spacing */
+}
+@media (max-width: 768px) {
+  .car-name {
+    font-size: 0.9rem;
+  }
+}
+
+
+.card-price-currency {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #6b7280;
+  line-height: 1.1;
+}
+
+.card-price-note {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 2px;
 }
 
 </style>
