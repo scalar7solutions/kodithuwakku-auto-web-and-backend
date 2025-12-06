@@ -199,7 +199,7 @@
       <!-- Bottom area -->
       <div class="footer-bottom">
         <p class="footer-bottom-text">
-          Kodithuwakku Auto ©2025 All Rights Reserved
+          Kodithuwakku Auto Traders ©2025 All Rights Reserved
         </p>
         <p class="footer-bottom-text">
           Web Design &amp; Development By Scalar7 Solutions
