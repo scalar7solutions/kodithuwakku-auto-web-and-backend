@@ -217,10 +217,15 @@
           </button>
         </div> -->
         <!-- Price -->
-        <div class="main-price mb-3 text-center">
-          {{ vehicle.monthly_price_currency === 'USD' ? '$' : 'LKR ' }}
-          {{ Number(vehicle.monthly_price || 0).toLocaleString() }}
-        </div>
+       <div class="main-price mb-3 text-center">
+  <span class="main-price-amount">
+    {{ Number(vehicle.price || 0).toLocaleString() }}
+  </span>
+  <span class="main-price-currency">
+    {{ (vehicle.price_currency || vehicle.monthly_price_currency) === 'USD' ? 'USD' : 'LKR' }}
+  </span>
+</div>
+
         <!-- Make Offer -->
         <!-- <div class="offer-text text-center" @click="startApplication">
           <i class="fa-solid fa-tag bold"></i>
@@ -2285,17 +2290,45 @@ h1 {
 
 
 .main-price {
-  font-size: 2rem;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem;
   font-weight: 800;
-}
-@media (max-width: 768px) {
-  .vehicle-title { font-size: 2rem; }
-  .main-price    { font-size: 2.5rem; }
+  font-size: 2.4rem;
 }
 
+/* Large numeric part */
+.main-price-amount {
+  line-height: 1;
+}
+
+/* Smaller currency label (LKR / USD) */
+.main-price-currency {
+  font-size: 1rem;          /* smaller than the amount */
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #6b7280;           /* slightly muted */
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .main-price {
+    font-size: 2rem;
+  }
+  .main-price-currency {
+    font-size: 0.9rem;
+  }
+}
+
+/* Phone */
 @media (max-width: 576px) {
-  .vehicle-title { font-size: 1.8rem; }
-  .main-price    { font-size: 2rem; }
+  .main-price {
+    font-size: 1.8rem;
+  }
+  .main-price-currency {
+    font-size: 0.8rem;
+  }
 }
 
 
