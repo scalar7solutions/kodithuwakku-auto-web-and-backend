@@ -505,6 +505,7 @@ beforeUnmount() {
 
 .price{
   font-weight: 500;
+  font-size: 1.6rem;
 }
 
 .price .currency {
