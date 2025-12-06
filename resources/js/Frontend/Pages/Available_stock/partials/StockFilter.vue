@@ -707,7 +707,7 @@ footer {
 
 .price{
   font-weight: 500;
-  font-size: 1.6rem !important;
+  font-size: 1.3rem !important;
 }
 
 
