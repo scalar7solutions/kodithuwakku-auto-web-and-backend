@@ -1108,7 +1108,7 @@
     ]
   },
   "resources/js/Frontend/Pages/About/index.vue": {
-    "file": "assets/index-CQaMB0xH.js",
+    "file": "assets/index-CalEQd_q.js",
     "name": "index",
     "src": "resources/js/Frontend/Pages/About/index.vue",
     "isDynamicEntry": true,
@@ -1157,7 +1157,7 @@
     ]
   },
   "resources/js/Frontend/Pages/About/partials/content.vue": {
-    "file": "assets/content-CEK85DBr.js",
+    "file": "assets/content-CJrtYcRp.js",
     "name": "content",
     "src": "resources/js/Frontend/Pages/About/partials/content.vue",
     "isDynamicEntry": true,
@@ -1166,7 +1166,7 @@
       "_index-Cq6CXwRA.js"
     ],
     "css": [
-      "assets/content-BlVP1vKv.css"
+      "assets/content-C-TyUQzx.css"
     ]
   },
   "resources/js/Frontend/Pages/Auction_view/index.vue": {
@@ -2202,7 +2202,7 @@
     ]
   },
   "resources/js/Frontend/Pages/Product_view/index.vue": {
-    "file": "assets/index-D4MP49Iq.js",
+    "file": "assets/index-DcIanbnt.js",
     "name": "index",
     "src": "resources/js/Frontend/Pages/Product_view/index.vue",
     "isDynamicEntry": true,
@@ -2235,7 +2235,7 @@
     ]
   },
   "resources/js/Frontend/Pages/Product_view/partials/ContactUs.vue": {
-    "file": "assets/ContactUs-zWSLg3z7.js",
+    "file": "assets/ContactUs-D0P309VF.js",
     "name": "ContactUs",
     "src": "resources/js/Frontend/Pages/Product_view/partials/ContactUs.vue",
     "isDynamicEntry": true,
@@ -2276,7 +2276,7 @@
     ]
   },
   "resources/js/Frontend/Pages/Product_view/partials/Vehicle_details.vue": {
-    "file": "assets/Vehicle_details--pyxJfSY.js",
+    "file": "assets/Vehicle_details-Ce8BP6RL.js",
     "name": "Vehicle_details",
     "src": "resources/js/Frontend/Pages/Product_view/partials/Vehicle_details.vue",
     "isDynamicEntry": true,
@@ -2295,7 +2295,7 @@
     ]
   },
   "resources/js/Frontend/Pages/Product_view/partials/product.vue": {
-    "file": "assets/product-CIMMB-sp.js",
+    "file": "assets/product-HQGKSMy3.js",
     "name": "product",
     "src": "resources/js/Frontend/Pages/Product_view/partials/product.vue",
     "isDynamicEntry": true,
@@ -2309,7 +2309,7 @@
       "__plugin-vue_export-helper-DlAUqK2U.js"
     ],
     "css": [
-      "assets/product-CsNuegX7.css"
+      "assets/product-DfEppsD4.css"
     ]
   },
   "resources/js/Frontend/Pages/Register/index.vue": {
@@ -2542,7 +2542,7 @@
     ]
   },
   "resources/js/Frontend/app.js": {
-    "file": "assets/app-BkYJRdHA.js",
+    "file": "assets/app-B28n0waR.js",
     "name": "app",
     "src": "resources/js/Frontend/app.js",
     "isEntry": true,
