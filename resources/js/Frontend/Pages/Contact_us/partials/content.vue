@@ -602,7 +602,7 @@ export default {
   padding: 0.8rem 1.8rem;
   border-radius: 9999px;
   border: none;
-  background-image: linear-gradient(135deg, #2563eb, #2752d8);
+  background: radial-gradient(circle at top left, #13255b, #050b2c);
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 500;
