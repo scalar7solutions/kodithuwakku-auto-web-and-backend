@@ -97,7 +97,7 @@
 
         <nav class="main-nav" :class="{ 'active': isMenuOpen }">
           <button class="close-btn" @click="toggleMenu" aria-label="Close menu">
-            <i class="fa-solid fa-times"></i>
+            <!-- <i class="fa-solid fa-times"></i> -->
           </button>
           <!-- Logo in the exact center of the nav -->
           <Link :href="route('index')" class="logo">
@@ -349,8 +349,12 @@ export default {
 
 .main-header {
   position: relative;
+  min-height: 72px;          /* gives room so X never touches the top */
+  display: flex;
+  align-items: center;       /* center nav + logo vertically */
 }
 
+/* center the hamburger inside main-header */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -363,13 +367,14 @@ export default {
   cursor: pointer;
   padding: 0;
   position: absolute;
-  top: 12px;          /* keep away from very top so X is fully visible */
+  top: 50%;
   right: 16px;
-  transform: none;
+  transform: translateY(-50%);
   z-index: 1200;
-  gap: 5px; /* space between lines so you see all 3 */
+  gap: 5px;
   overflow: visible;
 }
+
 
 .bar {
   width: 22px;
@@ -908,16 +913,15 @@ export default {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-
 .logo img {
   height: auto;
-  max-height: 60px;
+  max-height: 80px;        /* bigger base size */
 }
 
 /* Make the logo appear larger on desktop without changing nav height */
 @media (min-width: 769px) {
   .logo img {
-    transform: scale(2.7);
+    transform: scale(3.0); /* slightly larger than before */
     transform-origin: center;
     display: block;
   }

@@ -72,7 +72,7 @@ export default {
     color: #ffffff;
     text-align: center;
 
-    background-image: url("/images/Assets/topbannernew.png"); /* your existing image */
+    background-image: url("/images/Assets/topbannernew2.png"); /* your existing image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
