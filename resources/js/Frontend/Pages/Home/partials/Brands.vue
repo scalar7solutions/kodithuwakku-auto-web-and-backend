@@ -1,39 +1,13 @@
 <template>
   <!-- match FirstSection’s outer section class -->
   <section class="buying-essentials-section brandSection">
-    <!-- SAME container / header as before -->
+    <!-- SAME container as before -->
     <div class="lease-section container px-3" v-if="manufactures.length > 0">
-      <!-- Header + navigation -->
-      <div class="row align-items-end mb-4 justify-content-between">
-        <div class="col">
-          <h2 class="headText secondFontStyle fw-semibold">
-            Browse by Brand
-          </h2>
-        </div>
-
-        <!-- Prev / Next buttons -->
-        <div class="col-auto d-flex align-items-center gap-2">
-          <button
-            type="button"
-            class="nav-btn"
-            :class="{ 'nav-btn-disabled': !canScrollPrev }"
-            :disabled="!canScrollPrev"
-            @click="scrollPrev"
-            aria-label="Previous brands"
-          >
-            <span aria-hidden="true" class="nav-icon">&lsaquo;</span>
-          </button>
-          <button
-            type="button"
-            class="nav-btn"
-            :class="{ 'nav-btn-disabled': !canScrollNext }"
-            :disabled="!canScrollNext"
-            @click="scrollNext"
-            aria-label="Next brands"
-          >
-            <span aria-hidden="true" class="nav-icon">&rsaquo;</span>
-          </button>
-        </div>
+      <!-- Centered header like other sections -->
+      <div class="section-header">
+        <h2 class="headText secondFontStyle fw-semibold">
+          Browse by Brand
+        </h2>
       </div>
 
       <!-- Brands carousel (single row) -->
@@ -96,6 +70,30 @@
             </Link>
           </div>
         </div>
+      </div>
+
+      <!-- Prev / Next buttons under the carousel (bottom center) -->
+      <div class="brand-nav d-flex align-items-center justify-content-center gap-2 mt-3">
+        <button
+          type="button"
+          class="nav-btn"
+          :class="{ 'nav-btn-disabled': !canScrollPrev }"
+          :disabled="!canScrollPrev"
+          @click="scrollPrev"
+          aria-label="Previous brands"
+        >
+          <span aria-hidden="true" class="nav-icon">&lsaquo;</span>
+        </button>
+        <button
+          type="button"
+          class="nav-btn"
+          :class="{ 'nav-btn-disabled': !canScrollNext }"
+          :disabled="!canScrollNext"
+          @click="scrollNext"
+          aria-label="Next brands"
+        >
+          <span aria-hidden="true" class="nav-icon">&rsaquo;</span>
+        </button>
       </div>
     </div>
   </section>
@@ -214,20 +212,25 @@ export default {
 <style scoped>
 .brandSection {
   background-color: #ffffff; /* keep page bg same */
-  
 }
 
-/* Heading stays as you had it */
+/* Centered section header (same pattern as other sections) */
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* Header style matches "Vehicle Stock" and is responsive */
 .headText {
-  font-size: clamp(1.5rem, 2vw, 2.25rem);
-  color: #050b20 !important;
-  line-height: 1.2;
-  margin-bottom: var(--title-spacing) !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-weight: 700 !important;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f172a;
+  margin: 0;
 }
 
-/* NAV BUTTONS (unchanged) */
+/* NAV BUTTONS */
 
 .nav-btn {
   width: 40px;
@@ -239,7 +242,6 @@ export default {
   align-items: center;
   justify-content: center;
   transition: all 0.25s ease;
-
 }
 
 .nav-btn .nav-icon {
@@ -274,11 +276,11 @@ export default {
 }
 
 .brand-carousel {
-  overflow-x: hidden; 
-   overflow-y: visible;
+  overflow-x: hidden;
+  overflow-y: visible;
   width: 100%;
   padding-top: 1rem;   /* space above cards */
-  padding-bottom: 1.5rem; 
+  padding-bottom: 1.5rem;
 }
 
 .brand-track {
@@ -339,7 +341,6 @@ export default {
     box-shadow 0.3s ease,
     border-color 0.3s ease,
     background-color 0.3s ease;
-    
   overflow: hidden;
   opacity: 0;
   animation: scale-in 0.35s ease-out forwards;
@@ -348,7 +349,6 @@ export default {
 
 .brand-slide:hover .brand-card {
   transform: translateY(-12px) scale(1.02);
- 
   border-color: rgba(15, 23, 42, 0.18);
 }
 

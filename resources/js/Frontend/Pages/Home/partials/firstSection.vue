@@ -325,13 +325,14 @@ export default {
 
 
 .vehicle-title {
-  font-size: 2.3rem;          /* same as .section-title */
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #0f172a;
   margin: 0;
 }
+
 
 .tabs {
   display: flex;
@@ -596,5 +597,8 @@ export default {
   color: #555;
 }
 
-
+.buying-essentials-section {
+  margin-top: 0 !important;      /* kill any global top margin */
+  padding-top: 0 !important;     /* kill any global top padding */
+}
 </style>

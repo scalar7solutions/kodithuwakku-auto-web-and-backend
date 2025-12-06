@@ -105,12 +105,13 @@ export default {
 }
 
 .section-title {
-  font-size: 2.3rem;
+  font-size: clamp(1.6rem, 3vw, 2.3rem) !important;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #0f172a;
 }
+
 
 /* ===== GRID (same structure) ===== */
 .essentials-grid {

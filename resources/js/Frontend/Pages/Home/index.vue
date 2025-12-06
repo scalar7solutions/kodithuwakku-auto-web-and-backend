@@ -7,12 +7,12 @@
       :selectedManufacturer="$page.props.selectedManufacturer" :selectedModel="$page.props.selectedModel" />
 
        <!-- <Filter/> -->
-       <br>
+       <!-- <br>
 
         <Browsebycarbrand :auction_manufactures ="auction_manufactures"
         :vehicles-list="$page.props.vehiclesList"/>
 
-       <br>
+       <br> -->
 
      
 
@@ -22,16 +22,15 @@
       :japan-auction-vehicles="japanAuctionVehicles"
       :tab-brand="$page.props.tabBrand"
     /> -->
-    <br>
+   
  <FirstSection :countries="countries" :vehicles="vehicles" :manufactures="manufactures" :models="models" />
    <Brands :manufactures="manufactures" />
- <br>
+ 
     <SecondSection />
 <br><br><br><br>
       <ThirdSection />
       
 
-    <br>
     <FourthSection />
 <!-- 
    <ThirdSection /> -->
