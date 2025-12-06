@@ -341,16 +341,23 @@
   v-if="showStickyActions"
   class="sticky-contact-mobile d-flex d-lg-none"
 >
-  <button
-    type="button"
+  <!-- Call button (opens phone dialer on mobile) -->
+  <a
+    :href="callLink"
     class="mobile-btn mobile-btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#quoteModal"
   >
     <i class="fa-solid fa-phone"></i>
-    Contact
-  </button>
+    <div class="mobile-btn-text">
+      <span class="mobile-btn-label">
+        Call for more information
+      </span>
+      <span class="mobile-btn-subtitle">
+        {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
+      </span>
+    </div>
+  </a>
 
+  <!-- WhatsApp button -->
   <a
     :href="whatsappLink"
     target="_blank"
@@ -358,10 +365,16 @@
     class="mobile-btn mobile-btn-whatsapp"
   >
     <i class="fa-brands fa-whatsapp"></i>
-    WhatsApp
+    <div class="mobile-btn-text">
+      <span class="mobile-btn-label">
+        WhatsApp enquiry
+      </span>
+      <span class="mobile-btn-subtitle">
+        {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
+      </span>
+    </div>
   </a>
 </div>
-
 
 
 </div>
@@ -879,7 +892,9 @@ export default {
             galleryIndex: 0,
             mainImageLoaded: false,
              showStickyActions: false,
-               whatsappNumber: "94765380336",
+               whatsappNumber: "+94766349340",
+                   callNumber: "+94766349340",
+
             thumbLoaded: {},
             form: useForm({
                 vehicle_name:
@@ -1051,6 +1066,9 @@ unmounted() {
 
     },
     computed: {
+         callLink() {
+    return `tel:${this.callNumber}`;
+  },
          whatsappLink() {
     // 1. base URL
     const base = `https://wa.me/${this.whatsappNumber}`;
@@ -2503,6 +2521,32 @@ h1 {
 @media (max-width: 991px) {
   .sticky-contact-box {
     display: none !important;
+  }
+}
+.mobile-btn-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.mobile-btn-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.mobile-btn-subtitle {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+/* slightly tighter layout on very small phones */
+@media (max-width: 480px) {
+  .mobile-btn-label {
+    font-size: 0.8rem;
+  }
+  .mobile-btn-subtitle {
+    font-size: 0.65rem;
   }
 }
 
