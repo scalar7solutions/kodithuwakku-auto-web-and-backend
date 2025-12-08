@@ -97,7 +97,7 @@
 
         <nav class="main-nav" :class="{ 'active': isMenuOpen }">
           <button class="close-btn" @click="toggleMenu" aria-label="Close menu">
-            <i class="fa-solid fa-times"></i>
+            <!-- <i class="fa-solid fa-times"></i> -->
           </button>
           <!-- Logo in the exact center of the nav -->
           <Link :href="route('index')" class="logo">

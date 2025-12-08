@@ -273,7 +273,7 @@ export default {
       loading: false,
       successMessage: "", // <— for inline success banner
       businessInfo: {
-        name: "Ajith Auto Traders",
+        name: "Kodithuwakku Auto Traders",
         address: "Morakatiya Road, Embilipitiya",
         phone1: "+94 76-6349340",
         phone2: "+94 777-588589",

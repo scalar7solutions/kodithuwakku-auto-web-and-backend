@@ -38,7 +38,7 @@
 
           <div class="social-icons">
             <a
-              href="https://www.facebook.com/share/1Aas6U2gJy/?mibextid=wwXIfr"
+              href="https://www.facebook.com/profile.php?id=100066841809344"
               target="_blank"
               rel="noopener noreferrer"
               class="social-icon"
@@ -102,7 +102,7 @@
 
         <!-- Right: Contact info -->
         <div class="footer-right">
-          <h3 class="contact-title">Ajith_auto@yahoo.com</h3>
+          <h3 class="contact-title">Kodithuwakku Auto Traders</h3>
 
           <div class="contact-list">
             <div class="contact-row">
@@ -122,7 +122,7 @@
                   d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
                 ></path>
               </svg>
-              <a href="tel:+94771234567" class="contact-link">
+              <a href="tel:+94 76-6349340" class="contact-link">
                 +94 76-6349340
               </a>
             </div>
@@ -144,7 +144,7 @@
                   d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
                 ></path>
               </svg>
-              <a href="tel:+94771234568" class="contact-link">
+              <a href="tel:+94 777-588589" class="contact-link">
                 +94 777-588589
               </a>
             </div>
