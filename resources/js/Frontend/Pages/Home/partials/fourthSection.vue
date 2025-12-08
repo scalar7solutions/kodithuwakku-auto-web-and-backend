@@ -112,37 +112,37 @@ export default {
     dragDeltaX: 0,
       slides: [
         {
-          img: "images/Assets/33.png",
+          img: "images/Assets/1new.jpg",
           alt: "Steps diagram",
           title: "Build your deal, step-by-step",
           text: "Add part exchange, finance and choose delivery or collection. We'll guide you through it all. Then complete the sale."
         },
         {
-          img: "images/Assets/32.png",
+          img: "images/Assets/2new.jpg",
           alt: "Vehicle check",
           title: "Peace of mind with a free vehicle history check",
           text: "Order with confidence with our free vehicle history check to avoid costly surprises if you decide to buy."
         },
         {
-          img: "images/Assets/31.png",
+          img: "images/Assets/3new.jpg",
           alt: "Time saving",
           title: "Save time and reserve online",
           text: "Get ahead by sorting everything online. Or if you'd like to chat, talk it through with the dealer."
         },
         {
-          img: "images/Assets/34.png",
+          img: "images/Assets/4new.jpg",
           alt: "Instant confirmation",
           title: "Get instant confirmation",
           text: "Receive a reservation summary right away and secure your car with a small deposit."
         },
         {
-          img: "images/Assets/35.png",
+          img: "images/Assets/5new.jpg",
           alt: "Complete payment securely",
           title: "Complete payment securely",
           text: "Choose from debit/credit card, bank transfer or finance—everything’s handled online with full encryption."
         },
         {
-          img: "images/Assets/36.png",
+          img: "images/Assets/6new.jpg",
           alt: "Delivery or collection",
           title: "Choose delivery or collection",
           text: "Opt for home delivery or pick up at the dealer, then just turn up at your chosen time to collect the keys."

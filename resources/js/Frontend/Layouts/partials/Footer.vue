@@ -235,7 +235,7 @@ export default {
 .footer-container {
   position: relative;
   color: #e5ecff;
-  background-color: #111827; /* dark overlay under the image */
+  background-color: #081227; /* dark overlay under the image */
   overflow: hidden;
 }
 
@@ -244,7 +244,7 @@ export default {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/public/images/Assets/footer-bg-image.png');
+  background-image: url('/public/images/Assets/footernew3.png');
   background-size: cover;
   background-position: center;
   opacity: 0.9;
@@ -390,7 +390,7 @@ export default {
 }
 
 .icon-primary {
-  color: #0f2259;
+  color: #7891dc;
   flex-shrink: 0;
 }
 
@@ -435,7 +435,7 @@ export default {
 /* bottom */
 .footer-bottom {
   border-top: 1px solid rgba(148, 163, 184, 0.35);
-  margin-top: 2rem;
+  
   padding-top: 1.5rem;
   display: flex;
   flex-direction: column;

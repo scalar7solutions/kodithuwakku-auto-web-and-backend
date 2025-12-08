@@ -22,7 +22,7 @@
       <!-- Right side: image (same file you already use) -->
       <div class="car-valuation-right">
         <img
-          src="/images/Assets/car-worth.png"
+          src="/images/Assets/newdone.png"
           alt="Car valuation - Know your car's worth"
           class="car-valuation-image"
         />

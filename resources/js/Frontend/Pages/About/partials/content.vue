@@ -594,11 +594,11 @@ export default {
 }
 
 .text-primary {
-    color: #061775;
+    color: #102052 !important;
 }
 
 .bg-primary {
-    background-color: #061775;
+    background-color: #102052 !important;
 }
 
 .text-primary-foreground {
