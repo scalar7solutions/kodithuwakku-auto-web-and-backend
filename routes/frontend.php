@@ -26,8 +26,8 @@ Route::get('oauth/{driver}', [FrontendAuthController::class, 'redirectToProvider
 Route::post('oauth/{driver}', [FrontendAuthController::class, 'redirectToProvider'])->name('social.oauth');
 Route::get('oauth/{driver}/callback', [FrontendAuthController::class, 'handleProviderCallback'])->name('social.callback');
 
-Route::get('/', [HomeController::class, 'maintain'])->name('maintain');
-Route::get('/home', [HomeController::class, 'index'])->name('index');
+// Route::get('/', [HomeController::class, 'maintain'])->name('maintain');
+Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/newcar', [HomeController::class, 'newcar'])->name('newcar');
 Route::get('/seemore', [HomeController::class, 'seemore'])->name('seemore');
 
