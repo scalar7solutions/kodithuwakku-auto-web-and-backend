@@ -10,9 +10,16 @@
         <span class="app-brand-text demo menu-text fw-bolder ms-2"></span>
       </a>
 
-      <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-      </a>
+    <a
+  href="javascript:void(0);"
+  @click.prevent="toggleMenu"
+>
+  <i
+    class="bx bx-sm align-middle"
+    :class="isCollapsed ? '' : ''"
+  ></i>
+</a>
+
     </div>
 
     <div class="menu-inner-shadow"></div>
@@ -487,10 +494,10 @@
 </template>
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
+import PerfectScrollbar from "perfect-scrollbar";
+
 export default {
-  components: {
-    Link,
-  },
+  components: { Link },
   data() {
     return {
       showingNavigationDropdown: false,
@@ -498,27 +505,72 @@ export default {
       collapsed: false,
       hidden: true,
       currentRoute: "",
+      isCollapsed: false,
+      openSubmenus: {},
     };
   },
+
   mounted() {
     new PerfectScrollbar(".menu-inner", {
       wheelPropagation: false,
       wheelSpeed: 0.5,
     });
+
+    // make sure it starts closed on mobile
+    this.closeMenuOnMobile();
   },
+
+  watch: {
+    // this changes on every Inertia navigation
+    '$page.url'() {
+      this.closeMenuOnMobile();
+    },
+  },
+
   methods: {
     addActiveClass(routes) {
-      if (routes.includes(route().current())) {
-        return true;
+      return routes.includes(route().current());
+    },
+
+    hasAnyPermission(permissions) {
+      return permissions.some((p) => this.$root.hasPermission(p));
+    },
+
+    toggleMenu() {
+      const body = document.body;
+      this.isCollapsed = !this.isCollapsed;
+
+      if (window.innerWidth >= 1200) {
+        // desktop – collapse / expand
+        body.classList.toggle("layout-menu-collapsed", this.isCollapsed);
       } else {
-        return false;
+        // mobile – overlay open / close
+        const open = !this.isCollapsed;
+        body.classList.toggle("layout-menu-open", open);
+        body.classList.toggle("layout-menu-expanded", open);
       }
     },
-    hasAnyPermission(permissions) {
-    return permissions.some(permission => this.$root.hasPermission(permission));
-  }
+
+    // called after every Inertia navigation
+    closeMenuOnMobile() {
+      if (window.innerWidth < 1200) {
+        const body = document.body;
+        this.isCollapsed = true;
+        body.classList.remove("layout-menu-open", "layout-menu-expanded");
+      }
+    },
+
+    toggleSubmenu(key) {
+      this.openSubmenus[key] = !this.openSubmenus[key];
+    },
+
+    isSubmenuOpen(key, routes) {
+      return !!this.openSubmenus[key] || this.addActiveClass(routes);
+    },
   },
 };
+
+
 </script>
 
 <style>

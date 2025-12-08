@@ -6,10 +6,10 @@
         <div class="col-lg-7 d-none d-lg-block">
        <div class="login-bg-image">
   <a href="/home">
-    <img src="https://jpnauto.com/images/Assets/1000423913%20(1)1.webp"
+    <img src="images/logokodi.png"
          class="img-fluid pb-3"
          style="max-width: 100px;"
-         alt="JPN Auto vehicle image" />
+         alt="Kodithuwakku Auto  vehicle image" />
   </a>
 </div>
 
@@ -19,8 +19,8 @@
         <div class="col-lg-5">
           <div class="login-form-wrapper">
             <div class="logo-container mb-5 d-md-none text-center">
-            <img src="https://jpnauto.com/images/Assets/1000423913%20(1)1.webp"
-              class="img-fluid pb-3" style="max-width: 100px;" alt="JPN Auto vehicle image" />
+            <img src="images/logokodi.png"
+              class="img-fluid pb-3" style="max-width: 100px;" alt="kodithuwakkuauto.com vehicle image" />
             </div>
 
             <h1 class="login-title mb-4 ">Create Your Account!</h1>

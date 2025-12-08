@@ -3,7 +3,7 @@
         <div class="carousel-inner">
             <div class="carousel-item d-block custom_slide_height">
                 <div class="overlay"></div>
-                <img src="/images/Assets/0001.png" class="d-block w-100 swiperImg custom_slide_height" alt="Available stock in Sri Lanka">
+                <img src="/images/Assets/gtr1.png" class="d-block w-100 swiperImg custom_slide_height" alt="Available stock in Sri Lanka">
                 <div class="carousel-caption text-center custom_caption_position">
                     <div class="caption">
                         <div class="p-0">

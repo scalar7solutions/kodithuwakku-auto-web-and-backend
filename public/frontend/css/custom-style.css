@@ -502,7 +502,7 @@ button {
 .tab-btn:hover {
   color: #000;
   border: 1px solid #000000;
-    background-color: #f3f4f6; 
+    background-color: #f3f4f6;
 }
 
 .tab-btn.active {
@@ -996,7 +996,7 @@ button {
   }
 
   .contact-form {
-    background-color: rgba(0, 20, 60, 0.5);
+    /* background-color: rgba(0, 20, 60, 0.5); */
     border-radius: 0.5rem;
     padding: 2rem;
     backdrop-filter: blur(10px);
@@ -1149,7 +1149,7 @@ button {
 
   @media (min-width: 768px) {
     .footer-bottom {
-      
+
       justify-content: space-between;
     }
   }
@@ -1237,9 +1237,9 @@ button {
         grid-template-columns: 1fr;
     }
 
-    .container {
+    /* .container {
         padding: 2rem 1rem;
-    }
+    } */
 
     .title {
         font-size: 2rem;
@@ -1354,7 +1354,7 @@ button {
     }
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
     .essentials-grid {
         grid-template-columns: 1fr;
     }
@@ -1366,7 +1366,7 @@ button {
     .title {
         font-size: 2rem;
     }
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 1024px) {

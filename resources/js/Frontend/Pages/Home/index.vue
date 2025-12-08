@@ -7,12 +7,14 @@
       :selectedManufacturer="$page.props.selectedManufacturer" :selectedModel="$page.props.selectedModel" />
 
        <!-- <Filter/> -->
-       <br>
+       <!-- <br>
 
         <Browsebycarbrand :auction_manufactures ="auction_manufactures"
         :vehicles-list="$page.props.vehiclesList"/>
 
-       <br>
+       <br> -->
+
+
 
     <!-- <AuctionVehicles :live_auction_vehicles_list="live_auction_vehicles_list" /> -->
       <!-- <LiveAuctionJapan
@@ -20,15 +22,18 @@
       :japan-auction-vehicles="japanAuctionVehicles"
       :tab-brand="$page.props.tabBrand"
     /> -->
-    <br>
+
  <FirstSection :countries="countries" :vehicles="vehicles" :manufactures="manufactures" :models="models" />
- <br>
+   <Brands :manufactures="manufactures" />
+
     <SecondSection />
+<br><br><br><br>
+      <ThirdSection />
 
-    <br>
+
     <FourthSection />
-
-   <ThirdSection />
+<!--
+   <ThirdSection /> -->
 
 
   </AppLayout>
@@ -47,6 +52,7 @@ import AuctionVehicles from './partials/auctionVehicles.vue';
 import Browsebycarbrand from './partials/Browsebycarbrand.vue';
 import LiveAuctionJapan  from './partials/LiveAuctionJapan.vue';
 import Filter from './partials/Filter.vue';
+import Brands from './partials/Brands.vue';
 
 
 export default {
@@ -60,7 +66,8 @@ export default {
     AuctionVehicles,
     Browsebycarbrand,
     LiveAuctionJapan,
-    Filter
+    Filter,
+     Brands,
   },
   props: {
     auction_manufactures: {

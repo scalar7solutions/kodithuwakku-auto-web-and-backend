@@ -150,7 +150,7 @@
 														<tr>
 															<td class="pad" style="padding-bottom:10px;padding-top:15px;width:100%;padding-right:0px;padding-left:0px;">
 																<div class="alignment" align="center" style="line-height:10px">
-																	<div style="max-width: 80.8px;"><img src="{{url('https://jpnauto.com/images/Assets/1000423913%20(1)1.webp')}}" style="display: block; height: auto; border: 0; width: 100%;" width="100.8" height="auto"></div>
+																	<div style="max-width: 80.8px;"><img src="images/logokodi.png" style="display: block; height: auto; border: 0; width: 100%;" width="100.8" height="auto"></div>
 																</div>
 															</td>
 														</tr>
@@ -199,7 +199,7 @@
 															<td class="pad" style="padding-bottom:15px;padding-left:60px;padding-right:60px;padding-top:15px;">
 																<div style="color:#101112;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
 																	<p style="margin: 0; margin-bottom: 16px;"><strong>Hi {{$inquiry->name}},</strong></p>
-																	<p style="margin: 0;">Welcome to JPN Auto Trading. You have successfully send an inquiry. Inquiry details as follows.</p>
+																	<p style="margin: 0;">Welcome to Kodithuwakku Auto  Trading. You have successfully send an inquiry. Inquiry details as follows.</p>
 																</div>
 															</td>
 														</tr>
@@ -377,7 +377,7 @@
 														<tr>
 															<td class="pad" style="padding-bottom:25px;padding-left:60px;padding-right:60px;padding-top:15px;">
 																<div style="color:#101112;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
-																	<p style="margin: 0;">If you have any question regarding to this inquiry please contact&nbsp;<a href="mailto:info@jpnauto.com" style="text-decoration: underline; color: #7747FF;">info@jpnauto.com</a>.</p>
+																	<p style="margin: 0;">If you have any question regarding to this inquiry please contact&nbsp;<a href="mailto:kodithuwakkuauto.com" style="text-decoration: underline; color: #7747FF;">kodithuwakkuauto.com</a>.</p>
 																</div>
 															</td>
 														</tr>
@@ -504,7 +504,7 @@
 														<tr>
 															<td class="pad" style="padding-bottom:10px;padding-left:10px;padding-right:10px;">
 																<div style="color:#ffffff;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:13px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:15.6px;">
-																	<p style="margin: 0;">www.jpnauto.com</p>
+																	<p style="margin: 0;">www.kodithuwakkuauto.com</p>
 																</div>
 															</td>
 														</tr>
@@ -545,7 +545,7 @@
 														<tr>
 															<td class="pad">
 																<div style="color:#ffffff;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:12px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:14.399999999999999px;">
-																	<p style="margin: 0;">{{date('Y')}} Copyright by jpnauto.com.</p>
+																	<p style="margin: 0;">{{date('Y')}} Copyright by kodithuwakkuauto.com.</p>
 																</div>
 															</td>
 														</tr>

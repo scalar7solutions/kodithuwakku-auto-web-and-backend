@@ -54,7 +54,7 @@
                              <swiper-slide
                                 v-for="(img, index) in allImages"
                                 :key="index"
-                                
+
                                 @click="setMainImage(index)"
                             >
                                 <img
@@ -106,32 +106,100 @@
 
 <div class="container-fluid px-3 px-md-5 main-container section">
     <!-- Breadcrumbs: pushes content down below the nav -->
-    <div class="breadcrumbs mb-4">
-      <a href="/">Home</a> /
-      <a href="/available-cars">Listings</a> /
-      <span class="current">
-        {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
-      </span>
-    </div>
+   <nav class="breadcrumbs mb-4" aria-label="Breadcrumb">
+  <!-- Home icon -->
+  <a href="/" class="breadcrumb-home" aria-label="Home">
+    <i class="fa-solid fa-house"></i>
+  </a>
+
+  <!-- Vehicles -->
+<span class="breadcrumb-separator">/</span>
+
+  <a href="/available-cars" class="breadcrumb-link">
+    Vehicles
+  </a>
+
+  <!-- Vehicle type (SUV, Sedan, etc.) -->
+ <span class="breadcrumb-separator">/</span>
+
+  <span class="breadcrumb-link">
+    {{ vehicle.vehicle_type.title }}
+  </span>
+
+  <!-- Current vehicle -->
+  <span class="breadcrumb-separator">/</span>
+
+  <span class="breadcrumb-current">
+    {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
+  </span>
+</nav>
+
     <!-- HEADER ROW: Title + Pills on left, Action-panel on right -->
     <div class="d-flex justify-content-between align-items-start mb-4">
       <div>
         <!-- Vehicle Title -->
         <h1 class="vehicle-title mb-2">
           {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}<br>
-          
+
         </h1>
-        <!-- Detail Pills -->
-        <div class="details-grid">
-          <div class="detail-item"><i class="fa-solid fa-calendar-days"></i><span class="label"></span><span
-              class="value">{{ vehicle.year }}</span></div>
-          <div class="detail-item"><i class="fa-solid fa-tachometer-alt"></i><span class="label"></span><span
-              class="value">{{ vehicle.mileage }}KM</span></div>
-          <div class="detail-item"><i class="fa-solid fa-cogs"></i><span class="label"></span><span class="value">{{
-            vehicle.transmission }}</span></div>
-          <div class="detail-item"><i class="fa-solid fa-gas-pump"></i><span class="label"></span><span class="value">{{
-            vehicle.fuel_type }}</span></div>
-        </div>
+
+<div class="details-grid">
+  <!-- Year -->
+  <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-calendar-days"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Year</span>
+      <span class="detail-value">{{ vehicle.year }}</span>
+    </div>
+  </div>
+
+  <!-- Mileage -->
+  <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-gauge-high"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Mileage</span>
+      <span class="detail-value">{{ vehicle.mileage }}KM</span>
+    </div>
+  </div>
+
+  <!-- Fuel -->
+  <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-gas-pump"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Fuel</span>
+      <span class="detail-value">{{ vehicle.fuel_type }}</span>
+    </div>
+  </div>
+
+  <!-- Transmission -->
+  <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-sliders"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Transmission</span>
+      <span class="detail-value">{{ vehicle.transmission }}</span>
+    </div>
+  </div>
+
+  <!-- Seats -->
+  <!-- <div class="detail-item">
+    <div class="detail-icon">
+      <i class="fa-solid fa-users"></i>
+    </div>
+    <div class="detail-text">
+      <span class="detail-label">Seats</span>
+      <span class="detail-value">{{ vehicle.seats }}</span>
+    </div>
+  </div> -->
+</div>
+
       </div>
       <!-- Action-panel floated right -->
       <div class="action-panel ms-4">
@@ -149,10 +217,15 @@
           </button>
         </div> -->
         <!-- Price -->
-        <div class="main-price mb-3 text-center">
-          {{ vehicle.monthly_price_currency === 'USD' ? '$' : 'LKR ' }}
-          {{ Number(vehicle.monthly_price || 0).toLocaleString() }}
-        </div>
+       <div class="main-price mb-3 text-center">
+  <span class="main-price-amount">
+    {{ Number(vehicle.price || 0).toLocaleString() }}
+  </span>
+  <span class="main-price-currency">
+    {{ (vehicle.price_currency || vehicle.monthly_price_currency) === 'USD' ? 'USD' : 'LKR' }}
+  </span>
+</div>
+
         <!-- Make Offer -->
         <!-- <div class="offer-text text-center" @click="startApplication">
           <i class="fa-solid fa-tag bold"></i>
@@ -170,10 +243,10 @@
 
           <div v-if="!mainImageLoaded" class="skeleton-placeholder"></div>
 
-          <img :src="allImages[currentThumbIndex].original_url" 
+          <img :src="allImages[currentThumbIndex].original_url"
                 :alt="allImages[currentThumbIndex].alt"
-                class="main-image" 
-                @click="openGrid" 
+                class="main-image"
+                @click="openGrid"
                 @load="onMainLoad"
                 :class="{ 'is-loaded': mainImageLoaded }" />
 
@@ -192,9 +265,9 @@
             @click="openGallery(idx + 1)">
 
             <div v-if="!thumbLoaded[idx + 1]" class="skeleton-placeholder"></div>
-            <img 
-                :src="img.original_url" 
-                class="thumbnail-img" 
+            <img
+                :src="img.original_url"
+                class="thumbnail-img"
                 @load="onThumbLoad(idx + 1)"
                 :class="{ 'is-loaded': thumbLoaded[idx + 1] }" />
             <div v-if="idx === 3" class="gallery-button"  @click="openGrid">
@@ -213,7 +286,7 @@
     :images="allImages"
     :categories="['All', ...new Set(allImages.map(i=>i.custom_properties?.category))]"
     @close="isGridOpen = false"
-    @select="openGallery" 
+    @select="openGallery"
   />
 
 
@@ -231,7 +304,82 @@
       </div>
     </transition>
 
+<!-- Sticky contact box (shows after scroll) -->
+<div
+  v-if="showStickyActions"
+  class="sticky-contact-box d-none d-lg-block"
+>
+  <div class="sticky-contact-header">
+    <span class="sticky-title">Need more info?</span>
+    <p class="sticky-subtitle">
+      Contact us about this vehicle or chat via WhatsApp.
+    </p>
+  </div>
 
+  <div class="sticky-contact-buttons">
+    <!-- Opens existing quote modal -->
+    <!-- <button
+      type="button"
+      class="sticky-btn sticky-btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#quoteModal"
+    >
+      <i class="fa-solid fa-phone"></i>
+      <span>Contact us</span>
+    </button> -->
+
+    <!-- WhatsApp button with pre-filled message -->
+    <a
+      :href="whatsappLink"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="sticky-btn sticky-btn-whatsapp"
+    >
+      <i class="fa-brands fa-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile CTA bar (optional) -->
+<div
+  v-if="showStickyActions"
+  class="sticky-contact-mobile d-flex d-lg-none"
+>
+  <!-- Call button (opens phone dialer on mobile) -->
+  <a
+    :href="callLink"
+    class="mobile-btn mobile-btn-primary"
+  >
+    <i class="fa-solid fa-phone"></i>
+    <div class="mobile-btn-text">
+      <span class="mobile-btn-label">
+        Call for more information
+      </span>
+      <span class="mobile-btn-subtitle">
+        {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
+      </span>
+    </div>
+  </a>
+
+  <!-- WhatsApp button -->
+  <a
+    :href="whatsappLink"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mobile-btn mobile-btn-whatsapp"
+  >
+    <i class="fa-brands fa-whatsapp"></i>
+    <div class="mobile-btn-text">
+      <span class="mobile-btn-label">
+        WhatsApp enquiry
+      </span>
+      <span class="mobile-btn-subtitle">
+        {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
+      </span>
+    </div>
+  </a>
+</div>
 
 
 </div>
@@ -306,95 +454,312 @@
         </div>
     </div>
 
-    <div class="container summary">
-        <h1 class="fw-bold text-start">Vehicle summary</h1>
-        <div class="summary-grid">
-            <div class="summary-item">
-                <span class="label">Vehicle Name</span>
-                <span class="value">{{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Make</span>
-                <span class="value">{{ vehicle.manufacture.title }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Vehicle type</span>
-                <span class="value">{{ vehicle.vehicle_type.title }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Condition</span>
-                <span class="value">{{ vehicle.condition }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Fuel</span>
-                <span class="value">{{ vehicle.fuel_type }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Vehicle Seats</span>
-                <span class="value">{{ vehicle.seats }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Vehicle Doors</span>
-                <span class="value">{{ vehicle.doors }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Ex Color</span>
-                <span class="value">{{ vehicle.ex_color.name }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Transmission</span>
-                <span class="value">{{ vehicle.transmission }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">In Color</span>
-                <span class="value">{{ vehicle.in_color.name }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Chassis ID</span>
-                <span class="value">{{ vehicle.chassis_no }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Passengers</span>
-                <span class="value">{{ vehicle.passengers }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Engine CC</span>
-                <span class="value">{{ vehicle.engine_capacity }}CC</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Drive Type</span>
-                <span class="value">{{ vehicle.drive_type }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Auction Grade</span>
-                <span class="value">{{ vehicle.auction_grade }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Year</span>
-                <span class="value">{{ vehicle.year }}</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Mileage</span>
-                <span class="value">{{ vehicle.mileage }}KM</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">Availability</span>
-                <span class="value" :class="availabilityColor(vehicle.availability)">{{ vehicle.availability
-                }}</span>
-            </div>
-        </div>
-
-        <div class="description">
-            <h1 class="fw-bold text-start">Description</h1>
-            <div id="interiorFeatures" class="accordion-collapse">
-                <div class="accordion-body">
-                    <ul class="list-unstyled">
-                        <li v-html="$page.props.vehicle.editorContent"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <!-- Vehicle Specifications / Summary -->
+<div class="container summary">
+  <!-- Section header like TSX version -->
+  <div class="summary-header">
+    <div class="summary-header-accent"></div>
+    <div>
+      <h2 class="summary-title">Vehicle Specifications</h2>
+      <p class="summary-subtitle">Complete details about this vehicle</p>
     </div>
+  </div>
+
+  <!-- Cards grid -->
+  <div class="summary-grid">
+    <!-- Vehicle Name -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-car-side"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Vehicle Name</p>
+          <p class="summary-value">
+            {{ vehicle.manufacture.title }} {{ vehicle.vehicle_model.title }}
+          </p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Make -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-industry"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Make</p>
+          <p class="summary-value">{{ vehicle.manufacture.title }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Vehicle type -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-car"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Vehicle Type</p>
+          <p class="summary-value">{{ vehicle.vehicle_type.title }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Condition -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-award"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Condition</p>
+          <p class="summary-value">{{ vehicle.condition }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Fuel -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-gas-pump"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Fuel</p>
+          <p class="summary-value">{{ vehicle.fuel_type }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Vehicle Seats -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Vehicle Seats</p>
+          <p class="summary-value">{{ vehicle.seats }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Vehicle Doors -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-door-open"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Vehicle Doors</p>
+          <p class="summary-value">{{ vehicle.doors }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Ex Color -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Ex Color</p>
+          <p class="summary-value">{{ vehicle.ex_color.name }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Transmission -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-gear"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Transmission</p>
+          <p class="summary-value">{{ vehicle.transmission }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- In Color -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">In Color</p>
+          <p class="summary-value">{{ vehicle.in_color.name }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Chassis ID -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-hashtag"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Chassis ID</p>
+          <p class="summary-value">{{ vehicle.chassis_no }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Passengers -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-user-group"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Passengers</p>
+          <p class="summary-value">{{ vehicle.passengers }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Engine CC -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-gauge-high"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Engine CC</p>
+          <p class="summary-value">{{ vehicle.engine_capacity }}CC</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Drive Type -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-compass"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Drive Type</p>
+          <p class="summary-value">{{ vehicle.drive_type }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Auction Grade -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-award"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Auction Grade</p>
+          <p class="summary-value">{{ vehicle.auction_grade }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Year -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-calendar-days"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Year</p>
+          <p class="summary-value">{{ vehicle.year }}</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Mileage -->
+    <div class="summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i class="fa-solid fa-road"></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Mileage</p>
+          <p class="summary-value">{{ vehicle.mileage }}KM</p>
+        </div>
+      </div>
+      <div class="summary-accent-line"></div>
+    </div>
+
+    <!-- Availability (special coloured card) -->
+    <div
+      class="summary-card summary-card-availability"
+      :class="{
+        'available-status': vehicle.availability === 'Available',
+        'arriving-status': vehicle.availability === 'Arriving',
+        'sold-status': vehicle.availability === 'Sold'
+      }"
+    >
+      <div class="summary-card-inner">
+        <div class="summary-icon">
+          <i
+            class="fa-solid"
+            :class="{
+              'fa-circle-check': vehicle.availability === 'Available',
+              'fa-clock': vehicle.availability === 'Arriving',
+              'fa-circle-xmark': vehicle.availability === 'Sold'
+            }"
+          ></i>
+        </div>
+        <div class="summary-text">
+          <p class="summary-label">Availability</p>
+          <div class="summary-availability-row">
+            <span
+              class="summary-availability-dot"
+              :class="{
+                'available-dot': vehicle.availability === 'Available',
+                'arriving-dot': vehicle.availability === 'Arriving',
+                'sold-dot': vehicle.availability === 'Sold'
+              }"
+            ></span>
+            <p class="summary-value mb-0">
+              {{ vehicle.availability }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- keep your description section as it is -->
+  <div class="description">
+    <h1 class="fw-bold text-start">Description</h1>
+    <div id="interiorFeatures" class="accordion-collapse">
+      <div class="accordion-body">
+        <ul class="list-unstyled">
+          <li v-html="$page.props.vehicle.editorContent"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- Similar Cars -->
     <div class="container section mt-4 px-3 px-sm-4" v-if="randomVehicles">
@@ -419,37 +784,51 @@
                                     <circle cx="8.5" cy="8.5" r="1.5" />
                                     <path d="M20.4 14.5L16 10 4 20" />
                                 </svg>
-                                
+
                                 <span>{{ car.media.length }}</span>
                             </div>
                         </div>
 
                         <!-- CARD CONTENT -->
                         <div class="card-content">
-                            <div class="price-section">
-                                <div class="price-left">
-                                    <span class="label">From</span>
-                                    <span class="price">${{ car.monthly_payment || car.price || 'N/A' }}</span>
-                                    <span class="price-note">
-                                        {{ car.priceNote || "Per Month (Inc. VAT)" }}
-                                    </span>
-                                    <p class="mb-0">${{ car.initial_payment?.toLocaleString() || 'N/A' }} Initial
-                                        Payment</p>
-                                </div>
-                                <div class="price-right">
-                                    <div class="detail-item1">{{ car.engine_capacity || 'N/A' }}CC</div>
-                                    <div class="detail-item1">
-                                        {{ car.year || 'N/A' }} RegYear
-                                    </div>
-                                    <div class="detail-item1">
-                                        <template v-if="car.used_status === 'Used'">{{ car.mileage || 'N/A' }} Miles
-                                            P/A</template>
-                                        <template v-else>
-                                            <span style="color: green;">BRAND NEW</span>
-                                        </template>
-                                    </div>
-                                </div>
-                            </div>
+ <div class="price-section">
+  <div class="price-left">
+    <!-- Top label -->
+    <div class="card-price-label">Price</div>
+
+    <!-- Main price line -->
+    <div class="card-price-main">
+      <span class="card-price-amount">
+        {{ car.price ? Number(car.price).toLocaleString() : 'N/A' }}
+      </span>
+      <span class="card-price-currency">
+        {{ (car.price_currency || car.monthly_price_currency) === 'USD' ? 'USD' : 'LKR' }}
+      </span>
+    </div>
+
+    <!-- “includes VAT” line -->
+    <div class="card-price-note">
+      Price includes VAT
+    </div>
+  </div>
+
+  <div class="price-right">
+    <div class="detail-item1">{{ car.engine_capacity || 'N/A' }}CC</div>
+    <div class="detail-item1">
+      {{ car.year || 'N/A' }} RegYear
+    </div>
+    <div class="detail-item1">
+      <template v-if="car.used_status === 'Used'">
+        {{ car.mileage || 'N/A' }} Miles P/A
+      </template>
+      <template v-else>
+        <span style="color: green;">BRAND NEW</span>
+      </template>
+    </div>
+  </div>
+</div>
+
+
 
                             <!-- CAR DETAILS -->
                             <div class="car-details">
@@ -531,6 +910,10 @@ export default {
             isGalleryOpen: false,
             galleryIndex: 0,
             mainImageLoaded: false,
+             showStickyActions: false,
+               whatsappNumber: "+94766349340",
+                   callNumber: "+94766349340",
+
             thumbLoaded: {},
             form: useForm({
                 vehicle_name:
@@ -579,9 +962,22 @@ export default {
         };
     },
     mounted() {
-        console.log(this.$refs.thumbsSwiper);
-    },
+  // existing console.log if you want to keep it
+  console.log(this.$refs.thumbsSwiper);
+
+  window.addEventListener("scroll", this.handleScroll);
+  this.handleScroll();
+},
+unmounted() {
+  window.removeEventListener("scroll", this.handleScroll);
+},
+
     methods: {
+        handleScroll() {
+    const y = window.scrollY || window.pageYOffset;
+    // adjust 400 to where you want the box to appear
+    this.showStickyActions = y > 400;
+  },
         // setMainImage(index) {
         //     this.currentThumbIndex = index;
         //     this.$nextTick(() => {
@@ -670,7 +1066,7 @@ export default {
     this.currentThumbIndex = swiper.realIndex
   },
 
-  
+
   openGrid() { this.isGridOpen = true },
     handleGridSelect(i) { this.openGallery(i + 1) },
     openGallery(startIdx) {
@@ -683,12 +1079,47 @@ export default {
     closeGallery() { this.isGalleryOpen = false },
     onMainLoad() { this.mainImageLoaded = true },
     onThumbLoad(idx) { this.$set(this.thumbLoaded, idx, true) },
-  
 
 
-  
+
+
     },
     computed: {
+         callLink() {
+    return `tel:${this.callNumber}`;
+  },
+         whatsappLink() {
+    // 1. base URL
+    const base = `https://wa.me/${this.whatsappNumber}`;
+
+    // 2. build message with vehicle details
+    const name =
+      `${this.vehicle.manufacture?.title || ""} ` +
+      `${this.vehicle.vehicle_model?.title || ""} ` +
+      `${this.vehicle.ex_color?.name || ""}`.trim();
+
+    const price =
+      this.vehicle.monthly_price &&
+      `${this.vehicle.monthly_price_currency === "USD" ? "$" : "LKR "}${
+        Number(this.vehicle.monthly_price || 0).toLocaleString()
+      }`;
+
+    const url = this.form.vehicle_url;
+
+    const textLines = [
+      "Hi, I’m interested in this vehicle:",
+      name,
+      price ? `Monthly price: ${price}` : "",
+      url ? `Link: ${url}` : "",
+      "",
+      "Could you send me more information?",
+    ].filter(Boolean);
+
+    const text = textLines.join("\n");
+
+    // 3. URL encode message
+    return `${base}?text=${encodeURIComponent(text)}`;
+  },
         // thumbnailImages() {
         // return this.vehicle.media.filter(
         // img => img.custom_properties?.type === "vehicle_gallery"
@@ -713,8 +1144,8 @@ export default {
             const gallery = this.vehicle.media.filter(m => m.custom_properties?.type === 'vehicle_gallery')
             return main ? [main, ...gallery] : gallery
     }
-            
-        
+
+
 
   },
 };
@@ -894,13 +1325,13 @@ export default {
 
 
 /* Summary Section */
-.summary {
+/* .summary {
     max-width: 1400px;
     margin: 20px auto;
     background-color: rgb(255, 255, 255);
     padding: 30px;
     border-radius: 8px;
-}
+} */
 
 h1 {
     font-size: 32px;
@@ -908,22 +1339,22 @@ h1 {
     margin-bottom: 30px;
 }
 
-.summary-grid {
+/* .summary-grid {
     font-size: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-bottom: 40px;
-}
+} */
 
-.summary-item {
+/* .summary-item {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
-}
+} */
 
-.label {
+/* .label {
     font-size: 20px;
     color: #333;
     font-weight: 500;
@@ -949,6 +1380,225 @@ h1 {
     font-size: 20px;
     margin-bottom: 20px;
     color: #333;
+} */
+/* Summary Section – card layout like TSX component */
+.summary {
+  max-width: 1400px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+/* Header with accent bar */
+.summary-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-header-accent {
+  width: 6px;
+  height: 48px;
+  border-radius: 999px;
+  background:linear-gradient(90deg,#0d1b2a,#273b51,#222b35);
+}
+
+.summary-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.summary-subtitle {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Cards grid */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Individual card */
+.summary-card {
+  position: relative;
+  background-color: #f9fafb;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 18px 20px;
+  transition: all 0.25s ease;
+}
+
+.summary-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  border-color: #0ea5e9;
+}
+
+/* Icon bubble */
+.summary-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e7eb;
+  color: #4b5563;
+  flex-shrink: 0;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.summary-icon i {
+  font-size: 1.2rem;
+}
+
+.summary-card:hover .summary-icon {
+  background-color: rgba(14, 165, 233, 0.1);
+  color: #0ea5e9;
+}
+
+/* Label + value */
+.summary-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  margin: 0;
+}
+
+.summary-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 2px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hover accent line at bottom */
+.summary-accent-line {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    rgba(14, 165, 233, 0),
+    rgba(14, 165, 233, 0.6),
+    rgba(14, 165, 233, 0)
+  );
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.25s ease;
+}
+
+.summary-card:hover .summary-accent-line {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Availability special styling */
+.summary-card-availability {
+  border-width: 2px;
+}
+
+.summary-card-availability.available-status {
+  background: rgba(22, 163, 74, 0.06);
+  border-color: rgba(22, 163, 74, 0.5);
+  color: #14532d;
+}
+
+.summary-card-availability.arriving-status {
+  background: rgba(234, 179, 8, 0.06);
+  border-color: rgba(234, 179, 8, 0.5);
+  color: #854d0e;
+}
+
+.summary-card-availability.sold-status {
+  background: rgba(248, 113, 113, 0.06);
+  border-color: rgba(248, 113, 113, 0.5);
+  color: #7f1d1d;
+}
+
+.summary-card-availability .summary-label,
+.summary-card-availability .summary-value {
+  color: inherit;
+}
+
+/* Availability dot + text row */
+.summary-availability-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.summary-availability-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  animation: summaryDotPulse 1.5s infinite;
+}
+
+.summary-availability-dot.available-dot {
+  background-color: #22c55e;
+}
+
+.summary-availability-dot.arriving-dot {
+  background-color: #eab308;
+}
+
+.summary-availability-dot.sold-dot {
+  background-color: #ef4444;
+}
+
+@keyframes summaryDotPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.5;
+  }
+}
+
+/* Description block under cards */
+.description {
+  margin-top: 32px;
+}
+
+/* Responsive cols for summary grid */
+@media (max-width: 992px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .summary {
+    padding: 20px 16px;
+  }
+  .summary-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .car-details h3 {
@@ -1207,10 +1857,10 @@ h1 {
         font-size: 1.1rem;
         padding: 0.5rem;
     }
-
+/*
     .summary-grid {
         grid-template-columns: 1fr;
-    }
+    } */
 
     .summary-item {
         grid-template-columns: 1fr 1fr;
@@ -1276,14 +1926,14 @@ h1 {
         padding: 0.5rem;
     }
 
-    .summary-grid {
+    /* .summary-grid {
         gap: 15px;
-    }
+    } */
 
-    .summary-item {
+    /* .summary-item {
         grid-template-columns: 1fr;
         text-align: left;
-    }
+    } */
 
     .label,
     .value {
@@ -1434,18 +2084,158 @@ h1 {
 
 
 
-.breadcrumbs { font-size:1.1rem; color:#666; margin-bottom:1rem; }
+/* .breadcrumbs { font-size:1.1rem; color:#666; margin-bottom:1rem; }
 .breadcrumbs a { color:#666; text-decoration:none; }
-.breadcrumbs .current { font-weight:500; color:#333; }
+.breadcrumbs .current { font-weight:500; color:#333; } */
 
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #9ca3af; /* light grey like design */
+}
+
+/* Home icon */
+.breadcrumb-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-home i {
+  font-size: 0.95rem;
+}
+
+.breadcrumb-home:hover {
+  color: #111827;
+}
+
+/* “>” separators */
+.breadcrumb-separator {
+  font-size: 0.75rem;
+  color: #91959c; /* very light grey */
+}
+
+/* Intermediate links (Vehicles / SUV) */
+.breadcrumb-link {
+  color:black; /* link blue */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #1d4ed8;
+}
+
+/* Current page */
+.breadcrumb-current {
+  color: #111827;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+/* Detail pills (Year / Mileage / Fuel / Transmission / Seats) */
 .details-grid {
-  display:flex; flex-wrap:wrap; gap:.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 0.25rem;
 }
+
 .detail-item {
-  background:linear-gradient(90deg,#0d1b2a,#273b51,#222b35);
-  color:#fff; padding:.5rem 1rem; border-radius:20px;
-  display:flex; align-items:center; gap:.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
 }
+
+.detail-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  border-color: #22c55e;
+}
+
+/* Icon circle */
+.detail-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f7ff;
+  color: #00bcd4;
+  flex-shrink: 0;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.detail-icon i {
+  font-size: 1rem;
+}
+
+.detail-item:hover .detail-icon {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+/* Text (label + value) */
+.detail-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #020617;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .detail-item {
+    padding: 8px 14px;
+  }
+  .detail-value {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .details-grid {
+    gap: 8px;
+  }
+  .detail-item {
+    padding: 8px 12px;
+  }
+  .detail-label {
+    font-size: 9px;
+  }
+  .detail-value {
+    font-size: 0.85rem;
+  }
+}
+
 
 .main-image-container { position:relative; width:100%; height:100%; overflow:hidden; }
 .main-image { width:100%; height:100%; object-fit:cover; border-radius:1rem 0 0 1rem; }
@@ -1507,25 +2297,32 @@ h1 {
 
 
 
-.vehicle-title {
-  font-size: 2.5rem;    
-  font-weight: 700;     
-}
 
 
 .main-price {
-  font-size: 2rem;     
-  font-weight: 800;     
-}
-@media (max-width: 768px) {
-  .vehicle-title { font-size: 2rem; }
-  .main-price    { font-size: 2.5rem; }
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem;
+  font-weight: 800;
+  font-size: 2.4rem;
 }
 
-@media (max-width: 576px) {
-  .vehicle-title { font-size: 1.8rem; }
-  .main-price    { font-size: 2rem; }
+/* Large numeric part */
+.main-price-amount {
+  line-height: 1;
 }
+
+/* Smaller currency label (LKR / USD) */
+.main-price-currency {
+  font-size: 1rem;          /* smaller than the amount */
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #6b7280;           /* slightly muted */
+}
+
+
+
 
 
 /* keep label + value on one row at mobile */
@@ -1564,12 +2361,7 @@ h1 {
 
 /* tablets */
 @media (max-width: 768px) {
-  .vehicle-title {
-    font-size: 2rem;
-  }
-  .main-price {
-    font-size: 1.8rem;
-  }
+ 
   .details-grid .detail-item {
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
@@ -1582,14 +2374,92 @@ h1 {
   }
 }
 
+/* base desktop */
+.vehicle-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* tablets */
+@media (max-width: 768px) {
+  .vehicle-title {
+    font-size: 1.4rem;   /* was 2rem */
+    line-height: 1.2;
+  }
+  .main-price {
+    font-size: 1.2rem;   /* was 1.8rem */
+  }
+   .main-price-currency {
+    font-size: 0.7rem;   /* even smaller on phones */
+  }
+   .breadcrumbs {
+    font-size: 0.7rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.8rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.7rem;
+  }
+}
+@media (min-width: 800px) and (max-width: 1367px) {
+  .vehicle-title {
+    font-size: 1.7rem;   /* you can bump to 1.6rem if you want */
+    line-height: 1.2;
+  }
+  .main-price {
+    font-size: 1.4rem;   /* or 1.4rem if you want slightly bigger */
+  }
+  .main-price-currency {
+    font-size: 0.7rem;
+  }
+   .breadcrumbs {
+    font-size: 0.7rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.8rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.7rem;
+  }
+}
+
+
 /* phones */
 @media (max-width: 576px) {
   .vehicle-title {
-    font-size: 1.6rem;
+    font-size: 1.1rem;   /* was 1.6rem */
+    line-height: 1.2;
   }
   .main-price {
-    font-size: 1.6rem;
+    font-size: 1.1rem;   /* was 1.6rem */
   }
+   .main-price-currency {
+    font-size: 0.6rem;   /* even smaller on phones */
+  }
+   .breadcrumbs {
+    font-size: 0.5rem;   /* was 0.85rem */
+    gap: 4px;
+  }
+  .breadcrumb-home i {
+    font-size: 0.5rem;   /* icon smaller */
+  }
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.5rem;
+  }
+}
+
+
+
+
+/* phones */
+@media (max-width: 576px) {
+ 
   .details-grid .detail-item {
     font-size: 0.7rem;
     padding: 0.3rem 0.6rem;
@@ -1621,9 +2491,9 @@ h1 {
   background-color: rgb(208, 204, 204);
   color: #003366;
   font-weight: 600;
-  border-radius: 50%;        
- 
-  display: flex;             
+  border-radius: 50%;
+
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 14px;
@@ -1634,5 +2504,212 @@ h1 {
   font-size: 18px;
 }
 
+/* Desktop sticky contact box */
+.sticky-contact-box {
+  position: fixed;
+  top: 150px;        /* how far from top */
+  right: 24px;       /* how far from right */
+  z-index: 1050;
+  width: 260px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
+}
+
+.sticky-contact-header {
+  margin-bottom: 10px;
+}
+
+.sticky-title {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sticky-subtitle {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.sticky-contact-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sticky-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.sticky-btn i {
+  font-size: 1rem;
+}
+
+.sticky-btn-primary {
+  background: #111827;
+  color: #ffffff;
+}
+
+.sticky-btn-primary:hover {
+  background: #000000;
+}
+
+.sticky-btn-whatsapp {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+.sticky-btn-whatsapp:hover {
+  background: #16a34a;
+}
+
+/* Mobile bottom bar */
+.sticky-contact-mobile {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 1050;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+  padding: 6px;
+  gap: 6px;
+}
+
+.mobile-btn {
+  flex: 1;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  text-decoration: none;
+}
+
+.mobile-btn-primary {
+  background: #111827;
+  color: #ffffff;
+}
+
+.mobile-btn-whatsapp {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+/* Hide desktop box on small screens (we already have mobile bar) */
+@media (max-width: 991px) {
+  .sticky-contact-box {
+    display: none !important;
+  }
+}
+.mobile-btn-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.mobile-btn-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.mobile-btn-subtitle {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+/* slightly tighter layout on very small phones */
+@media (max-width: 480px) {
+  .mobile-btn-label {
+    font-size: 0.8rem;
+  }
+  .mobile-btn-subtitle {
+    font-size: 0.65rem;
+  }
+}
+.card-price {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.card-price .price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #000;
+  line-height: 1;
+}
+
+.price-currency {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #6b7280;
+  line-height: 1.2;
+}
+.card-price-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.card-price-main {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.card-price-amount {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #000;
+  line-height: 1;
+}
+
+.car-name {
+  font-size: 1rem;        /* smaller than default h2 */
+  font-weight: 600;       /* still a bit bold */
+  line-height: 1.3;
+  margin-bottom: 0.15rem; /* tighter spacing */
+}
+@media (max-width: 768px) {
+  .car-name {
+    font-size: 0.9rem;
+  }
+}
+
+
+.card-price-currency {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #6b7280;
+  line-height: 1.1;
+}
+
+.card-price-note {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 2px;
+}
 
 </style>
