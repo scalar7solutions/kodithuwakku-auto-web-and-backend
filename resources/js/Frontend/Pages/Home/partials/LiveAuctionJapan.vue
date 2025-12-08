@@ -20,6 +20,7 @@
       </div>
     </div>
 
+    
     <div class="car-grid">
       <div
         class="car-card"
@@ -27,7 +28,7 @@
         :key="car.ID || i"
       >
         <Link :href="route('live.auction.show', { id: car.ID })" class="card">
-          
+
         <div class="image-wrapper">
           <img
             v-if="car.IMAGES"
@@ -110,8 +111,8 @@ export default {
         data: { tabBrand: brand }
       })
     },
-     
-  
+
+
   },
   computed: {
     displayedVehicles() {
@@ -181,7 +182,7 @@ export default {
   position: relative;
   width: 100%;
   height: 250px;
-  background-color: #f7fafc;   
+  background-color: #f7fafc;
   overflow: hidden;
 }
 
@@ -190,7 +191,7 @@ export default {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;           
+  object-fit: cover;
 }
 
 
@@ -247,8 +248,8 @@ export default {
 .row.row-3 {
   display: grid;
   grid-template-columns: auto auto;
-  align-items: start;        
-  padding: 0.75rem 1rem;      
+  align-items: start;
+  padding: 0.75rem 1rem;
 }
 
 
@@ -262,14 +263,14 @@ export default {
 
 .row.row-2 > .detail-block:nth-child(2),
 .row.row-3 > .detail-block:nth-child(2) {
-  justify-self: end;      
-  align-items: flex-end; 
-  text-align: right;    
+  justify-self: end;
+  align-items: flex-end;
+  text-align: right;
 }
 
 
 .row.row-1 {
- 
+
   justify-content: flex-start;
   gap: 0.5rem;
 }

@@ -5,14 +5,21 @@
     <div class="app-brand demo justify-content-center">
       <a href="/admin" class="app-brand-link" style="justify-content: center">
         <span class="app-brand-logo demo" style="justify-content: center">
-          <img :src="$page.props.app_logo ? $page.props.app_logo : '/assets/images/jpnauto3.png'" alt="" style="height: 100px; width: auto" />
+          <img :src="$page.props.app_logo ? $page.props.app_logo : '/public/images/Assets/kodithuwakku.jpg'" alt="" style="height: 100px; width: auto" />
         </span>
         <span class="app-brand-text demo menu-text fw-bolder ms-2"></span>
       </a>
 
-      <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-      </a>
+    <a
+  href="javascript:void(0);"
+  @click.prevent="toggleMenu"
+>
+  <i
+    class="bx bx-sm align-middle"
+    :class="isCollapsed ? '' : ''"
+  ></i>
+</a>
+
     </div>
 
     <div class="menu-inner-shadow"></div>
@@ -33,17 +40,17 @@
           'inquiry.edit'
         ])
       }" v-if="$root.hasPermission('inquiry.view') && !$page.props.branch">
-        <Link :href="route('inquiry.index')" class="menu-link">
+        <!-- <Link :href="route('inquiry.index')" class="menu-link">
         <i class="menu-icon tf-icons bx bx-mail-send"></i>
         <div data-i18n="Inquiry">Inquiry</div>
-        </Link>
+        </Link> -->
       </li>
       <!-- Media Library -->
       <li class="menu-item" v-bind:class="{ active: addActiveClass(['media.index']) }"
         v-if="$root.hasPermission('media.view') && !$page.props.branch">
         <Link :href="route('media.index', { c: 'default' })" class="menu-link">
         <i class="menu-icon tf-icons bx bx-photo-album"></i>
-        <div data-i18n="Medai Library">Medai Library</div>
+        <div data-i18n="Medai Library">Media Library</div>
         </Link>
       </li>
 
@@ -256,11 +263,11 @@
         'system-setting.view',
         'currencies.view'
       ])">
-        <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <!-- <a href="javascript:void(0)" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-traffic-cone"></i>
 
           <div data-i18n="Other_CMS">Other CMS</div>
-        </a>
+        </a> -->
 
         <ul class="menu-sub">
           <li class="menu-item" v-bind:class="{
@@ -366,6 +373,23 @@
         <div data-i18n="Country">Country</div>
         </Link>
       </li>
+
+      <li
+  class="menu-item"
+  v-bind:class="{
+    active: addActiveClass([
+      'ourcustomer.index',
+      'ourcustomer.create',
+      'ourcustomer.edit'
+    ])
+  }"
+  v-if="$root.hasPermission('ourcustomer.view') && !$page.props.branch"
+>
+   <Link :href="route('ourcustomer.index')" class="menu-link">
+    <i class="menu-icon tf-icons bx bx-group"></i>
+    <div data-i18n="Our Customers">Our Customers</div>
+  </Link>
+</li>
       <!-- Affiliate Config-->
       <!-- <li class="menu-item" v-bind:class="{
         active: addActiveClass([
@@ -414,9 +438,9 @@
               'settings.users.edit',
             ]),
           }" v-if="$root.hasPermission('backend-user.view')">
-            <Link :href="route('settings.users')" class="menu-link">
+            <!-- <Link :href="route('settings.users')" class="menu-link">
             <div data-i18n="Backend Users">Backend Users</div>
-            </Link>
+            </Link> -->
           </li>
           <li class="menu-item" v-bind:class="{
             active: addActiveClass([
@@ -426,9 +450,9 @@
               'settings.roles.permissions',
             ]),
           }" v-if="$root.hasPermission('roles-permissions.view')">
-            <Link :href="route('settings.roles')" class="menu-link">
+            <!-- <Link :href="route('settings.roles')" class="menu-link">
             <div data-i18n="Roles & Permissions">Roles & Permissions</div>
-            </Link>
+            </Link> -->
           </li>
           <li class="menu-item" v-bind:class="{
             active: addActiveClass(['settings.general']),
@@ -437,13 +461,13 @@
             <div data-i18n="General Settings">General Settings</div>
             </Link>
           </li>
-          <li class="menu-item" v-bind:class="{
+          <!-- <li class="menu-item" v-bind:class="{
             active: addActiveClass(['settings.social-auth']),
           }" v-if="$root.hasPermission('system-setting.view')">
             <Link :href="route('settings.social-auth')" class="menu-link">
             <div data-i18n="Social Auth Settings">Social Auth Settings</div>
             </Link>
-          </li>
+          </li> -->
           <li class="menu-item" v-bind:class="{
             active: addActiveClass(['currencies.index']),
           }" v-if="$root.hasPermission('currencies.view')">
@@ -451,13 +475,13 @@
             <div data-i18n="Currencies">Currencies</div>
             </Link>
           </li>
-          <li class="menu-item" v-bind:class="{
+          <!-- <li class="menu-item" v-bind:class="{
             active: addActiveClass(['settings.mail']),
           }" v-if="$root.hasPermission('system-setting.view')">
             <Link :href="route('settings.mail')" class="menu-link">
             <div data-i18n="Mail Settings">Mail Settings</div>
             </Link>
-          </li>
+          </li> -->
         </ul>
       </li>
 
@@ -470,10 +494,10 @@
 </template>
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
+import PerfectScrollbar from "perfect-scrollbar";
+
 export default {
-  components: {
-    Link,
-  },
+  components: { Link },
   data() {
     return {
       showingNavigationDropdown: false,
@@ -481,27 +505,72 @@ export default {
       collapsed: false,
       hidden: true,
       currentRoute: "",
+      isCollapsed: false,
+      openSubmenus: {},
     };
   },
+
   mounted() {
     new PerfectScrollbar(".menu-inner", {
       wheelPropagation: false,
       wheelSpeed: 0.5,
     });
+
+    // make sure it starts closed on mobile
+    this.closeMenuOnMobile();
   },
+
+  watch: {
+    // this changes on every Inertia navigation
+    '$page.url'() {
+      this.closeMenuOnMobile();
+    },
+  },
+
   methods: {
     addActiveClass(routes) {
-      if (routes.includes(route().current())) {
-        return true;
+      return routes.includes(route().current());
+    },
+
+    hasAnyPermission(permissions) {
+      return permissions.some((p) => this.$root.hasPermission(p));
+    },
+
+    toggleMenu() {
+      const body = document.body;
+      this.isCollapsed = !this.isCollapsed;
+
+      if (window.innerWidth >= 1200) {
+        // desktop – collapse / expand
+        body.classList.toggle("layout-menu-collapsed", this.isCollapsed);
       } else {
-        return false;
+        // mobile – overlay open / close
+        const open = !this.isCollapsed;
+        body.classList.toggle("layout-menu-open", open);
+        body.classList.toggle("layout-menu-expanded", open);
       }
     },
-    hasAnyPermission(permissions) {
-    return permissions.some(permission => this.$root.hasPermission(permission));
-  }
+
+    // called after every Inertia navigation
+    closeMenuOnMobile() {
+      if (window.innerWidth < 1200) {
+        const body = document.body;
+        this.isCollapsed = true;
+        body.classList.remove("layout-menu-open", "layout-menu-expanded");
+      }
+    },
+
+    toggleSubmenu(key) {
+      this.openSubmenus[key] = !this.openSubmenus[key];
+    },
+
+    isSubmenuOpen(key, routes) {
+      return !!this.openSubmenus[key] || this.addActiveClass(routes);
+    },
   },
 };
+
+
 </script>
 
 <style>

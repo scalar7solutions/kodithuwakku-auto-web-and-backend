@@ -24,6 +24,8 @@ use App\Http\Controllers\VehicleColorController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleModelController;
 use App\Http\Controllers\VehicleTypeController;
+use App\Http\Controllers\OurCustomerController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -315,4 +317,44 @@ Route::group(['middleware' => ['auth:sanctum', 'verified', 'web']], function () 
         Route::put('/update/password', [FrontendUserController::class, 'updatePassword'])->middleware(['can:frontend-user.edit'])->name('settings.front-user.change.password');
         Route::post('/delete', [FrontendUserController::class, 'destroy'])->middleware(['can:frontend-user.delete'])->name('settings.front-user.delete');
     });
+
+    // Our Customers
+    Route::prefix('ourcustomer')->group(function () {
+        Route::get('/ourcustomer', [OurCustomerController::class, 'index'])
+            ->middleware(['can:ourcustomer.view'])
+            ->name('ourcustomer.index');
+
+        Route::get('/get/data', [OurCustomerController::class, 'getData'])
+            ->middleware(['can:ourcustomer.view'])
+            ->name('ourcustomer.getdata');
+
+        Route::get('/create', [OurCustomerController::class, 'create'])
+            ->middleware(['can:ourcustomer.create'])
+            ->name('ourcustomer.create');
+
+        Route::post('/store', [OurCustomerController::class, 'store'])
+            ->middleware(['can:ourcustomer.create'])
+            ->name('ourcustomer.store');
+
+        Route::put('/update/status', [OurCustomerController::class, 'updateStatus'])
+            ->middleware(['can:ourcustomer.edit'])
+            ->name('ourcustomer.change.status');
+
+        Route::get('/edit/{id}', [OurCustomerController::class, 'edit'])
+            ->middleware(['can:ourcustomer.edit'])
+            ->name('ourcustomer.edit');
+
+        Route::post('/update', [OurCustomerController::class, 'update'])
+            ->middleware(['can:ourcustomer.edit'])
+            ->name('ourcustomer.update');
+
+        Route::post('/delete', [OurCustomerController::class, 'destroy'])
+            ->middleware(['can:ourcustomer.delete'])
+            ->name('ourcustomer.delete');
+
+        Route::post('/remove-image', [OurCustomerController::class, 'removeImage'])
+            ->middleware(['can:ourcustomer.edit'])
+            ->name('ourcustomer.image.remove');
+    });
+
 });

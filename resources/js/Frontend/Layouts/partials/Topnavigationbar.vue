@@ -9,9 +9,9 @@
               :href="route('available', { countrySlug: country.name.toLowerCase().replace(/\s+/g, '-') })"
               preserve-state preserve-scroll style="font-size: 15px;" @click="selectCountry(country)"
               :class="{ 'active': selectedCountry && selectedCountry.id === country.id }">
-            <img :src="country?.media?.length > 0 ? country?.media[0].original_url : ''" height="50" width="50"
-              class="ps-0" :alt="`${country.name} Flag`" />
-            <span>{{ country.name }}</span>
+              <img :src="country?.media?.length > 0 ? country?.media[0].original_url : ''" height="50" width="50"
+                class="ps-0" :alt="`${country.name} Flag`" />
+              <span>{{ country.name }}</span>
             </Link>
 
           </template>
@@ -60,9 +60,9 @@
 
 
       <div class="user-dropdown mobile-only">
-        <button class="user-btn" @click="toggleUserMenu" aria-label="User menu">
+        <!-- <button class="user-btn" @click="toggleUserMenu" aria-label="User menu">
           <i class="fa-solid fa-user"></i>
-        </button>
+        </button> -->
         <div v-if="isUserMenuOpen" class="user-menu">
           <ul>
             <li v-if="!$page.props.logged_customer">
@@ -83,9 +83,13 @@
 
 
       <div class="header-container">
-        <!-- Hamburger stays where it is -->
-        <button class="hamburger" @click="toggleMenu">
-
+        <!-- Hamburger -->
+        <button
+          class="hamburger"
+          :class="{ open: isMenuOpen }"
+          @click="toggleMenu"
+          aria-label="Toggle navigation menu"
+        >
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
@@ -93,26 +97,33 @@
 
         <nav class="main-nav" :class="{ 'active': isMenuOpen }">
           <button class="close-btn" @click="toggleMenu" aria-label="Close menu">
-            <i class="fa-solid fa-times"></i>
+            <!-- <i class="fa-solid fa-times"></i> -->
           </button>
           <!-- Logo in the exact center of the nav -->
           <Link :href="route('index')" class="logo">
-            <img src="https://jpnauto.com/images/Assets/1000423913%20(1)1.webp" alt="Kobe Auto" />
+            <img src="https://kodithuwakkuauto.com/images/logokodi.png" alt=" Auto" />
           </Link>
           <div class="nav-links">
             <Link @click="refreshLayout" :href="route('index')"       :class="{ active: route().current('index') }">Home</Link>
             <Link @click="refreshLayout" :href="route('available')"   :class="{ active: route().current('available') }">Find Car</Link>
             <!-- <Link @click="refreshLayout" :href="route('live.auction')" :class="{ active: route().current('live.auction') }">Live Auction</Link> -->
             <Link @click="refreshLayout" :href="route('how.to.order')" :class="{ active: route().current('how.to.order') }">How To Order</Link>
+            <Link
+              @click="refreshLayout"
+              :href="route('our.customers')"
+              :class="{ active: route().current('our.customers') }"
+            >
+              Our Customers
+            </Link>
             <Link @click="refreshLayout" :href="route('about')"        :class="{ active: route().current('about') }">About Us</Link>
             <Link @click="refreshLayout" :href="route('contact')"      :class="{ active: route().current('contact') }">Contact</Link>
-            
+
           </div>
-          
-            <div class="header-actions d-md-none">
-              <div class="d-flex d-md-none flex-column gap-3">
-                <!-- account links -->
-                <!-- <div class="d-flex align-items ms-6 gap-4">
+
+          <div class="header-actions d-md-none">
+            <div class="d-flex d-md-none flex-column gap-3">
+              <!-- account links -->
+              <!-- <div class="d-flex align-items ms-6 gap-4">
                 <div v-if="$page.props.logged_customer">
                   <Link class="nav-link fw-bold" :href="route('profile')">
                     <i class="fa-solid fa-user me-1"></i> MY ACCOUNT
@@ -128,37 +139,40 @@
                 </div>
               </div> -->
 
-                <!-- phone -->
-                <a style="font-size: 15px;" :href="'tel:' + currentPhone">
-                  <svg class="phone-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                      d="M22 16.92V19a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.47 19.47 0 0 1-6-6A19.86 19.86 0 0 1 2 4.18 2 2 0 0 1 4 2h2.08a2 2 0 0 1 2 1.72 13.47 13.47 0 0 0 .7 2.82 2 2 0 0 1-.45 2.11L7.1 10.1a16 16 0 0 0 6 6l1.46-1.46a2 2 0 0 1 2.11-.45 13.47 13.47 0 0 0 2.82.7 2 2 0 0 1 1.71 2.03z">
-                    </path>
-                  </svg>
-                  {{ currentPhone }}
-                </a>
+              <!-- phone -->
+              <a style="font-size: 15px;" :href="'tel:' + currentPhone">
+                <svg class="phone-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M22 16.92V19a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.47 19.47 0 0 1-6-6A19.86 19.86 0 0 1 2 4.18 2 2 0 0 1 4 2h2.08a2 2 0 0 1 2 1.72 13.47 13.47 0 0 0 .7 2.82 2 2 0 0 1-.45 2.11L7.1 10.1a16 16 0 0 0 6 6l1.46-1.46a2 2 0 0 1 2.11-.45 13.47 13.47 0 0 0 2.82.7 2 2 0 0 1 1.71 2.03z">
+                  </path>
+                </svg>
+                {{ currentPhone }}
+              </a>
 
-                <!-- email -->
-                <a style="font-size: 15px;" :href="'mailto:' + currentEmail">
-                  <svg class="email-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
-                    <path d="M22 6l-10 7L2 6"></path>
-                  </svg>
-                  {{ currentEmail }}
-                </a>
-              </div>
+              <!-- email -->
+              <a style="font-size: 15px;" :href="'mailto:' + currentEmail">
+                <svg class="email-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                  <path d="M22 6l-10 7L2 6"></path>
+                </svg>
+                {{ currentEmail }}
+              </a>
             </div>
-          
+          </div>
+
         </nav>
-
-
-
       </div>
+
+      <!-- Mobile overlay behind the slide-down nav -->
+      <div
+        v-if="isMenuOpen"
+        class="mobile-nav-overlay"
+        @click="toggleMenu"
+      ></div>
+
     </div>
-
-
 
   </header>
 </template>
@@ -176,8 +190,8 @@ export default {
       isMenuOpen: false,
       selectedCountry: null,
       isUserMenuOpen: false,
-      defaultPhone: '+81 (3) 451 05 386',
-      defaultEmail: 'info@jpnauto.com'
+      defaultPhone: '+94 76-6349340',
+      defaultEmail: 'Ajith_auto@yahoo.com'
     };
   },
   computed: {
@@ -227,7 +241,6 @@ export default {
   flex-wrap: nowrap;
   align-items: center;
   width: 100%;
-  
   /* space between group-left, logo, group-right */
 }
 
@@ -329,63 +342,58 @@ export default {
     height: 32px;
   }
 
-  /* .main-nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 250px;
-    height: 100%;
-    background-color: #fff;
-    flex-direction: column;
-    padding: 2rem;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: right 0.3s ease-in-out;
-    z-index: 1000;
-    gap: 1.5rem;
-  } */
-
   .main-nav.active {
     right: 0;
   }
-
-  /* .main-nav a {
-    font-size: 18px;
-    padding: 1rem 0;
-    width: 100%;
-    text-align: left;
-  } */
-
-  /* .contact-info {
-    flex-direction: column;
-    gap: 0.5rem;
-  } */
 }
 
 .main-header {
   position: relative;
+  min-height: 64px;
+ 
+  
 }
+
 
 .hamburger {
   display: none;
   flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
+  top: 12px;          /* keep away from very top so X is fully visible */
+  right: 16px;
+  transform: none;
+  z-index: 1200;
+  gap: 5px; /* space between lines so you see all 3 */
+  overflow: visible;
 }
 
 .bar {
-  width: 100%;
-  height: 3px;
+  width: 22px;
+  height: 2px;
   background-color: #333;
-  transition: all 0.3s ease;
+  border-radius: 999px;
+  transition: transform 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
+}
+
+/* Open (X) state for hamburger */
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Mobile View */
@@ -401,12 +409,24 @@ export default {
     gap: 1rem;
   }
 
+  
   .main-nav a {
     font-size: 18px;
   }
 
   .contact-info {
     gap: 1rem;
+  }
+   .main-nav .logo {
+    order: 0;                 /* keep it at the top of the menu */
+    align-self: center;       /* center horizontally in the column flex */
+    margin: 0 auto 1.5rem;    /* some space below */
+    text-align: center;
+  }
+
+  .main-nav .logo img {
+    display: block;
+    margin: 0 auto;           /* make sure the image itself is centered */
   }
 }
 
@@ -418,14 +438,8 @@ export default {
     padding: 0.5rem 1rem;
   }
 
-
-
   .hamburger {
     display: flex;
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
   }
 
   .main-nav {
@@ -481,9 +495,6 @@ export default {
   }
 }
 
-
-
-
 @media (max-width: 768px) {
   /* —— strictly mobile-only overrides —— */
 
@@ -496,19 +507,16 @@ export default {
   }
 
   .main-nav {
-    position: fixed;
+    position: fixed !important;
     top: 0;
-    right: 0;
-    /* keep it anchored to the right edge */
-    width: 250px;
-    height: 100vh;
+    right: 0 !important;
+    width: 250px !important;
+    height: 100vh !important;
     background: #fff;
     flex-direction: column;
     padding: 4rem 2rem 2rem;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-
-    /* NEW: start fully off-screen to the right */
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
   }
@@ -543,11 +551,7 @@ export default {
   .main-nav.active {
     transform: translateX(0);
   }
-
-
-
 }
-
 
 /* Tablet / small-desktop */
 @media (max-width: 1200px) {
@@ -612,7 +616,7 @@ export default {
 /* Optionally hide it on desktop */
 @media (min-width: 769px) {
   .main-nav .close-btn {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -715,9 +719,19 @@ export default {
     margin-bottom: 0.75rem;
   }
 
+  .main-nav .nav-links a {
+    font-size: 17px !important;
+    padding: 1rem 0 !important;
+    margin-bottom: 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .main-nav .nav-links a.active {
+    background-color: #f7f7f7;
+  }
+
   /* 2) Stop phone/email from ever looking “active” */
   .main-nav .header-actions a.active {
-
     color: inherit !important;
     background: none !important;
     font-weight: normal !important;
@@ -768,53 +782,65 @@ export default {
     display: none !important;
   }
 
-
   .main-nav {
     position: fixed !important;
-    top: 46px;
-    right: 0 !important;
-    width: 250px !important;
-    height: calc(100vh - 46px) !important;
-    transform: translateX(100%);
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100vh !important;
+    transform: translateY(-100%);
     transition: transform 0.3s ease-in-out !important;
     z-index: 1100 !important;
+    background: #fff;
   }
 
   .main-nav.active {
-    transform: translateX(0) !important;
+    transform: translateY(0) !important;
   }
 
 }
 
+/* dark overlay behind mobile nav */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+@media (min-width: 1025px) {
+  .mobile-nav-overlay {
+    display: none;
+  }
+}
 
 .nav-links {
   display: flex;
-  gap: 2.3rem;           
-  margin-left: auto;   
-  align-items: center; 
+  gap: 2.3rem;
+  margin-left: auto;
+  align-items: center;
 }
 
 .header-container.container {
-  padding-left: 3rem;  
+  padding-left: 3rem;
   padding-right: 3rem;
 }
 
 @media (max-width: 768px) {
-  
+
   .main-nav .nav-links {
-    order: 1;                    
+    order: 1;
     display: flex;
-    flex-direction: column;      
-    width: 100%;                
-    margin: 0;                  
-    gap: 1rem;                   
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    gap: 1rem;
   }
 
-  
+
   .main-nav .nav-links a {
     display: block;
     width: 100%;
-    
     text-align: left;
   }
 
@@ -833,28 +859,29 @@ export default {
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
-  
+
 }
 
 
 @media (max-width: 968px) {
- 
+
   .top-bar-container {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
   }
 
-  
+
   .top-bar-container a,
   .top-bar-container span {
-    font-size: 0.75rem;   
+    font-size: 0.75rem;
   }
 
 
   .countries-list a span {
     display: none;
   }
+
   .countries-list img {
     width: 24px;
     height: 24px;
@@ -865,19 +892,145 @@ export default {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
+
   .contact-info a {
     padding: 0.25rem 0;
   }
+
   .contact-info svg {
     width: 14px;
     height: 14px;
   }
 
-  
+
 }
 
+.main-nav a:not(.logo):hover {
+  color: #2631c7 !important;
+}
 
+.main-nav a.active {
+  color: #2631c7 !important;
+}
 
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #2631c7 !important;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
 
+.logo img {
+  height: auto;
+  max-height: 60px;
+}
 
+/* Make the logo appear larger on desktop without changing nav height */
+@media (min-width: 369px) {
+  .logo img {
+    transform: scale(2.0); /* slightly larger than before */
+    transform-origin: center;
+    display: block;
+  }
+}
+
+/* ========= NEW: iPad Pro and below (≤1024px) ========= */
+@media (max-width: 1024px) {
+  /* show hamburger from iPad Pro downward */
+  .hamburger {
+    display: flex !important;
+  }
+
+  /* hide top-bar contact (phone/email) and move them into hamburger menu */
+  .contact-info {
+    display: none !important;
+  }
+
+  /* force both wrapper and inner d-md-none to show in the slide menu */
+  .header-actions.d-md-none,
+  .header-actions .d-md-none {
+    display: flex !important;
+  }
+
+  /* full-width slide-down panel */
+  .main-nav {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 100% !important;
+    height: 100vh !important;
+    background: #fff;
+    flex-direction: column;
+    padding: 4rem 2rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1100 !important;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out !important;
+  }
+
+  
+  .main-nav.active {
+    transform: translateY(0) !important;
+  }
+
+  .main-nav .nav-links {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    gap: 1rem;
+  }
+
+  .main-nav .nav-links a {
+    font-size: 17px !important;
+    padding: 1rem 0 !important;
+    width: 100%;
+    display: block;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 0;
+  }
+
+ .main-nav .header-actions {
+    order: 2;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+  }
+}  /* <-- closes @media (max-width: 1024px) */
+
+/* Extra-small screens (iPhone SE etc.) */
+@media (max-width: 480px) {
+  /* Hide phone/email row while menu is closed */
+  .main-nav .header-actions {
+    display: none !important;
+  }
+
+  /* But show them when the hamburger menu is open */
+  .main-nav.active .header-actions {
+    display: flex !important;
+  }
+
+  /* iPad / tablet (Air / Pro) – keep hamburger nicely under the top bar */
+@media (min-width: 769px) and (max-width: 1340px) {
+  .main-header {
+    padding-top: 8px;     /* adjust these if you want more / less space */
+    padding-bottom: 8px;
+  }
+
+  
+  .hamburger {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+}
 </style>

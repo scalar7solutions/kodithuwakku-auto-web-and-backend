@@ -26,8 +26,8 @@ Route::get('oauth/{driver}', [FrontendAuthController::class, 'redirectToProvider
 Route::post('oauth/{driver}', [FrontendAuthController::class, 'redirectToProvider'])->name('social.oauth');
 Route::get('oauth/{driver}/callback', [FrontendAuthController::class, 'handleProviderCallback'])->name('social.callback');
 
-Route::get('/', [HomeController::class, 'maintain'])->name('maintain');
-Route::get('/home', [HomeController::class, 'index'])->name('index');
+// Route::get('/', [HomeController::class, 'maintain'])->name('maintain');
+Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/newcar', [HomeController::class, 'newcar'])->name('newcar');
 Route::get('/seemore', [HomeController::class, 'seemore'])->name('seemore');
 
@@ -53,7 +53,7 @@ Route::post('/profile-password-update', [FrontendAuthController::class, 'profile
 Route::get('/how-to-order', [PageController::class, 'HowtoOrder'])->name('how.to.order');
 Route::get('/knowledge-center', [PageController::class, 'knowledge'])->name('knowledge.center');
 Route::get('/privacy-policy', [PageController::class, 'PrivacyPolicy'])->name('privacy.policy');
-Route::post('/contact', [PageController::class, 'store'])->name('contacts.store');
+// Route::post('/contact', [PageController::class, 'store'])->name('contacts.store');
 
 
 
@@ -83,4 +83,7 @@ Route::get('/export-test', [PageController::class, 'testexcel']);
 Route::get('/export-models-view', [PageController::class, 'exportView'])->name('export.models.view');
 Route::get('/export-models', [PageController::class, 'exportMultipleModelStats'])->name('export.models');
 Route::get('/view-stats', [PageController::class, 'viewStats'])->name('view.stats');
+
+
+Route::get('/our-customers', [PageController::class, 'ourCustomers'])->name('our.customers');
 

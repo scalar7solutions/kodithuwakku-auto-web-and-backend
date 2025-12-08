@@ -1,15 +1,34 @@
 <template>
+   <section class="buying-essentials-section">
   <div class="lease-section container px-3" v-if="manufactures.length > 0">
     <!-- Tabs Header -->
-    <div class="tabs-container text-center pt-3 pb-5">
-       <h1 class="secondFontStyle" style="font-weight: 600;">
+    <div class="tabs-container text-center pb-5">
+
+        <h1 class="secondFontStyle vehicle-title">
         VEHICLE STOCK
       </h1>
       <div class="tabs">
-        <button v-for="manufactures in manufactures.slice(0, 6)" :key="manufactures.id" class="tab-btn"
-          :class="{ active: activeTab === manufactures.title }" @click="setActiveTab(manufactures.title)">{{
-            manufactures.title }}</button>
-      </div>
+  <!-- ALL tab -->
+  <button
+    class="tab-btn"
+    :class="{ active: activeTab === 'ALL' }"
+    @click="setActiveTab('ALL')"
+  >
+    All
+  </button>
+
+  <!-- Brand tabs -->
+  <button
+    v-for="manu in manufactures.slice(0, 6)"
+    :key="manu.id"
+    class="tab-btn"
+    :class="{ active: activeTab === manu.title }"
+    @click="setActiveTab(manu.title)"
+  >
+    {{ manu.title }}
+  </button>
+</div>
+
     </div>
 
 
@@ -23,10 +42,11 @@
   >
     <div class="car-grid">
       <div
-        class="car-card"
-        v-for="(car, index) in filteredVehicles.slice(0, 8)"
-        :key="index"
-      >
+  class="car-card"
+  v-for="(car, index) in visibleVehicles"
+  :key="index"
+>
+
         <Link
           class="card border shadow-sm d-flex flex-column h-100"
           type="button"
@@ -66,7 +86,11 @@
             <div class="price-section">
               <div class="price-left">
                 <span class="label">Price</span>
-                <span class="price">${{ car.price || "0" }}</span>
+                <span class="price">
+  {{ formatPrice(car.price) }}
+  <span class="currency">LKR</span>
+</span>
+
                 <span class="price-note">{{ car.priceNote || "Price includes VAT" }}</span>
               </div>
               <div class="price-right">
@@ -89,9 +113,11 @@
                     <span style="color: green;">BRAND NEW</span>
                   </template>
                 </div>
-                <div class="detail-item" v-if="car.monthly_price">
-                  {{ '$' + car.monthly_price }} Per Month
-                </div>
+               <div class="detail-item" v-if="car.monthly_price">
+  {{ formatPrice(car.monthly_price) }}
+  <span class="currency">LKR</span> Per Month
+</div>
+
               </div>
             </div>
 
@@ -165,6 +191,7 @@
 </div>
 
   </div>
+  </section>
 </template>
 
 <script>
@@ -194,56 +221,92 @@ export default {
     },
     manufactures: { type: Array, default: () => [] },
 
-    
+
 
   },
   data() {
     return {
       activeTab: "",
-      componentId: "firstSection_" + Date.now() // Unique identifier for this component instance
+      componentId: "firstSection_" + Date.now() ,// Unique identifier for this component instance
+      maxCards: 8,
     };
   },
   computed: {
     activemanufactures() {
-      const found = this.manufactures.find(c => c.title === this.activeTab);
-      return found;
-    },
+  // For the ALL tab, we don't bind to a single manufacturer
+  if (this.activeTab === 'ALL') {
+    return null;
+  }
+
+  const found = this.manufactures.find(c => c.title === this.activeTab);
+  return found || null;
+},
+
 
     filteredVehicles() {
-      if (!this.activemanufactures) {
-        console.log("FirstSection - No active manufacturer selected");
-        return [];
-      }
-      
-      const filtered = this.vehicles.filter(vehicle => {
-        // Check both manufacture_id and manufacture object
-        const matchesId = vehicle.manufacture_id === this.activemanufactures.id;
-        const matchesObject = vehicle.manufacture && vehicle.manufacture.id === this.activemanufactures.id;
-        const matchesTitle = vehicle.manufacture && vehicle.manufacture.title === this.activemanufactures.title;
-        
-        return matchesId || matchesObject || matchesTitle;
-      });
-      
-      console.log(`FirstSection - Filtered ${filtered.length} vehicles for ${this.activemanufactures.title}`);
-      return filtered;
-    }
-  },
-  mounted() {
-    console.log("FirstSection - Vehicles Data:", this.vehicles);
-    console.log("FirstSection - Manufactures Data:", this.manufactures);
-    console.log("FirstSection - Models Data:", this.models);
-
-    if (this.manufactures.length > 0) {
-      this.activeTab = this.manufactures[0].title;
-    }
-
-    // Add a small delay to ensure other components have finished loading
-    this.$nextTick(() => {
-      console.log("FirstSection - Active Tab:", this.activeTab);
-      console.log("FirstSection - Filtered Vehicles:", this.filteredVehicles);
-    });
+  // When "ALL" is selected, just return all vehicles
+  if (this.activeTab === 'ALL') {
+    console.log('FirstSection - Showing ALL vehicles');
+    return this.vehicles;
   }
-  ,
+
+  // If no specific manufacturer is active, show nothing
+  if (!this.activemanufactures) {
+    console.log('FirstSection - No active manufacturer selected');
+    return [];
+  }
+
+  const filtered = this.vehicles.filter(vehicle => {
+    // Check both manufacture_id and manufacture object
+    const matchesId =
+      vehicle.manufacture_id === this.activemanufactures.id;
+    const matchesObject =
+      vehicle.manufacture &&
+      vehicle.manufacture.id === this.activemanufactures.id;
+    const matchesTitle =
+      vehicle.manufacture &&
+      vehicle.manufacture.title === this.activemanufactures.title;
+
+    return matchesId || matchesObject || matchesTitle;
+  });
+
+  console.log(
+    `FirstSection - Filtered ${filtered.length} vehicles for ${this.activemanufactures.title}`
+  );
+  return filtered;
+},
+
+    visibleVehicles() {
+  return this.filteredVehicles.slice(0, this.maxCards);
+},
+
+  },
+mounted() {
+  console.log("FirstSection - Vehicles Data:", this.vehicles);
+  console.log("FirstSection - Manufactures Data:", this.manufactures);
+  console.log("FirstSection - Models Data:", this.models);
+
+  if (this.manufactures.length > 0) {
+    this.activeTab = 'ALL'; // default to the All tab
+  }
+
+  this.updateMaxCards();
+  if (typeof window !== "undefined") {
+    window.addEventListener("resize", this.updateMaxCards);
+  }
+
+  this.$nextTick(() => {
+    console.log("FirstSection - Active Tab:", this.activeTab);
+    console.log("FirstSection - Filtered Vehicles:", this.filteredVehicles);
+  });
+},
+
+beforeUnmount() {
+  if (typeof window !== "undefined") {
+    window.removeEventListener("resize", this.updateMaxCards);
+  }
+},
+
   methods: {
     availabilityColor(status) {
       switch (status) {
@@ -275,6 +338,16 @@ export default {
       return `${manu.name || manu.title || ""} ${model.title || model.name || ""}`.trim();
     },
 
+      formatPrice(value) {
+    if (value === null || value === undefined) return "0";
+    const num = Number(value) || 0;
+
+    // Thousand separators, no decimals
+    return num.toLocaleString("en-LK", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    });
+  },
 
     setActiveTab(title) {
       console.log("Setting activeTab to:", title);
@@ -290,6 +363,24 @@ export default {
     // return the URL or a placeholder if nothing’s there
     return main?.original_url || fallback?.original_url || '/images/placeholder.png';
   },
+   updateMaxCards() {
+    if (typeof window === "undefined") return;
+    const w = window.innerWidth;
+
+    if (w <= 767) {
+      // phones → 4 cards
+      this.maxCards = 4;
+    } else if (w <= 1023) {
+      // iPad Air / Mini range → 6 cards
+      this.maxCards = 6;
+    } else if (w <= 1366) {
+      // iPad Pro-ish range → 9 cards (3 × 3)
+      this.maxCards = 6;
+    } else {
+      // bigger screens → keep your original 8
+      this.maxCards = 8;
+    }
+  }
   }
 };
 </script>
@@ -310,10 +401,26 @@ export default {
 /* Container for tabs */
 .tabs-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  gap: 1rem;
+  
 }
+
+
+
+
+
+.vehicle-title {
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f172a;
+  margin: 0;
+}
+
 
 .tabs {
   display: flex;
@@ -326,6 +433,7 @@ export default {
 .tab-transition-enter-active,
 .tab-transition-leave-active {
   transition: opacity 0.3s;
+  
 }
 
 .tab-transition-enter,
@@ -333,14 +441,49 @@ export default {
   opacity: 0;
 }
 
+
 .car-grid {
   display: grid;
-  width: 100%;                          /* fill parent */
-  gap: 1rem;                            /* match your other spacing */
-  /* auto-fit as many ≥280px columns as will fit, each expanding equally */
+  width: 100%;
+  gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  justify-content: center;             /* center the whole grid if it’s narrower */
+  justify-content: center;
 }
+
+/* iPad Air / Mini (≈768–1023px) → 2 columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .car-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* iPad Pro portrait (≈1024–1366px) → 3 columns */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .car-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobiles (≤767px) → 2 columns (you’ll see 4 cards total: 2 × 2) */
+@media (max-width: 767px) {
+  .car-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .car-card {
+    max-width: none;
+  }
+}
+
+
+@media (max-width: 605px) {
+  .car-grid {
+    grid-template-columns: 1fr;
+  }
+  .car-card {
+    max-width: none;
+  }
+}
+
 
 /* On tablets (<= 768px), show two columns */
 /* @media (max-width: 768px) {
@@ -400,6 +543,14 @@ export default {
 
 .price{
   font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.price .currency {
+  font-size: 0.5em;       /* make LKR smaller */
+  margin-left: 0.25rem;   /* small gap after the number */
+  opacity: 0.8;           /* optional: slightly lighter */
+  font-weight: 500;
 }
 
 .price-left .price-note {
@@ -414,18 +565,30 @@ export default {
   margin-bottom: 10px;
 }
 
+.car-name {
+  font-size: 1rem;        /* smaller than default h2 */
+  font-weight: 600;       /* still a bit bold */
+  line-height: 1.3;
+  margin-bottom: 0.15rem; /* tighter spacing */
+}
+@media (max-width: 768px) {
+  .car-name {
+    font-size: 0.9rem;
+  }
+}
+
 /* features grid */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem 1.5rem;
-  margin-top: 10px;  
+  margin-top: 10px;
 }
 
-.feature-item { 
-  display: flex; 
-  align-items: center; 
-  gap: 0.5rem; 
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .feature-item.feature-left {
@@ -437,17 +600,18 @@ export default {
   margin-left: 30px;
 }
 
-.ficon { 
-  width: 18px; 
-  height: 18px; 
+.ficon {
+  width: 18px;
+  height: 18px;
 }
 
 .see-more-container {
   display: flex;
+  justify-content: center; /* center horizontally */
   margin: 40px 0;
-
-   justify-content: flex-end; 
+  width: 100%;             /* optional, but makes intent explicit */
 }
+
 
 .see-more-link {
   display: inline-block;
@@ -499,6 +663,8 @@ export default {
 
 
 
+
+/* 
 @media (max-width: 1167px) {
   .tabs-container {
     flex-direction: column;
@@ -507,8 +673,13 @@ export default {
   .tabs {
     margin-top: 1rem;
   }
+} */
+.tab-btn.active {
+  background: radial-gradient(circle at top left, #13255b, #050b2c);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-1px);
 }
-
 /* ↓ when the viewport is ≤940px ↓ */
 /* wrap into two rows of three buttons */
 @media (max-width: 940px) {
@@ -559,16 +730,16 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-   
+
 }
 
 
 .placeholder-image {
    width: clamp(200px, 20vw, 150px);
-  
+
   height: auto;
   margin-bottom: 1rem;
-  
+
 }
 
 
@@ -577,5 +748,8 @@ export default {
   color: #555;
 }
 
-
+.buying-essentials-section {
+  margin-top: 0 !important;      /* kill any global top margin */
+  padding-top: 0 !important;     /* kill any global top padding */
+}
 </style>
