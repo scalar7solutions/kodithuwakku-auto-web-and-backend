@@ -107,7 +107,15 @@
             <Link @click="refreshLayout" :href="route('index')"       :class="{ active: route().current('index') }">Home</Link>
             <Link @click="refreshLayout" :href="route('available')"   :class="{ active: route().current('available') }">Find Car</Link>
             <!-- <Link @click="refreshLayout" :href="route('live.auction')" :class="{ active: route().current('live.auction') }">Live Auction</Link> -->
-            <Link @click="refreshLayout" :href="route('how.to.order')" :class="{ active: route().current('how.to.order') }">How To Order</Link>
+            <!-- <Link @click="refreshLayout" :href="route('how.to.order')" :class="{ active: route().current('how.to.order') }">How To Order</Link> -->
+             <Link
+  @click="refreshLayout"
+  :href="route('arrivings')"
+  :class="{ active: route().current('arrivings') }"
+>
+  Arrivings
+</Link>
+
             <Link
               @click="refreshLayout"
               :href="route('our.customers')"

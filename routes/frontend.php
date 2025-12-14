@@ -87,3 +87,6 @@ Route::get('/view-stats', [PageController::class, 'viewStats'])->name('view.stat
 
 Route::get('/our-customers', [PageController::class, 'ourCustomers'])->name('our.customers');
 
+
+Route::get('/arrivings', [PageController::class, 'arrivings'])->name('arrivings');
+

@@ -1432,4 +1432,29 @@ if ($model = $request->model) {
     ]);
 }
 
+public function arrivings()
+{
+    // Needed for the header country flags + top bar
+    $countries = Country::where('status', 1)->get();
+
+    // Only arriving vehicles
+    $vehicles = Vehicle::where('status', 1)
+        ->where('availability', 'Arriving') // IMPORTANT: match your DB value exactly
+        ->with('media', 'vehicleType', 'manufacture', 'vehicleModel')
+        ->orderByDesc('created_at')
+        ->get();
+
+    // These are optional but useful because your card helper uses them as fallback
+    $manufactures = Manufacture::where('status', 1)->with('media')->get();
+    $models = VehicleModel::where('status', 1)->get();
+
+    return Inertia::render('Arrivings/index', [
+        'vehicles' => $vehicles,
+        'manufactures' => $manufactures,
+        'models' => $models,
+        'countries' => $countries,
+        'logged_customer' => auth('customer')->user(),
+    ]);
+}
+
 }
