@@ -337,7 +337,17 @@ class PageController extends Controller
         $countries = Country::where(['status' => 1])->get();
 
         // Base query
-        $vehicles = Vehicle::where(['status' => 1]);
+       // Base query (exclude Arriving from Available Stock page)
+$vehicles = Vehicle::query()
+    ->where('status', 1)
+    ->where(function ($q) {
+        $q->whereNull('availability')
+          ->orWhere('availability', '!=', 'Arriving'); // arriving should NOT appear here
+    });
+
+// Always push Sold to the end (regardless of sorting)
+$vehicles->orderByRaw("CASE WHEN availability = 'Sold' THEN 1 ELSE 0 END ASC");
+
 
         // Handle country slug from URL
         $selectedCountry = null;
@@ -383,19 +393,26 @@ class PageController extends Controller
         }
 
 
-        if ($request->sortBy) {
-            switch ($request->sortBy) {
-                case 'priceLowHigh':
-                    $vehicles->orderBy('price', 'asc');
-                    break;
-                case 'priceHighLow':
-                    $vehicles->orderBy('price', 'desc');
-                    break;
-                case 'newest':
-                    $vehicles->orderBy('created_at', 'desc');
-                    break;
-            }
-        }
+      if ($request->sortBy) {
+    switch ($request->sortBy) {
+        case 'priceLowHigh':
+            $vehicles->orderBy('price', 'asc');
+            break;
+        case 'priceHighLow':
+            $vehicles->orderBy('price', 'desc');
+            break;
+        case 'newest':
+            $vehicles->orderBy('created_at', 'desc');
+            break;
+        default:
+            $vehicles->orderBy('created_at', 'desc');
+            break;
+    }
+} else {
+    // default sort when nothing selected
+    $vehicles->orderBy('created_at', 'desc');
+}
+
 
 
         if ($request->keyword) {

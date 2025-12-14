@@ -5,10 +5,10 @@
       <div class="car-valuation-left">
         <div class="car-valuation-content">
           <h2>
-            WE KNOW WHAT YOUR CAR IS REALLY WORTH
+            WE SHOW WHAT YOUR CAR IS TRULY WORTH
           </h2>
           <p>
-            Join the millions who value their car with Auto Trader. It's completely free and within seconds we
+            Join the millions who check their car’s value with us. It's completely free and within seconds we
             will give you a live valuation of what your car is worth.
           </p>
           <!--
@@ -30,6 +30,7 @@
     </div>
   </section>
 </template>
+
 
 <script>
 export default {

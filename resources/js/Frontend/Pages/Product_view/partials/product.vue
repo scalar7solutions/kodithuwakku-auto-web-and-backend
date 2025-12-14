@@ -540,7 +540,7 @@
     </div>
 
     <!-- Vehicle Seats -->
-    <div class="summary-card">
+    <!-- <div class="summary-card">
       <div class="summary-card-inner">
         <div class="summary-icon">
           <i class="fa-solid fa-users"></i>
@@ -551,7 +551,7 @@
         </div>
       </div>
       <div class="summary-accent-line"></div>
-    </div>
+    </div> -->
 
     <!-- Vehicle Doors -->
     <div class="summary-card">
@@ -610,7 +610,7 @@
     </div>
 
     <!-- Chassis ID -->
-    <div class="summary-card">
+    <!-- <div class="summary-card">
       <div class="summary-card-inner">
         <div class="summary-icon">
           <i class="fa-solid fa-hashtag"></i>
@@ -621,7 +621,7 @@
         </div>
       </div>
       <div class="summary-accent-line"></div>
-    </div>
+    </div> -->
 
     <!-- Passengers -->
     <div class="summary-card">
@@ -652,7 +652,7 @@
     </div>
 
     <!-- Drive Type -->
-    <div class="summary-card">
+    <!-- <div class="summary-card">
       <div class="summary-card-inner">
         <div class="summary-icon">
           <i class="fa-solid fa-compass"></i>
@@ -663,7 +663,7 @@
         </div>
       </div>
       <div class="summary-accent-line"></div>
-    </div>
+    </div> -->
 
     <!-- Auction Grade -->
     <div class="summary-card">

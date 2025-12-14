@@ -2,7 +2,7 @@
   <section class="categorySection container-fluid my-5 mb-0 pt-1 pb-4 lease-section">
     <!-- HEADER AS FULL-WIDTH BLOCK -->
     <div class="section-header">
-      <h2 class="reserve-title">RESERVE ONLINE WITH AUTOTRADER</h2>
+      <h2 class="reserve-title">BOOK ONLINE WITH AUTOTRADER</h2>
     </div>
 
     <!-- SLIDER ROW -->
@@ -11,16 +11,15 @@
         <div class="slider-container">
           <!-- only this viewport area hides overflow -->
           <div
-  class="slider-viewport overflow-hidden"
-  @touchstart.passive="onTouchStart"
-  @touchmove.passive="onTouchMove"
-  @touchend.passive="onTouchEnd"
-  @mousedown="onMouseDown"
-  @mousemove="onMouseMove"
-  @mouseup="onMouseUp"
-  @mouseleave="onMouseUp"
->
-
+            class="slider-viewport overflow-hidden"
+            @touchstart.passive="onTouchStart"
+            @touchmove.passive="onTouchMove"
+            @touchend.passive="onTouchEnd"
+            @mousedown="onMouseDown"
+            @mousemove="onMouseMove"
+            @mouseup="onMouseUp"
+            @mouseleave="onMouseUp"
+          >
             <div class="slider-wrapper d-flex" :style="wrapperStyle">
               <div
                 class="slider-slide"
@@ -79,7 +78,7 @@
                 :disabled="currentIndex === 0"
                 aria-label="Previous"
               >
-                 <img src="/images/Assets/left.png" class="btn-icon" alt="→" />
+                <img src="/images/Assets/left.png" class="btn-icon" alt="→" />
               </button>
               <button
                 type="button"
@@ -89,7 +88,6 @@
                 :disabled="currentIndex >= maxIndex"
                 aria-label="Next"
               >
-               
                 <img src="/images/Assets/right.png" class="btn-icon" alt="←" />
               </button>
             </div>
@@ -107,45 +105,45 @@ export default {
     return {
       currentIndex: 0,
       slidesPerView: 4,
-       isDragging: false,
-    dragStartX: 0,
-    dragDeltaX: 0,
+      isDragging: false,
+      dragStartX: 0,
+      dragDeltaX: 0,
       slides: [
         {
           img: "images/Assets/1new.jpg",
           alt: "Steps diagram",
-          title: "Build your deal, step-by-step",
-          text: "Add part exchange, finance and choose delivery or collection. We'll guide you through it all. Then complete the sale."
+          title: "Create your deal, step-by-step",
+          text: "Add part exchange, finance and pick delivery or collection. We'll guide you through it all. Then finish the sale."
         },
         {
           img: "images/Assets/2new.jpg",
           alt: "Vehicle check",
-          title: "Peace of mind with a free vehicle history check",
-          text: "Order with confidence with our free vehicle history check to avoid costly surprises if you decide to buy."
+          title: "Confidence with a free vehicle history check",
+          text: "Reserve with confidence with our free vehicle history check to avoid costly surprises if you choose to buy."
         },
         {
           img: "images/Assets/3new.jpg",
           alt: "Time saving",
-          title: "Save time and reserve online",
+          title: "Save time and book online",
           text: "Get ahead by sorting everything online. Or if you'd like to chat, talk it through with the dealer."
         },
         {
           img: "images/Assets/4new.jpg",
           alt: "Instant confirmation",
-          title: "Get instant confirmation",
+          title: "Get immediate confirmation",
           text: "Receive a reservation summary right away and secure your car with a small deposit."
         },
         {
           img: "images/Assets/5new.jpg",
           alt: "Complete payment securely",
-          title: "Complete payment securely",
+          title: "Make payment securely",
           text: "Choose from debit/credit card, bank transfer or finance—everything’s handled online with full encryption."
         },
         {
           img: "images/Assets/6new.jpg",
           alt: "Delivery or collection",
-          title: "Choose delivery or collection",
-          text: "Opt for home delivery or pick up at the dealer, then just turn up at your chosen time to collect the keys."
+          title: "Pick delivery or collection",
+          text: "Choose home delivery or collect at the dealer, then simply arrive at your chosen time to collect the keys."
         }
       ]
     };
@@ -183,59 +181,54 @@ export default {
       return String(index + 1).padStart(2, "0");
     },
     onTouchStart(e) {
-    if (e.touches.length !== 1) return;
-    this.isDragging = true;
-    this.dragStartX = e.touches[0].clientX;
-    this.dragDeltaX = 0;
-  },
-  onTouchMove(e) {
-    if (!this.isDragging || e.touches.length !== 1) return;
-    this.dragDeltaX = e.touches[0].clientX - this.dragStartX;
-  },
-  onTouchEnd() {
-    if (!this.isDragging) return;
+      if (e.touches.length !== 1) return;
+      this.isDragging = true;
+      this.dragStartX = e.touches[0].clientX;
+      this.dragDeltaX = 0;
+    },
+    onTouchMove(e) {
+      if (!this.isDragging || e.touches.length !== 1) return;
+      this.dragDeltaX = e.touches[0].clientX - this.dragStartX;
+    },
+    onTouchEnd() {
+      if (!this.isDragging) return;
 
-    const THRESHOLD = 50; // px swipe distance
-    if (this.dragDeltaX <= -THRESHOLD) {
-      // swipe left → next slide
-      this.nextSlide();
-    } else if (this.dragDeltaX >= THRESHOLD) {
-      // swipe right → previous slide
-      this.prevSlide();
+      const THRESHOLD = 50; // px swipe distance
+      if (this.dragDeltaX <= -THRESHOLD) {
+        this.nextSlide();
+      } else if (this.dragDeltaX >= THRESHOLD) {
+        this.prevSlide();
+      }
+
+      this.isDragging = false;
+      this.dragDeltaX = 0;
+    },
+
+    onMouseDown(e) {
+      if (e.button !== 0) return;
+      this.isDragging = true;
+      this.dragStartX = e.clientX;
+      this.dragDeltaX = 0;
+    },
+    onMouseMove(e) {
+      if (!this.isDragging) return;
+      this.dragDeltaX = e.clientX - this.dragStartX;
+    },
+    onMouseUp() {
+      if (!this.isDragging) return;
+
+      const THRESHOLD = 50;
+      if (this.dragDeltaX <= -THRESHOLD) {
+        this.nextSlide();
+      } else if (this.dragDeltaX >= THRESHOLD) {
+        this.prevSlide();
+      }
+
+      this.isDragging = false;
+      this.dragDeltaX = 0;
     }
-
-    this.isDragging = false;
-    this.dragDeltaX = 0;
-  },
-
-  // === MOUSE DRAG (desktop) – optional but nice ===
-  onMouseDown(e) {
-    // Only left button
-    if (e.button !== 0) return;
-    this.isDragging = true;
-    this.dragStartX = e.clientX;
-    this.dragDeltaX = 0;
-  },
-  onMouseMove(e) {
-    if (!this.isDragging) return;
-    this.dragDeltaX = e.clientX - this.dragStartX;
-  },
-  onMouseUp() {
-    if (!this.isDragging) return;
-
-    const THRESHOLD = 50;
-    if (this.dragDeltaX <= -THRESHOLD) {
-      this.nextSlide();
-    } else if (this.dragDeltaX >= THRESHOLD) {
-      this.prevSlide();
-    }
-
-    this.isDragging = false;
-    this.dragDeltaX = 0;
-  }
   },
   computed: {
-    // controls the wrapper’s translateX (same as TSX)
     wrapperStyle() {
       const w = 100 / this.slidesPerView;
       return {
@@ -243,10 +236,9 @@ export default {
         transition: "transform 0.5s ease-out"
       };
     },
-    // each slide’s width (matching the TSX calc including gap)
     slideStyle() {
       const base = 100 / this.slidesPerView;
-      const gapShare = (20 * (this.slidesPerView - 1)) / this.slidesPerView; // 20px gap like TSX
+      const gapShare = (20 * (this.slidesPerView - 1)) / this.slidesPerView;
       return {
         minWidth: `calc(${base}% - ${gapShare}px)`
       };
@@ -257,6 +249,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 /* Section padding */

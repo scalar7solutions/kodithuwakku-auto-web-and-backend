@@ -1,9 +1,9 @@
 <template>
   <section class="buying-essentials-section">
     <div class="container">
-      <!-- Section header (unchanged) -->
+      <!-- Section header (updated) -->
       <div class="section-header">
-        <h1 class="section-title">BUYING ESSENTIALS</h1>
+        <h1 class="section-title">PURCHASING ESSENTIALS</h1>
       </div>
 
       <!-- Cards -->
@@ -15,12 +15,12 @@
             <img
               class="icon-img"
               src="images/Assets/ico-history.svg.png"
-              alt="Check a car's history"
+              alt="Review a car's history"
             />
           </div>
-          <h2 class="card-title">Check A Car's History</h2>
+          <h2 class="card-title">Review A Car's History</h2>
           <p class="card-text">
-            Have complete peace of mind before you buy your next car with comprehensive vehicle reports.
+            Enjoy complete confidence before you buy your next car with detailed vehicle reports.
           </p>
           <div class="card-accent-line"></div>
         </div>
@@ -32,12 +32,12 @@
             <img
               class="icon-img"
               src="images/Assets/ico-insurance.svg.png"
-              alt="Security advice"
+              alt="Safety advice"
             />
           </div>
-          <h2 class="card-title">Security Advice</h2>
+          <h2 class="card-title">Safety Advice</h2>
           <p class="card-text">
-            Expert guidance on how to buy and sell vehicles safely and avoid common scams.
+            Pro guidance on how to buy and sell vehicles safely and avoid common scams.
           </p>
           <div class="card-accent-line"></div>
         </div>
@@ -54,7 +54,7 @@
           </div>
           <h2 class="card-title">Car Finance &amp; Loans</h2>
           <p class="card-text">
-            Discover how much you can borrow and find the perfect financing package for you.
+            Explore how much you can borrow and find the ideal financing package for you.
           </p>
           <div class="card-accent-line"></div>
         </div>
@@ -71,7 +71,7 @@
           </div>
           <h2 class="card-title">What's It Worth</h2>
           <p class="card-text">
-            Get a free instant valuation. Sell or part-exchange your car at the right price.
+            Receive a free instant valuation. Sell or part-exchange your car at the best price.
           </p>
           <div class="card-accent-line"></div>
         </div>
